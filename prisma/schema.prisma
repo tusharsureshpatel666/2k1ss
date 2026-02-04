@@ -1,0 +1,185 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum ShareMode {
+  HOURS_BY_HOURS
+  DAYS_BY_DAYS
+  SPLIT_STORE
+  DAY_OR_NIGHT
+  Weekend
+  Regular
+}
+
+
+
+model User {
+  id            String   @id @default(uuid())
+  name          String?
+  email         String?  @unique
+  image         String?
+
+  phone         String?
+  phoneVerified Boolean  @default(false)
+
+  createdAt     DateTime @default(now())
+
+  // Stores
+  stores        Store[]      @relation("OwerStores")
+  likedStores   StoreLike[]
+
+  // Chat
+  conversations ConversationParticipant[]
+  messages      Message[]
+  seenMessages  MessageSeen[]
+}
+
+// ==========================
+// CONVERSATION
+// ==========================
+model Conversation {
+  id            String   @id @default(uuid())
+  name          String?
+  createdAt     DateTime @default(now())
+  lastMessageAt DateTime @default(now())
+
+  participants  ConversationParticipant[]
+  messages      Message[]
+}
+
+// ==========================
+// CONVERSATION ↔ USER (JOIN TABLE)
+// ==========================
+model ConversationParticipant {
+  id             String @id @default(uuid())
+  userId         String
+  conversationId String
+
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, conversationId])
+  @@index([conversationId])
+}
+
+// ==========================
+// MESSAGE
+// ==========================
+model Message {
+  id             String   @id @default(uuid())
+  body           String?
+  image          String?
+  createdAt      DateTime @default(now())
+
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  senderId       String
+  sender         User @relation(fields: [senderId], references: [id], onDelete: Cascade)
+
+  seenBy         MessageSeen[]
+
+  @@index([conversationId])
+  @@index([senderId])
+}
+
+// ==========================
+// MESSAGE SEEN (JOIN TABLE)
+// ==========================
+model MessageSeen {
+  id        String   @id @default(uuid())
+  messageId String
+  userId    String
+  seenAt    DateTime @default(now())
+
+  message   Message @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([messageId, userId])
+  @@index([userId])
+}
+
+// ==========================
+// STORE
+// ==========================
+model Store {
+  id              String      @id @default(uuid())
+
+  ownerId         String
+  owner           User        @relation("OwerStores", fields: [ownerId], references: [id])
+
+  title           String
+  desc            String
+  peopleDesc      String
+
+  storeSize       String
+  businessType    String
+
+  country         String
+  state           String
+  city            String
+  pin             String
+  fullAddress     String
+
+  latitude        Float?
+  longitude       Float?
+
+  bannerImageUrl  String?
+  images          StoreImage[]
+
+  priceInr        Int
+
+  shareMode       ShareMode
+  startTime       String?
+  endTime         String?
+  days            String[]
+  sqft            Int?
+  dayOrNight      String?
+
+  likes           StoreLike[]
+
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+}
+
+// ==========================
+// STORE IMAGE
+// ==========================
+model StoreImage {
+  id        String   @id @default(cuid())
+  storeId   String
+  store     Store    @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  url       String
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+
+  @@index([storeId])
+}
+
+// ==========================
+// STORE LIKE
+// ==========================
+model StoreLike {
+  id        String   @id @default(uuid())
+  userId    String
+  storeId   String
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  store     Store    @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([userId, storeId])
+  @@index([storeId])
+}
