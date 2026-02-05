@@ -56,7 +56,7 @@ export default function Hero() {
           <div className="relative overflow-hidden rounded-3xl">
             {/* Light mode image */}
             <Image
-              src="/dark1.png"
+              src="/dark1.webp"
               alt="Hero illustration"
               width={600}
               height={600}
@@ -68,12 +68,11 @@ export default function Hero() {
     md:h-[600px]
     lg:h-full
   "
-              priority
             />
 
             {/* Dark mode image */}
             <Image
-              src="/helo.jpg"
+              src="/helo.webp"
               alt="Hero illustration dark"
               width={600}
               height={600}
@@ -85,7 +84,6 @@ export default function Hero() {
     md:h-[600px]
     lg:h-full
   "
-              priority
             />
 
             {/* Floating Card */}

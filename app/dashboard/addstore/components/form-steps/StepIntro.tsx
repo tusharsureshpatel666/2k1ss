@@ -13,7 +13,7 @@ const StepIntro = () => {
       <div className="flex justify-center w-full flex-col text-center items-center gap-5">
         <div className="relative mx-auto w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg aspect-square">
           <Image
-            src="/main.jpg"
+            src="/main.webp"
             alt="Illustration"
             fill
             priority
