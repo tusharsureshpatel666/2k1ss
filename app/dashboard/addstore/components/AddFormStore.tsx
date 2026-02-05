@@ -106,6 +106,7 @@ const AddFormStore = () => {
 
     const formData = new FormData();
     formData.append("banner", bannerImage);
+    //je;;p
 
     images.forEach((img, index) => {
       formData.append(`image_${index}`, img);
