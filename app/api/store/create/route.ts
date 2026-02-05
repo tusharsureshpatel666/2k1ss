@@ -2,13 +2,12 @@ import { uploadToCloudinary } from "@/lib/cloudinary";
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
-import { ShareMode } from "@prisma/client";
 
 export async function POST(req: Request) {
   try {
-    /* -------------------------------------------------- */
-    /* 1. AUTH */
-    /* -------------------------------------------------- */
+    /* ----------------------------- */
+    /* 1. Auth */
+    /* ----------------------------- */
     const session = await auth();
     if (!session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -16,9 +15,9 @@ export async function POST(req: Request) {
 
     const ownerId = session.user.id;
 
-    /* -------------------------------------------------- */
-    /* 2. FORM DATA */
-    /* -------------------------------------------------- */
+    /* ----------------------------- */
+    /* 2. Form Data */
+    /* ----------------------------- */
     const formData = await req.formData();
 
     const title = formData.get("title") as string;
@@ -35,21 +34,22 @@ export async function POST(req: Request) {
     const bannerImageUrl = formData.get("bannerImage") as string;
     const shareRaw = formData.get("share") as string;
 
-    /* -------------------------------------------------- */
-    /* 3. VALIDATION */
-    /* -------------------------------------------------- */
-    if (!title || !desc) {
+    /* ----------------------------- */
+    /* 3. Validation (FAIL FAST) */
+    /* ----------------------------- */
+    if (!title) {
+      return NextResponse.json({ error: "Title is required" }, { status: 400 });
+    }
+
+    if (!desc) {
       return NextResponse.json(
-        { error: "Title and description are required" },
+        { error: "Description required" },
         { status: 400 },
       );
     }
 
     if (!country || !state || !city || !pin || !fullAddress) {
-      return NextResponse.json(
-        { error: "Invalid address data" },
-        { status: 400 },
-      );
+      return NextResponse.json({ error: "Invalid location" }, { status: 400 });
     }
 
     if (!bannerImageUrl) {
@@ -70,29 +70,19 @@ export async function POST(req: Request) {
       );
     }
 
-    let share: any;
+    let share;
     try {
       share = JSON.parse(shareRaw);
     } catch {
       return NextResponse.json(
-        { error: "Invalid share JSON" },
+        { error: "Invalid share data" },
         { status: 400 },
       );
     }
 
-    /* -------------------------------------------------- */
-    /* 4. VALIDATE SHARE MODE (CRITICAL FIX) */
-    /* -------------------------------------------------- */
-    if (!Object.values(ShareMode).includes(share.mode)) {
-      return NextResponse.json(
-        { error: "Invalid share mode" },
-        { status: 400 },
-      );
-    }
-
-    /* -------------------------------------------------- */
-    /* 5. COLLECT IMAGE FILES */
-    /* -------------------------------------------------- */
+    /* ----------------------------- */
+    /* 4. Collect 4 Images (FILES) */
+    /* ----------------------------- */
     const imageFiles: File[] = [];
 
     for (let i = 0; i < 4; i++) {
@@ -104,23 +94,22 @@ export async function POST(req: Request) {
 
     if (imageFiles.length !== 4) {
       return NextResponse.json(
-        { error: "Exactly 4 images are required" },
+        { error: "Exactly 4 images required" },
         { status: 400 },
       );
     }
 
-    /* -------------------------------------------------- */
-    /* 6. UPLOAD IMAGES (PARALLEL) */
-    /* -------------------------------------------------- */
+    /* ----------------------------- */
+    /* 5. Upload Images (PARALLEL ⚡) */
+    /* ----------------------------- */
     const imageUploads = await Promise.all(
       imageFiles.map((file) => uploadToCloudinary(file, "image")),
     );
-
     const imageUrls = imageUploads.map((img: any) => img.secure_url);
 
-    /* -------------------------------------------------- */
-    /* 7. GOOGLE GEOCODING (SOFT FAIL) */
-    /* -------------------------------------------------- */
+    /* ----------------------------- */
+    /* 6. Google Geocoding (SOFT FAIL) */
+    /* ----------------------------- */
     let latitude: number | null = null;
     let longitude: number | null = null;
 
@@ -141,34 +130,32 @@ export async function POST(req: Request) {
       console.warn("Geocoding failed");
     }
 
-    /* -------------------------------------------------- */
-    /* 8. CREATE STORE (RELATION FIX ✅) */
-    /* -------------------------------------------------- */
+    /* ----------------------------- */
+    /* 7. Create Store */
+    /* ----------------------------- */
     const store = await prisma.store.create({
       data: {
         ownerId,
         title,
         desc,
-        peopleDesc,
-        storeSize,
-        businessType,
         country,
         state,
         city,
         pin,
         fullAddress,
+        priceInr,
+        businessType,
+        peopleDesc,
+        storeSize,
+        bannerImageUrl, // ✅ already a URL
         latitude,
         longitude,
-        bannerImageUrl,
-        priceInr,
-
-        shareMode: share.mode as ShareMode,
-        startTime: share.startTime ?? null,
-        endTime: share.endTime ?? null,
+        shareMode: share.mode,
+        startTime: share.startTime,
+        endTime: share.endTime,
         days: share.days ?? [],
-        sqft: share.sqft ?? null,
-        dayOrNight: share.dayOrNight ?? null,
-
+        sqft: share.sqft,
+        dayOrNight: share.dayOrNight,
         images: {
           createMany: {
             data: imageUrls.map((url, index) => ({
@@ -178,14 +165,12 @@ export async function POST(req: Request) {
           },
         },
       },
-      include: {
-        images: true,
-      },
+      include: { images: true },
     });
 
-    /* -------------------------------------------------- */
-    /* 9. SUCCESS */
-    /* -------------------------------------------------- */
+    /* ----------------------------- */
+    /* 8. Success */
+    /* ----------------------------- */
     return NextResponse.json(
       { message: "Store created successfully", store },
       { status: 201 },
