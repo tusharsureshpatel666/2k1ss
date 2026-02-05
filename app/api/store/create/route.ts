@@ -10,10 +10,7 @@ export async function POST(req: Request) {
     /* ----------------------------- */
     const session = await auth();
     if (!session?.user?.id) {
-      return NextResponse.json(
-        { error: "Unauthorized", step: "TITLE" },
-        { status: 401 },
-      );
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const ownerId = session.user.id;
@@ -34,51 +31,41 @@ export async function POST(req: Request) {
     const peopleDesc = formData.get("peopleDesc") as string;
     const storeSize = formData.get("storeSize") as string;
     const priceInr = Number(formData.get("priceInr"));
-    // const videoFile = formData.get("videoFile") as string;
-    const bannerImage = formData.get("bannerImage") as string;
+    const bannerImageUrl = formData.get("bannerImage") as string;
+    const shareRaw = formData.get("share") as string;
 
     /* ----------------------------- */
     /* 3. Validation (FAIL FAST) */
     /* ----------------------------- */
     if (!title) {
+      return NextResponse.json({ error: "Title is required" }, { status: 400 });
+    }
+
+    if (!desc) {
       return NextResponse.json(
-        { error: "Title is required", step: "TITLE" },
+        { error: "Description required" },
         { status: 400 },
       );
     }
 
     if (!country || !state || !city || !pin || !fullAddress) {
-      return NextResponse.json(
-        { error: "Invalid location", step: "LOCATION" },
-        { status: 400 },
-      );
+      return NextResponse.json({ error: "Invalid location" }, { status: 400 });
     }
 
-    // if (!videoFile) {
-    //   return NextResponse.json(
-    //     { error: "Video is required", step: "VIDEO" },
-    //     { status: 400 },
-    //   );
-    // }
-
-    if (!desc) {
+    if (!bannerImageUrl) {
       return NextResponse.json(
-        { error: "Description required", step: "DESCRIPTION" },
+        { error: "Banner image missing" },
         { status: 400 },
       );
     }
 
     if (Number.isNaN(priceInr)) {
-      return NextResponse.json(
-        { error: "Invalid price", step: "PRICE" },
-        { status: 400 },
-      );
+      return NextResponse.json({ error: "Invalid price" }, { status: 400 });
     }
 
-    const shareRaw = formData.get("share") as string;
     if (!shareRaw) {
       return NextResponse.json(
-        { error: "Share data missing", step: "SHARE" },
+        { error: "Share data missing" },
         { status: 400 },
       );
     }
@@ -88,16 +75,16 @@ export async function POST(req: Request) {
       share = JSON.parse(shareRaw);
     } catch {
       return NextResponse.json(
-        { error: "Invalid share data", step: "SHARE" },
+        { error: "Invalid share data" },
         { status: 400 },
       );
     }
 
     /* ----------------------------- */
-    /* 4. Collect Media */
+    /* 4. Collect 4 Images (FILES) */
     /* ----------------------------- */
-
     const imageFiles: File[] = [];
+
     for (let i = 0; i < 4; i++) {
       const img = formData.get(`image_${i}`);
       if (img instanceof File && img.size > 0) {
@@ -105,35 +92,25 @@ export async function POST(req: Request) {
       }
     }
 
-    if (imageFiles.length < 4 || !bannerImage) {
+    if (imageFiles.length !== 4) {
       return NextResponse.json(
-        { error: "Images missing", step: "IMAGES" },
+        { error: "Exactly 4 images required" },
         { status: 400 },
       );
     }
 
     /* ----------------------------- */
-    /* 5. Upload Media (PARALLEL ⚡) */
+    /* 5. Upload Images (PARALLEL ⚡) */
     /* ----------------------------- */
-    let uploads;
-    try {
-      uploads = await Promise.all([
-        ...imageFiles.map((f) => uploadToCloudinary(f, "image")),
-      ]);
-    } catch {
-      return NextResponse.json(
-        { error: "Media upload failed", step: "IMAGES" },
-        { status: 500 },
-      );
-    }
-
-    const [...imageUploads] = uploads;
+    const imageUploads = await Promise.all(
+      imageFiles.map((file) => uploadToCloudinary(file, "image")),
+    );
 
     /* ----------------------------- */
     /* 6. Google Geocoding (SOFT FAIL) */
     /* ----------------------------- */
-    let lat: number | null = null;
-    let lng: number | null = null;
+    let latitude: number | null = null;
+    let longitude: number | null = null;
 
     try {
       const address = `${fullAddress}, ${city}, ${state}, ${country}, ${pin}`;
@@ -145,11 +122,10 @@ export async function POST(req: Request) {
 
       const data = await res.json();
       if (data.status === "OK") {
-        lat = data.results[0].geometry.location.lat;
-        lng = data.results[0].geometry.location.lng;
+        latitude = data.results[0].geometry.location.lat;
+        longitude = data.results[0].geometry.location.lng;
       }
     } catch {
-      // intentionally NOT failing the request
       console.warn("Geocoding failed");
     }
 
@@ -168,12 +144,11 @@ export async function POST(req: Request) {
         fullAddress,
         priceInr,
         businessType,
-        latitude: lat,
-        longitude: lng,
-        // videoUrl: videoFile,
         peopleDesc,
         storeSize,
-        bannerImageUrl: bannerImage,
+        bannerImageUrl, // ✅ already a URL
+        latitude,
+        longitude,
         shareMode: share.mode,
         startTime: share.startTime,
         endTime: share.endTime,
@@ -181,9 +156,9 @@ export async function POST(req: Request) {
         sqft: share.sqft,
         dayOrNight: share.dayOrNight,
         images: {
-          create: imageUploads.map((u, i) => ({
-            url: u.secure_url,
-            order: i,
+          create: imageUploads.map((img, index) => ({
+            url: img.secure_url,
+            order: index,
           })),
         },
       },
@@ -199,9 +174,8 @@ export async function POST(req: Request) {
     );
   } catch (error) {
     console.error("Create store error:", error);
-
     return NextResponse.json(
-      { error: "Internal server error", step: "TITLE" },
+      { error: "Internal server error" },
       { status: 500 },
     );
   }

@@ -28,7 +28,13 @@ const Navbar = () => {
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
-          <Image src="/logo.svg" width={40} height={40} alt="logo" />
+          <Image
+            src="/logo.svg"
+            width={40}
+            loading="lazy"
+            height={40}
+            alt="logo"
+          />
           <h2 className="text-xl font-semibold text-black dark:text-white">
             2k1s
           </h2>

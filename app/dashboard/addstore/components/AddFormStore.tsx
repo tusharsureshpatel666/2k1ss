@@ -3,13 +3,9 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Heading from "../../components/heading";
-
 import axios from "axios";
-
 import { useRouter } from "next/navigation";
-
 import { useParticStore, useStoreStep } from "@/store/store";
-
 import StepIntro from "./form-steps/StepIntro";
 import StepTitle from "./form-steps/StepTitle";
 import FormNavigation from "./form-steps/Navitgate";
@@ -19,28 +15,33 @@ import { isValidDelhiPin } from "@/type/pinvalidation";
 import StepImage from "./form-steps/StepImage";
 import StepPartic from "./form-steps/StepPartic";
 import StoreMethodtype from "./form-steps/StoreMethodtype";
-import TrueVideo from "./form-steps/trueVideo";
 import PriceInput from "./form-steps/stepprice";
 import StepDesc from "./form-steps/StepDesc";
 import PeopleDesc from "./form-steps/PeopleDesc";
 import toast from "react-hot-toast";
 
 const AddFormStore = () => {
+  const router = useRouter();
   const { sStep, setSStep, nextSStep, prevStep, resetStep } = useStoreStep();
-  const [loading, setLoading] = useState(false);
-  const [storeType, setStoreType] = useState("");
+  const { share } = useParticStore();
 
-  // Form fields
+  const [loading, setLoading] = useState(false);
+  const [shake, setShake] = useState(false);
+
+  // form fields
   const [title, setTitle] = useState("");
-  const [desc, setDesc] = useState("");
+  const [storeType, setStoreType] = useState("");
   const [country, setCountry] = useState("");
-  const [city, setCity] = useState("");
   const [state, Sstate] = useState("");
+  const [city, setCity] = useState("");
   const [pin, setPin] = useState("");
   const [fullAdd, setFullAdd] = useState("");
-  const [videoFile, setVideoFile] = useState<File | null>(null);
-  const [videoUrl, setVideoUrl] = useState<string | null>(null);
-  const [price, setPrice] = useState<string>("2000");
+  const [desc, setDesc] = useState("");
+  const [peopleDesc, setPeopleDesc] = useState("");
+  const [bussinessType, setBussinessType] = useState("");
+  const [price, setPrice] = useState("2000");
+
+  // images
   const [bannerImage, setBannerImage] = useState<File | null>(null);
   const [otherImages, setOtherImages] = useState<(File | null)[]>([
     null,
@@ -50,68 +51,34 @@ const AddFormStore = () => {
   ]);
 
   useEffect(() => {
-    resetStep(); // 👈 resets step when route is opened
+    resetStep();
   }, [resetStep]);
-  const [peopleDesc, setPeopleDesc] = useState("");
 
-  const [bussinessType, setBussinessType] = useState("");
-
-  const router = useRouter();
-  const [shake, setShake] = useState(false);
-  const { share, setMode, updateShare } = useParticStore();
-  const { mode } = share;
-  const STEP_MAP = {
-    TITLE: 1,
-    STORE_TYPE: 2,
-    LOCATION: 3,
-    IMAGES: 4,
-    SHARE: 5,
-    SHARE_DETAILS: 6,
-    VIDEO: 7,
-    PRICE: 8,
-    BUSINESS: 9,
-    DESCRIPTION: 10,
-    PEOPLE_DESC: 11,
-  };
+  /* ---------------- STEP VALIDATION ---------------- */
 
   const isStepValid =
-    // Step 1: title
     (sStep === 1 && title.trim() !== "") ||
-    // Step 2: store type
     (sStep === 2 && storeType.trim() !== "") ||
-    // Step 3: Delhi location
     (sStep === 3 &&
       country === "India" &&
       state === "Delhi" &&
       city.trim() !== "" &&
       isValidDelhiPin(pin) &&
       fullAdd.trim().length > 10) ||
-    // Step 4: images
     (sStep === 4 &&
       bannerImage !== null &&
-      otherImages.filter((img) => img !== null).length === 4) ||
-    // Step 5: must select a sharing mode
-    (sStep === 5 && mode !== "") ||
-    // Step 6: validate by sharing mode
+      otherImages.filter(Boolean).length === 4) ||
+    (sStep === 5 && share.mode !== "") ||
     (sStep === 6 &&
-      mode !== "" &&
-      ((mode === "HOURS_BY_HOURS" && !!share.startTime && !!share.endTime) ||
-        // DAYS_BY_DAYS
-        (mode === "DAYS_BY_DAYS" &&
+      ((share.mode === "HOURS_BY_HOURS" && share.startTime && share.endTime) ||
+        (share.mode === "DAYS_BY_DAYS" &&
           Array.isArray(share.days) &&
           share.days.length > 0) ||
-        // SPLIT_STORE
-        (mode === "SPLIT_STORE" &&
-          typeof share.sqft === "number" &&
-          share.sqft > 0) ||
-        // DAY_OR_NIGHT
-        (mode === "DAY_OR_NIGHT" &&
+        (share.mode === "SPLIT_STORE" && share.sqft > 0) ||
+        (share.mode === "DAY_OR_NIGHT" &&
           (share.dayOrNight === "Day" || share.dayOrNight === "Night")) ||
-        // Weekend (no extra input)
-        mode === "Weekend" ||
-        // Regular (no extra input)
-        mode === "Regular")) ||
-    // (sStep === 7 && videoFile !== null) ||
+        share.mode === "Weekend" ||
+        share.mode === "Regular")) ||
     (sStep === 7 && Number(price) > 0) ||
     (sStep === 8 && bussinessType !== "") ||
     (sStep === 9 && desc !== "") ||
@@ -121,114 +88,89 @@ const AddFormStore = () => {
   const handleNext = () => {
     if (!isStepValid) {
       setShake(true);
-      setTimeout(() => setShake(false), 500);
+      setTimeout(() => setShake(false), 400);
       return;
     }
     nextSStep();
   };
-  const mediaUpload = async () => {
-    try {
-      const formData = new FormData();
 
-      if (bannerImage) formData.append("bannerImage", bannerImage);
-      // if (videoFile) formData.append("videoFile", videoFile);
+  /* ---------------- IMAGE UPLOAD ---------------- */
 
-      const res = await axios.post("/api/upload/images", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+  const uploadMedia = async () => {
+    if (!bannerImage) throw new Error("Banner missing");
 
-      return res.data;
-    } catch (error) {
-      console.error(error);
+    const images = otherImages.filter(Boolean) as File[];
+    if (images.length !== 4) {
+      throw new Error("Exactly 4 images required");
     }
-  };
-
-  const handleFinish = async () => {
-    setLoading(true);
-    const toastId = toast.loading("Media Uploading");
-    const { bannerUrl } = await mediaUpload();
-    console.log(bannerUrl);
-    toast.dismiss(toastId);
-    toast.success("Video Upload Done");
 
     const formData = new FormData();
+    formData.append("banner", bannerImage);
 
-    formData.append("title", title);
-    formData.append("storeSize", storeType);
-    formData.append("country", country);
-    formData.append("state", state);
-    formData.append("city", city);
-    formData.append("pin", pin);
-    formData.append("fullAddress", fullAdd);
-    if (bannerImage) formData.append("bannerImage", bannerUrl);
-    otherImages.forEach((img, index) => {
-      if (img) formData.append(`image_${index}`, img);
+    images.forEach((img, index) => {
+      formData.append(`image_${index}`, img);
     });
-    formData.append(
-      "share",
-      JSON.stringify({
-        mode: share.mode,
-        startTime: share.startTime ?? null,
-        endTime: share.endTime ?? null,
-        days: share.days ?? [],
-        sqft: share.sqft ?? null,
-        dayOrNight: share.dayOrNight ?? null,
-      }),
-    );
-    // if (videoFile) {
-    //   formData.append("videoFile", videoUrl);
-    // }
 
-    formData.append("desc", desc);
+    const res = await axios.post("/api/upload/images", formData);
+    return res.data as { bannerUrl: string; imageUrls: string[] };
+  };
 
-    formData.append("priceInr", price);
+  /* ---------------- FINAL SUBMIT ---------------- */
 
-    formData.append("businessType", bussinessType);
-    formData.append("peopleDesc", peopleDesc);
-    console.log(share);
-
+  const handleFinish = async () => {
     try {
-      const res = await axios.post("/api/store/create", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      setLoading(true);
+
+      const toastId = toast.loading("Uploading images...");
+      const { bannerUrl, imageUrls } = await uploadMedia();
+      toast.dismiss(toastId);
+      toast.success("Images uploaded");
+
+      const payload = {
+        title,
+        storeSize: storeType,
+        country,
+        state,
+        city,
+        pin,
+        fullAddress: fullAdd,
+        desc,
+        priceInr: Number(price),
+        businessType: bussinessType,
+        peopleDesc,
+        bannerImageUrl: bannerUrl,
+        images: imageUrls,
+        share: {
+          mode: share.mode,
+          startTime: share.startTime ?? null,
+          endTime: share.endTime ?? null,
+          days: share.days ?? [],
+          sqft: share.sqft ?? null,
+          dayOrNight: share.dayOrNight ?? null,
+        },
+      };
+
+      const res = await axios.post("/api/store/create", payload);
 
       toast.success("Store Created 🎉");
       router.push(`/dashboard/store/${res.data.store.id}`);
     } catch (err: any) {
       console.error(err);
-
-      const stepKey = err?.response?.data?.step;
-      const message = err?.response?.data?.error || "Something went wrong";
-
-      toast.error(message);
-
-      if (stepKey && STEP_MAP[stepKey]) {
-        setSStep(STEP_MAP[stepKey]);
-      }
-
-      if (typeof window !== "undefined") {
-        window.onerror = function (msg, src, line, col, err) {
-          alert("Client error: " + msg);
-        };
-      }
+      toast.error(err?.response?.data?.error || err.message);
     } finally {
       setLoading(false);
     }
   };
 
+  /* ---------------- RENDER ---------------- */
+
   return (
-    <div className="flex flex-col h-[80vh] w-full justify-center items-center max-w-6xl mx-auto gap-6 mt-4 ">
-      {/* STEP 0 */}
+    <div className="flex flex-col h-[80vh] w-full max-w-6xl mx-auto gap-6 mt-4 items-center justify-center">
       {sStep === 0 && <StepIntro />}
-
       {sStep === 1 && <StepTitle title={title} setTitle={setTitle} />}
-
       {sStep === 2 && (
         <StepTypeStore value={storeType} onChange={setStoreType} />
       )}
-
       {sStep === 3 && (
         <LocationPicker
           country={country}
@@ -243,8 +185,7 @@ const AddFormStore = () => {
           setFullAdd={setFullAdd}
         />
       )}
-
-      {sStep == 4 && (
+      {sStep === 4 && (
         <StepImage
           bannerImage={bannerImage}
           otherImages={otherImages}
@@ -252,84 +193,30 @@ const AddFormStore = () => {
           setOtherImages={setOtherImages}
         />
       )}
-      {sStep == 5 && <StepPartic />}
-      {sStep == 6 && <StoreMethodtype />}
-      {/* {sStep == 7 && (
-        <TrueVideo
-          setVideoFile={setVideoFile}
-          videoUrl={videoUrl}
-          setVideoUrl={setVideoUrl}
+      {sStep === 5 && <StepPartic />}
+      {sStep === 6 && <StoreMethodtype />}
+      {sStep === 7 && <PriceInput price={price} setPrice={setPrice} />}
+      {sStep === 8 && (
+        <input
+          value={bussinessType}
+          onChange={(e) => setBussinessType(e.target.value)}
+          placeholder="Business type"
+          className="text-4xl font-semibold text-center bg-transparent outline-none"
         />
-      )} */}
-      {sStep == 7 && <PriceInput price={price} setPrice={setPrice} />}
-
-      {sStep == 8 && (
-        <div className="space-y-8 justify-center flex flex-col items-center">
-          <Heading
-            title="Business Details"
-            description="What kind of business do you run?"
-            className="text-center"
-          />
-
-          <input
-            value={bussinessType}
-            onChange={(e) => setBussinessType(e.target.value)}
-            placeholder="Business type"
-            className="
-      w-full max-w-xl
-      text-5xl font-semibold text-center
-      bg-transparent
-      border-none outline-none
-      placeholder:text-gray-400
-      caret-black dark:caret-white
-      dark:text-white
-      focus:ring-0
-    "
-          />
-
-          {/* Helper text like Airbnb */}
-          <p className="text-sm text-gray-500 dark:text-gray-400 text-center max-w-md">
-            Example keywords: Barber, Bakery, Yoga Studio, Gaming Café,
-            Restaurant, Gym, Salon, Coaching Center
-          </p>
-        </div>
       )}
-
-      {sStep == 9 && <StepDesc description={desc} setDescription={setDesc} />}
-
-      {sStep == 10 && (
+      {sStep === 9 && <StepDesc description={desc} setDescription={setDesc} />}
+      {sStep === 10 && (
         <PeopleDesc
           partnerDescription={peopleDesc}
           setPartnerDescription={setPeopleDesc}
         />
       )}
-
-      {sStep == 11 && (
-        <div className="text-center space-y-6 flex flex-col items-center justify-center">
-          {/* Large Responsive Image */}
-          <div className="w-32 h-32 sm:w-40 sm:h-40 flex items-center justify-center">
-            <Image src={"/done.svg"} width={500} height={500} alt="hello" />
-          </div>
-
-          <Heading
-            title="Thank You For Completing This Step 🎉"
-            description="You're all set with your general information!"
-          />
-
-          <p className="text-sm text-gray-700 dark:text-gray-300 max-w-xl mx-auto px-4">
-            Awesome! Your basic details are now complete. Next, let’s move ahead
-            and{" "}
-            <span className="font-semibold">
-              finish setting up your listing
-            </span>{" "}
-            so we can help you find the{" "}
-            <span className="font-semibold">best partner renters</span> for your
-            space.
-          </p>
+      {sStep === 11 && (
+        <div className="text-center space-y-6">
+          <Image src="/done.svg" width={200} height={200} alt="done" />
+          <Heading title="All Set 🎉" description="Your store is ready!" />
         </div>
       )}
-
-      {/* Bottom Navigation */}
 
       <FormNavigation
         step={sStep}
