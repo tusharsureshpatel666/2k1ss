@@ -8,7 +8,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Birdhouse, HomeIcon } from "lucide-react";
+import { Birdhouse, HomeIcon, ShareIcon } from "lucide-react";
 
 /* ----------------------------------
    Share type (same as Prisma enum)
@@ -108,8 +108,8 @@ export default function ReserveCard(props: ReserveCardProps) {
       {/* Share Type Button */}
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant={"outline"} className="text-sm font-medium ">
-            <Birdhouse /> {sharetype.replaceAll("_", " ")}
+          <Button variant={"outline"} className="rounded-full" size={"lg"}>
+            <ShareIcon /> {sharetype.replaceAll("_", " ")}
           </Button>
         </DialogTrigger>
 

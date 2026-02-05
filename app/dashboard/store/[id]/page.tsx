@@ -122,8 +122,12 @@ export default async function StorePage({ params }: StorePageProps) {
                   pathname: `/dashboard/message/${store?.id}`,
                 }}
               >
-                <Button className="flex-1 rounded-md">
-                  <MessageCircle className="h-4 w-4 mr-2" />
+                <Button
+                  size={"lg"}
+                  variant={"outline"}
+                  className="rounded-full"
+                >
+                  <MessageCircle className="h-4 w-4 " />
                   Chat Partner
                 </Button>
               </Link>
