@@ -5,7 +5,9 @@ import AddFormStore from "./components/AddFormStore";
 const page = () => {
   return (
     <>
-      <AddFormStore />
+      <div className="w-full">
+        <AddFormStore />
+      </div>
     </>
   );
 };

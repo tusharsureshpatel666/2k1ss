@@ -109,7 +109,7 @@ const LocationPicker = ({
       />
 
       {/* Use current location */}
-      <div className="flex justify-end">
+      {/* <div className="flex justify-end">
         <Button
           variant="outline"
           size="sm"
@@ -118,10 +118,10 @@ const LocationPicker = ({
         >
           {loadingLocation ? "Fetching..." : "Use Current Location"}
         </Button>
-      </div>
+      </div> */}
 
       {/* Country + State */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      {/* <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div className="space-y-3">
           <Label>Country</Label>
           <Button
@@ -143,7 +143,7 @@ const LocationPicker = ({
             Delhi
           </Button>
         </div>
-      </div>
+      </div> */}
 
       {/* City */}
       <div className="space-y-4">

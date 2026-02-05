@@ -18,10 +18,10 @@ export default async function DashboardLayout({
   }
 
   return (
-    <div>
+    <div className="">
       <DashNav />
 
-      <div className="max-w-7xl px-5 py-4  flex justify-center items-center mx-auto ">
+      <div className="max-w-7xl px-5 py-4 min-h-[90vh]  flex justify-center items-center mx-auto ">
         {children}
       </div>
     </div>

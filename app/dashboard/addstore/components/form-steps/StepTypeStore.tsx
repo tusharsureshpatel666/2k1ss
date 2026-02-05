@@ -11,7 +11,7 @@ const StepTypeStore = ({ value, onChange }: Props) => {
     {
       id: 1,
       title: "Small Store / Single Room",
-      description: "Ideal for kirana, salon, mobile repair, small office",
+      description: "Ideal for kirana, salon, mobile repair",
       image: "/store/1.svg",
     },
     {
@@ -23,7 +23,7 @@ const StepTypeStore = ({ value, onChange }: Props) => {
     {
       id: 3,
       title: "Large Store / Showroom",
-      description: "Best for restaurant, gym, electronics or furniture store",
+      description: "Best for restaurant, gym, electronics",
       image: "/store/3.svg",
     },
     {
@@ -51,7 +51,7 @@ const StepTypeStore = ({ value, onChange }: Props) => {
               key={item.id}
               onClick={() => onChange(item.title)}
               className={clsx(
-                "cursor-pointer rounded-xl border-2 p-4 transition-colors",
+                "cursor-pointer rounded-xl border-2 p-3 md:p-4 transition-colors",
                 "hover:border-[var(--primary)] hover:bg-[color:var(--primary)/0.08]",
                 selected
                   ? "border-[var(--primary)] bg-[color:var(--primary)/0.12]"
@@ -69,7 +69,7 @@ const StepTypeStore = ({ value, onChange }: Props) => {
 
                 <div>
                   <h3 className="font-semibold">{item.title}</h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                  <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400">
                     {item.description}
                   </p>
                 </div>

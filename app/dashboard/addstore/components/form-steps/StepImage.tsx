@@ -24,7 +24,7 @@ const StepImage: React.FC<StepImageProps> = ({
     "border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-xl flex items-center justify-center bg-gray-50 dark:bg-zinc-900 cursor-pointer transition hover:border-primary hover:bg-gray-100 dark:hover:bg-zinc-800";
 
   return (
-    <div className="space-y-6 w-full lg:p-6 rounded-xl shadow-md ">
+    <div className="space-y-6 w-full lg:p-6 rounded-xl  ">
       <Heading
         title="Upload Images"
         description="Add a banner image and room photos"

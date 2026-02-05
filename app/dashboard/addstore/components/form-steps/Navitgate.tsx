@@ -30,7 +30,7 @@ const FormNavigation = ({
   const progress = (step / TOTAL_STEPS) * 100;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-black z-50">
+    <div className="fixed bottom-0 h-[80px] left-0 right-0 bg-white dark:bg-black z-50">
       {/* 🔴 Progress Line */}
       <div className="h-1 w-full bg-gray-200 dark:bg-gray-800">
         <motion.div

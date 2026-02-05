@@ -166,12 +166,16 @@ const AddFormStore = () => {
   /* ---------------- RENDER ---------------- */
 
   return (
-    <div className="flex flex-col h-[80vh] w-full max-w-6xl mx-auto gap-6 mt-4 items-center justify-center">
+    <div className="flex flex-col w-full max-w-6xl mx-auto gap-6 mt-4 pb-28">
+      {/* STEP 0 */}
       {sStep === 0 && <StepIntro />}
+
       {sStep === 1 && <StepTitle title={title} setTitle={setTitle} />}
+
       {sStep === 2 && (
         <StepTypeStore value={storeType} onChange={setStoreType} />
       )}
+
       {sStep === 3 && (
         <LocationPicker
           country={country}
@@ -186,7 +190,8 @@ const AddFormStore = () => {
           setFullAdd={setFullAdd}
         />
       )}
-      {sStep === 4 && (
+
+      {sStep == 4 && (
         <StepImage
           bannerImage={bannerImage}
           otherImages={otherImages}
@@ -194,30 +199,73 @@ const AddFormStore = () => {
           setOtherImages={setOtherImages}
         />
       )}
-      {sStep === 5 && <StepPartic />}
-      {sStep === 6 && <StoreMethodtype />}
-      {sStep === 7 && <PriceInput price={price} setPrice={setPrice} />}
-      {sStep === 8 && (
-        <input
-          value={bussinessType}
-          onChange={(e) => setBussinessType(e.target.value)}
-          placeholder="Business type"
-          className="text-4xl font-semibold text-center bg-transparent outline-none"
+      {sStep == 5 && <StepPartic />}
+      {sStep == 6 && <StoreMethodtype />}
+      {/* {sStep == 7 && (
+        <TrueVideo
+          setVideoFile={setVideoFile}
+          videoUrl={videoUrl}
+          setVideoUrl={setVideoUrl}
         />
+      )} */}
+      {sStep == 7 && <PriceInput price={price} setPrice={setPrice} />}
+
+      {sStep == 8 && (
+        <div className="space-y-8 justify-center flex flex-col items-center">
+          <Heading
+            title="Business Details"
+            description="What kind of business do you run?"
+            className="text-center"
+          />
+
+          <input
+            value={bussinessType}
+            onChange={(e) => setBussinessType(e.target.value)}
+            placeholder="Business type"
+            className="
+      w-full max-w-xl
+      text-5xl font-semibold text-center
+      bg-transparent
+      border-none outline-none
+      placeholder:text-gray-400
+      caret-black dark:caret-white
+      dark:text-white
+      focus:ring-0
+    "
+          />
+
+          {/* Helper text like Airbnb */}
+          <p className="text-sm text-gray-500 dark:text-gray-400 text-center max-w-md">
+            Example keywords: Barber, Bakery, Yoga Studio, Gaming Café,
+            Restaurant, Gym, Salon, Coaching Center
+          </p>
+        </div>
       )}
-      {sStep === 9 && <StepDesc description={desc} setDescription={setDesc} />}
-      {sStep === 10 && (
+
+      {sStep == 9 && <StepDesc description={desc} setDescription={setDesc} />}
+
+      {sStep == 10 && (
         <PeopleDesc
           partnerDescription={peopleDesc}
           setPartnerDescription={setPeopleDesc}
         />
       )}
-      {sStep === 11 && (
-        <div className="text-center space-y-6">
-          <Image src="/done.svg" width={200} height={200} alt="done" />
-          <Heading title="All Set 🎉" description="Your store is ready!" />
+
+      {sStep == 11 && (
+        <div className="text-center space-y-6 flex flex-col items-center justify-center">
+          {/* Large Responsive Image */}
+          <div className="w-32 h-32 sm:w-40 sm:h-40 flex items-center justify-center">
+            <Image src={"/done.svg"} width={500} height={500} alt="hello" />
+          </div>
+
+          <Heading
+            title="Thank You For Completing This Step 🎉"
+            description="You're all set with your general information!"
+          />
         </div>
       )}
+
+      {/* Bottom Navigation */}
 
       <FormNavigation
         step={sStep}
