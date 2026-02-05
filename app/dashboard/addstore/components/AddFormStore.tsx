@@ -111,7 +111,7 @@ const AddFormStore = () => {
       formData.append(`image_${index}`, img);
     });
 
-    const res = await axios.post("/api/upload/images", formData);
+    const res = await axios.post("/api/upload/imagess", formData);
     return res.data as { bannerUrl: string; imageUrls: string[] };
   };
 
