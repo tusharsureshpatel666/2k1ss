@@ -27,7 +27,7 @@ const Heading: React.FC<HeadingProps> = ({ title, description, className }) => {
             text-sm text-gray-500 leading-relaxed
             sm:text-base
             md:text-lg
-            max-w-prose
+            
           "
         >
           {description}

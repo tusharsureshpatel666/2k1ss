@@ -27,6 +27,7 @@ import PeopleDesc from "./components/peopleDesc";
 import { Button } from "@/components/ui/button";
 import ReportDialog from "../../components/report";
 import Link from "next/link";
+import StoreLocationMap from "./components/ShowMap";
 
 interface StorePageProps {
   params: {
@@ -150,6 +151,12 @@ export default async function StorePage({ params }: StorePageProps) {
           </div>
 
           <PeopleDesc peopleDesc={store?.desc} />
+
+          <StoreLocationMap
+            lat={store?.latitude}
+            lng={store?.longitude}
+            storeName="New Delhi Store"
+          />
         </div>
       </div>
     </div>
