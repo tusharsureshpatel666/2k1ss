@@ -75,7 +75,7 @@ export default function SearchBox() {
       libraries={libraries}
       onLoad={handleLoad} // ✅ IMPORTANT
     >
-      <div className="relative mx-auto w-full max-w-5xl">
+      <div className="relative  w-full max-w-6xl">
         {/* Search Bar */}
         <div className="flex items-center rounded-full border border-gray-300 bg-white dark:border-gray-600 dark:bg-black/50 shadow-lg">
           <div className="flex flex-1 items-center gap-3 px-6 py-5">

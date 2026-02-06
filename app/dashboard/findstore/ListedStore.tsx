@@ -5,6 +5,7 @@ import { useQuery } from "@apollo/client/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+import { StoreCardSkeleton } from "../store/[id]/components/storeSkeleton";
 
 const STORES_CARD_QUERY = gql`
   query StoresCard {
@@ -21,7 +22,18 @@ const ListedStore = () => {
   const { data, loading, error } = useQuery(STORES_CARD_QUERY);
   // const { data: session } = useSession();
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) {
+    return (
+      <div className="mx-auto max-w-7xl px-0 lg:px-4 py-8">
+        <div className="grid grid-cols-2 gap-2 md:gap-4 lg:gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {Array.from({ length: 8 }).map((_, i) => (
+            <StoreCardSkeleton key={i} />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   if (error) return <p>Error loading stores</p>;
 
   return (
