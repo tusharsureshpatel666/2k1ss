@@ -1,7 +1,6 @@
 import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { pusherServer } from "@/lib/pusher/server";
-
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
@@ -10,28 +9,24 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { conversationId, text } = await req.json();
+  const { conversationId } = await req.json();
 
-  const message = await prisma.message.create({
-    data: {
+  // mark all messages as seen (except mine)
+  const updated = await prisma.message.updateMany({
+    where: {
       conversationId,
-      senderId: session.user.id,
-      text,
+      senderId: { not: session.user.id },
+      seen: false,
     },
+    data: { seen: true },
   });
 
-  await prisma.conversation.update({
-    where: { id: conversationId },
-    data: {
-      lastMessageAt: new Date(),
-    },
-  });
-
+  // notify sender in realtime
   await pusherServer.trigger(
     `conversation-${conversationId}`,
-    "new-message",
-    message,
+    "messages-seen",
+    { conversationId },
   );
 
-  return NextResponse.json(message);
+  return NextResponse.json({ success: true });
 }

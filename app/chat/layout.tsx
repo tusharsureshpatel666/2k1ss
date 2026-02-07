@@ -1,4 +1,5 @@
-import Sidebar from "./sidebar";
+import ConversationList from "./components/ChatList";
+import Sidebar from "./components/sidebar/Sidebar";
 
 export default async function ChatLayout({
   children,
@@ -7,7 +8,10 @@ export default async function ChatLayout({
 }) {
   return (
     <Sidebar>
-      <div className="h-screen ">{children}</div>
+      <div className="h-screen flex">
+        <ConversationList />
+        {children}
+      </div>
     </Sidebar>
   );
 }

@@ -1,6 +1,5 @@
 "use client";
 
-import FormSetup from "./components/formsetup/FormSetup";
 import SearchBox from "./components/Main";
 import ListedStore from "./findstore/ListedStore";
 

@@ -33,7 +33,7 @@ export function ImageGalleryDialog({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-black">
+    <div className="fixed h-full inset-0 z-50 bg-black">
       {/* CLOSE BUTTON */}
       <button
         onClick={() => onOpenChange(false)}

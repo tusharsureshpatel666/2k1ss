@@ -28,6 +28,9 @@ import { Button } from "@/components/ui/button";
 import ReportDialog from "../../components/report";
 import Link from "next/link";
 import StoreLocationMap from "./components/ShowMap";
+import axios from "axios";
+import ChatPartnerButton from "../../components/ChatPartner";
+import StoreDesc from "../../components/StoreDesc";
 
 interface StorePageProps {
   params: {
@@ -119,20 +122,9 @@ export default async function StorePage({ params }: StorePageProps) {
   "
             >
               {/* Chat */}
-              <Link
-                href={{
-                  pathname: `/dashboard/message/${store?.id}`,
-                }}
-              >
-                <Button
-                  size={"lg"}
-                  variant={"outline"}
-                  className="rounded-full"
-                >
-                  <MessageCircle className="h-4 w-4 " />
-                  Chat Partner
-                </Button>
-              </Link>
+              {userId?.user?.id && !isOwner && (
+                <ChatPartnerButton storeId={storeId.id} />
+              )}
 
               {/* Share / Reserve */}
               <ReserveCard
@@ -149,14 +141,14 @@ export default async function StorePage({ params }: StorePageProps) {
               <ReportDialog />
             </div>
           </div>
-
-          <PeopleDesc peopleDesc={store?.desc} />
-
+          <StoreDesc description={store?.desc || ""} />
+          {/* <PeopleDesc peopleDesc={store?.desc} /> */}
+          {/* 
           <StoreLocationMap
             lat={store?.latitude}
             lng={store?.longitude}
             storeName="New Delhi Store"
-          />
+          /> */}
         </div>
       </div>
     </div>
