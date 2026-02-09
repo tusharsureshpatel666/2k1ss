@@ -38,8 +38,10 @@ model User {
   stores        Store[]      @relation("OwerStores")
   likedStores   StoreLike[]
 
-  conversations ConversationParticipant[]
+
+  
   messages      Message[]
+  buyer    Conversation[]
 }
 
 
@@ -63,7 +65,7 @@ model Store {
   title           String
   desc            String
   peopleDesc      String
-  conversation    Conversation?
+  
 
   storeSize       String
   businessType    String
@@ -91,6 +93,7 @@ model Store {
 
   likes           StoreLike[]
 
+  store        Conversation[]
   createdAt       DateTime    @default(now())
   updatedAt       DateTime    @updatedAt
 }
@@ -126,37 +129,26 @@ model StoreLike {
   @@index([storeId])
 }
 model Conversation {
-  id            String   @id @default(uuid())
+  id String @id @default(uuid())
 
-  storeId       String
-  store         Store    @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  storeId String
+  store Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
 
-  createdAt     DateTime @default(now())
+  buyerId String
+  buyer User @relation(fields: [buyerId], references: [id])
+
+  
+
+  createdAt DateTime @default(now())
   lastMessageAt DateTime @default(now())
 
-  participants  ConversationParticipant[]
-  messages      Message[]
+  messages Message[]
 
-  @@unique([storeId])
+  @@unique([storeId, buyerId])
+  @@index([buyerId])
+  @@index([storeId])
 }
-model ConversationParticipant {
-  id             String        @id @default(uuid())
 
-  conversationId String
-  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
-
-  userId         String
-  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  role           ChatRole
-
-  @@unique([conversationId, userId])
-  @@index([userId])
-}
-enum ChatRole {
-  BUYER
-  OWNER
-}
 
 model Message {
   id             String        @id @default(uuid())

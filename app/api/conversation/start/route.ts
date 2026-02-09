@@ -14,33 +14,30 @@ export async function POST(req: Request) {
 
   const store = await prisma.store.findUnique({
     where: { id: storeId },
+    select: { id: true, ownerId: true },
   });
+
   if (!store) {
-    return NextResponse.json({ error: "Store is not Found" }, { status: 401 });
+    return NextResponse.json({ error: "Store not found" }, { status: 404 });
   }
 
   let conversation = await prisma.conversation.findUnique({
-    where: { storeId },
+    where: {
+      storeId_buyerId: {
+        storeId,
+        buyerId: userId,
+      },
+    },
   });
 
   if (!conversation) {
     conversation = await prisma.conversation.create({
       data: {
         storeId,
-        participants: {
-          create: [
-            {
-              userId,
-              role: "BUYER",
-            },
-            {
-              userId: store.ownerId,
-              role: "OWNER",
-            },
-          ],
-        },
+        buyerId: userId,
       },
     });
   }
+
   return NextResponse.json(conversation);
 }

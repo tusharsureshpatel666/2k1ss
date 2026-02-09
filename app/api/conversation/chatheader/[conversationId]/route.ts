@@ -6,18 +6,31 @@ export async function GET(
   req: Request,
   { params }: { params: { conversationId: string } },
 ) {
+  const paramsId = await params;
   const session = await auth();
+  const userId = session?.user?.id;
 
-  if (!session?.user?.id) {
+  if (!userId) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   const conversation = await prisma.conversation.findUnique({
-    where: { id: params.conversationId },
+    where: { id: paramsId.conversationId },
     include: {
-      participants: {
-        include: {
-          user: {
+      buyer: {
+        select: {
+          id: true,
+          name: true,
+          image: true,
+        },
+      },
+      store: {
+        select: {
+          id: true,
+          title: true,
+          bannerImageUrl: true,
+          ownerId: true,
+          owner: {
             select: {
               id: true,
               name: true,
@@ -30,16 +43,22 @@ export async function GET(
   });
 
   if (!conversation) {
-    return NextResponse.json(
-      { error: "Conversation not found" },
-      { status: 404 },
-    );
+    return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 
-  // 🔥 THIS IS THE KEY LINE
-  const otherUser = conversation.participants.find(
-    (p) => p.userId !== session.user.id,
-  )?.user;
+  const isOwner = conversation.store.ownerId === userId;
 
-  return NextResponse.json(otherUser);
+  // 🔑 header logic
+  const header = isOwner
+    ? {
+        name: conversation.store.title,
+        image:
+          conversation.store.bannerImageUrl || "/store-banner-fallback.png",
+      }
+    : {
+        name: conversation.store.owner.name,
+        image: conversation.store.owner.image || "/avatar.avif",
+      };
+
+  return NextResponse.json(header);
 }

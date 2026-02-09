@@ -17,14 +17,14 @@ export default function MessageBubble({
 }) {
   return (
     <div
-      className={`flex ${
+      className={`flex min-w-0 ${
         isMine ? "justify-end" : "justify-start"
       } ${isFirst ? "mt-3" : "mt-1"}`}
     >
       <div
         className={`
-          max-w-[70%] px-3 py-2 text-sm shadow
-          ${isMine ? "bg-[#005c4b] text-white" : "bg-white text-black"}
+          max-w-[70%] min-w-0 px-3 py-2 text-sm shadow
+          ${isMine ? "bg-blue-500 text-white" : "bg-white text-black"}
 
           ${
             isMine
@@ -39,7 +39,8 @@ export default function MessageBubble({
           ${isLast ? "" : "rounded-b-none"}
         `}
       >
-        <p className="whitespace-pre-wrap break-words">{text}</p>
+        {/* 🔥 FIX IS HERE */}
+        <p className="whitespace-pre-wrap break-all">{text}</p>
 
         {isLast && (
           <div className="mt-1 flex items-center justify-end gap-1 text-[10px] opacity-70">

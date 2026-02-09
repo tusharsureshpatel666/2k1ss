@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
-import { Send, SendIcon } from "lucide-react";
+import { ArrowUpRightIcon, Send, SendIcon } from "lucide-react";
 import { useState } from "react";
 
 export default function ChatInput({
@@ -19,7 +19,7 @@ export default function ChatInput({
     setText("");
   };
   return (
-    <div className="flex items-center gap-3 bg-white dark:bg-gray-900 px-4 py-5">
+    <div className="flex items-center gap-3 bg-white dark:bg-gray-900 px-4 py-4">
       <input
         placeholder="Type a message"
         onChange={(e) => setText(e.target.value)}
@@ -28,12 +28,13 @@ export default function ChatInput({
       />
 
       <Button
-        size={"lg"}
-        disabled={loading}
-        className="rounded-md"
         onClick={handelSend}
+        size="icon-lg"
+        aria-label="Submit"
+        className="rounded-md"
+        disabled={loading}
       >
-        <SendIcon className="w-5 h-5" />
+        <SendIcon />
       </Button>
     </div>
   );

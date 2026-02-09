@@ -13,7 +13,6 @@ export default function ConversationList() {
   const pathname = usePathname();
   const { data: session } = useSession();
 
-  // 🔥 extract conversationId from URL
   const activeConversationId = pathname?.split("/")[2];
 
   useEffect(() => {
@@ -25,44 +24,50 @@ export default function ConversationList() {
   return (
     <div className="w-80 border-r bg-white dark:bg-black">
       {conversations.map((conv) => {
-        const otherUser = conv.participants.find(
-          (p: any) => p.user.id !== session?.user?.id,
-        )?.user;
+        const isOwner = conv.store.ownerId === session?.user?.id;
+
+        // 🔑 decide other side
+        const other = isOwner
+          ? {
+              name: conv.buyer?.name || "Buyer",
+              image: conv.buyer?.image || "/avatar.avif",
+            }
+          : {
+              name: conv.store?.title || "Store",
+              image: conv.store.bannerImageUrl, // static store avatar
+            };
 
         const isActive = conv.id === activeConversationId;
 
         return (
-          <>
-            <h2 className="text-xl px-5 py-7">Select Chat</h2>
-            <div
-              key={conv.id}
-              onClick={() => router.push(`/chat/${conv.id}`)}
-              className={clsx(
-                "flex cursor-pointer items-center gap-3 px-4 py-3 transition",
-                isActive
-                  ? "dark:bg-gray-900 bg-gray-100"
-                  : "hover:bg-[#202c33]",
-              )}
-            >
-              <Image
-                src={otherUser?.image || "/avatar.avif"}
-                alt={otherUser?.name || "user"}
-                width={40}
-                height={40}
-                className="rounded-full"
-              />
+          <div
+            key={conv.id}
+            onClick={() => router.push(`/chat/${conv.id}`)}
+            className={clsx(
+              "flex cursor-pointer items-center gap-3 px-4 py-3 transition",
+              isActive
+                ? "bg-gray-100 dark:bg-gray-900"
+                : "hover:bg-gray-100 dark:hover:bg-gray-800",
+            )}
+          >
+            <Image
+              src={other.image}
+              alt={other.name}
+              width={40}
+              height={40}
+              className="rounded-full"
+            />
 
-              <div className="flex-1 min-w-0">
-                <p className="font-medium text-black dark:text-white">
-                  {otherUser?.name}
-                </p>
+            <div className="flex-1 min-w-0">
+              <p className="font-medium text-black dark:text-white truncate">
+                {other.name}
+              </p>
 
-                <p className="text-sm text-gray-400 truncate">
-                  {conv.messages[0]?.text || "No messages yet"}
-                </p>
-              </div>
+              <p className="text-sm text-gray-400 truncate">
+                {conv.messages[0]?.text || "No messages yet"}
+              </p>
             </div>
-          </>
+          </div>
         );
       })}
     </div>
