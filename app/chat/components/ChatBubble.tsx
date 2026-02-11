@@ -23,8 +23,8 @@ export default function MessageBubble({
     >
       <div
         className={`
-          max-w-[70%] min-w-0 px-3 py-2 text-sm shadow
-          ${isMine ? "bg-blue-500 text-white" : "bg-white text-black"}
+          max-w-[70%] min-w-0 px-4 py-3 text-sm shadow
+          ${isMine ? "bg-blue-500 text-white" : "bg-white dark:text-white dark:bg-slate-900 text-black"}
 
           ${
             isMine

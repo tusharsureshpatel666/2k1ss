@@ -1,16 +1,20 @@
-import React from "react";
+"use client";
+
+import { useParams } from "next/navigation";
 import EmptyState from "../components/EmptyState";
 import Windows from "../components/window";
-import ChatListItem from "../components/ChatListItems";
+import ChatPresence from "@/app/components/chatPresence";
 
-const page = async ({ params }) => {
-  const conversation = await params;
-  console.log(conversation.id);
+const Page = () => {
+  const params = useParams();
+  const conversationId = params?.id as string | undefined;
+
   return (
     <div className="hidden lg:block w-full h-screen">
-      {!conversation.id ? <EmptyState /> : <Windows id={conversation.id} />}
+      {!conversationId ? <EmptyState /> : <Windows id={conversationId} />}
+      <ChatPresence conversationId={conversationId} />
     </div>
   );
 };
 
-export default page;
+export default Page;

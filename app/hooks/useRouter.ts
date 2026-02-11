@@ -16,8 +16,10 @@ export const useRoutes = () => {
         label: "Chat",
         href: "/chat/conversation",
         icon: HiChatBubbleOvalLeft,
-        active: pathName === "/chat/conversation" || !!conversationId,
+        active:
+          pathName === "/chat/conversation" || pathName?.startsWith("/chat/"),
       },
+
       {
         label: "Users",
         href: "/chat",

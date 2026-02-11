@@ -8,7 +8,7 @@ export default async function ChatLayout({
 }) {
   return (
     <Sidebar>
-      <div className="h-screen flex ">
+      <div className="h-screen flex">
         <ConversationList />
         {children}
       </div>

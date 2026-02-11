@@ -1,4 +1,3 @@
-import ChatListItem from "../ChatListItems";
 import DesktopSidebar from "./DesktopSidebar";
 import Mobilefoot from "./Mobilefoot";
 

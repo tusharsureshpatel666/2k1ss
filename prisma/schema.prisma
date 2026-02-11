@@ -37,11 +37,12 @@ model User {
 
   stores        Store[]      @relation("OwerStores")
   likedStores   StoreLike[]
-
+  notification Notification[]
 
   
   messages      Message[]
   buyer    Conversation[]
+  UserPresence UserPresence[]
 }
 
 
@@ -136,6 +137,7 @@ model Conversation {
 
   buyerId String
   buyer User @relation(fields: [buyerId], references: [id])
+  
 
   
 
@@ -143,6 +145,8 @@ model Conversation {
   lastMessageAt DateTime @default(now())
 
   messages Message[]
+  notification Notification[]
+  UserPresence UserPresence[]
 
   @@unique([storeId, buyerId])
   @@index([buyerId])
@@ -166,4 +170,29 @@ model Message {
 
   @@index([conversationId])
   @@index([senderId])
+}
+
+model Notification {
+  id             String   @id @default(uuid())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id])
+
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+
+  message        String
+  isRead         Boolean  @default(false)
+
+  createdAt      DateTime @default(now())
+
+  @@index([userId])
+  @@index([conversationId])
+}
+
+model UserPresence {
+  userId         String @id
+  user   User @relation(fields: [userId], references: [id])
+  conversationId String?
+  conversation Conversation? @relation(fields: [conversationId], references: [id])
+  updatedAt      DateTime @updatedAt
 }

@@ -43,6 +43,16 @@ export type Conversation = $Result.DefaultSelection<Prisma.$ConversationPayload>
  * 
  */
 export type Message = $Result.DefaultSelection<Prisma.$MessagePayload>
+/**
+ * Model Notification
+ * 
+ */
+export type Notification = $Result.DefaultSelection<Prisma.$NotificationPayload>
+/**
+ * Model UserPresence
+ * 
+ */
+export type UserPresence = $Result.DefaultSelection<Prisma.$UserPresencePayload>
 
 /**
  * Enums
@@ -241,6 +251,26 @@ export class PrismaClient<
     * ```
     */
   get message(): Prisma.MessageDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.notification`: Exposes CRUD operations for the **Notification** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Notifications
+    * const notifications = await prisma.notification.findMany()
+    * ```
+    */
+  get notification(): Prisma.NotificationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.userPresence`: Exposes CRUD operations for the **UserPresence** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserPresences
+    * const userPresences = await prisma.userPresence.findMany()
+    * ```
+    */
+  get userPresence(): Prisma.UserPresenceDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -680,7 +710,9 @@ export namespace Prisma {
     StoreImage: 'StoreImage',
     StoreLike: 'StoreLike',
     Conversation: 'Conversation',
-    Message: 'Message'
+    Message: 'Message',
+    Notification: 'Notification',
+    UserPresence: 'UserPresence'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -696,7 +728,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "store" | "storeImage" | "storeLike" | "conversation" | "message"
+      modelProps: "user" | "store" | "storeImage" | "storeLike" | "conversation" | "message" | "notification" | "userPresence"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1144,6 +1176,154 @@ export namespace Prisma {
           }
         }
       }
+      Notification: {
+        payload: Prisma.$NotificationPayload<ExtArgs>
+        fields: Prisma.NotificationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.NotificationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.NotificationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>
+          }
+          findFirst: {
+            args: Prisma.NotificationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.NotificationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>
+          }
+          findMany: {
+            args: Prisma.NotificationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>[]
+          }
+          create: {
+            args: Prisma.NotificationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>
+          }
+          createMany: {
+            args: Prisma.NotificationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.NotificationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>[]
+          }
+          delete: {
+            args: Prisma.NotificationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>
+          }
+          update: {
+            args: Prisma.NotificationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>
+          }
+          deleteMany: {
+            args: Prisma.NotificationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.NotificationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.NotificationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>[]
+          }
+          upsert: {
+            args: Prisma.NotificationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>
+          }
+          aggregate: {
+            args: Prisma.NotificationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateNotification>
+          }
+          groupBy: {
+            args: Prisma.NotificationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<NotificationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.NotificationCountArgs<ExtArgs>
+            result: $Utils.Optional<NotificationCountAggregateOutputType> | number
+          }
+        }
+      }
+      UserPresence: {
+        payload: Prisma.$UserPresencePayload<ExtArgs>
+        fields: Prisma.UserPresenceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserPresenceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPresencePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserPresenceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPresencePayload>
+          }
+          findFirst: {
+            args: Prisma.UserPresenceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPresencePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserPresenceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPresencePayload>
+          }
+          findMany: {
+            args: Prisma.UserPresenceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPresencePayload>[]
+          }
+          create: {
+            args: Prisma.UserPresenceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPresencePayload>
+          }
+          createMany: {
+            args: Prisma.UserPresenceCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UserPresenceCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPresencePayload>[]
+          }
+          delete: {
+            args: Prisma.UserPresenceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPresencePayload>
+          }
+          update: {
+            args: Prisma.UserPresenceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPresencePayload>
+          }
+          deleteMany: {
+            args: Prisma.UserPresenceDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserPresenceUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UserPresenceUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPresencePayload>[]
+          }
+          upsert: {
+            args: Prisma.UserPresenceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPresencePayload>
+          }
+          aggregate: {
+            args: Prisma.UserPresenceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserPresence>
+          }
+          groupBy: {
+            args: Prisma.UserPresenceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserPresenceGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UserPresenceCountArgs<ExtArgs>
+            result: $Utils.Optional<UserPresenceCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1258,6 +1438,8 @@ export namespace Prisma {
     storeLike?: StoreLikeOmit
     conversation?: ConversationOmit
     message?: MessageOmit
+    notification?: NotificationOmit
+    userPresence?: UserPresenceOmit
   }
 
   /* Types for Logging */
@@ -1340,15 +1522,19 @@ export namespace Prisma {
   export type UserCountOutputType = {
     stores: number
     likedStores: number
+    notification: number
     messages: number
     buyer: number
+    UserPresence: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     stores?: boolean | UserCountOutputTypeCountStoresArgs
     likedStores?: boolean | UserCountOutputTypeCountLikedStoresArgs
+    notification?: boolean | UserCountOutputTypeCountNotificationArgs
     messages?: boolean | UserCountOutputTypeCountMessagesArgs
     buyer?: boolean | UserCountOutputTypeCountBuyerArgs
+    UserPresence?: boolean | UserCountOutputTypeCountUserPresenceArgs
   }
 
   // Custom InputTypes
@@ -1379,6 +1565,13 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
+  export type UserCountOutputTypeCountNotificationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NotificationWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
   export type UserCountOutputTypeCountMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MessageWhereInput
   }
@@ -1388,6 +1581,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountBuyerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ConversationWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountUserPresenceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserPresenceWhereInput
   }
 
 
@@ -1446,10 +1646,14 @@ export namespace Prisma {
 
   export type ConversationCountOutputType = {
     messages: number
+    notification: number
+    UserPresence: number
   }
 
   export type ConversationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     messages?: boolean | ConversationCountOutputTypeCountMessagesArgs
+    notification?: boolean | ConversationCountOutputTypeCountNotificationArgs
+    UserPresence?: boolean | ConversationCountOutputTypeCountUserPresenceArgs
   }
 
   // Custom InputTypes
@@ -1468,6 +1672,20 @@ export namespace Prisma {
    */
   export type ConversationCountOutputTypeCountMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MessageWhereInput
+  }
+
+  /**
+   * ConversationCountOutputType without action
+   */
+  export type ConversationCountOutputTypeCountNotificationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NotificationWhereInput
+  }
+
+  /**
+   * ConversationCountOutputType without action
+   */
+  export type ConversationCountOutputTypeCountUserPresenceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserPresenceWhereInput
   }
 
 
@@ -1657,8 +1875,10 @@ export namespace Prisma {
     createdAt?: boolean
     stores?: boolean | User$storesArgs<ExtArgs>
     likedStores?: boolean | User$likedStoresArgs<ExtArgs>
+    notification?: boolean | User$notificationArgs<ExtArgs>
     messages?: boolean | User$messagesArgs<ExtArgs>
     buyer?: boolean | User$buyerArgs<ExtArgs>
+    UserPresence?: boolean | User$UserPresenceArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1696,8 +1916,10 @@ export namespace Prisma {
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     stores?: boolean | User$storesArgs<ExtArgs>
     likedStores?: boolean | User$likedStoresArgs<ExtArgs>
+    notification?: boolean | User$notificationArgs<ExtArgs>
     messages?: boolean | User$messagesArgs<ExtArgs>
     buyer?: boolean | User$buyerArgs<ExtArgs>
+    UserPresence?: boolean | User$UserPresenceArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1708,8 +1930,10 @@ export namespace Prisma {
     objects: {
       stores: Prisma.$StorePayload<ExtArgs>[]
       likedStores: Prisma.$StoreLikePayload<ExtArgs>[]
+      notification: Prisma.$NotificationPayload<ExtArgs>[]
       messages: Prisma.$MessagePayload<ExtArgs>[]
       buyer: Prisma.$ConversationPayload<ExtArgs>[]
+      UserPresence: Prisma.$UserPresencePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2115,8 +2339,10 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     stores<T extends User$storesArgs<ExtArgs> = {}>(args?: Subset<T, User$storesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StorePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     likedStores<T extends User$likedStoresArgs<ExtArgs> = {}>(args?: Subset<T, User$likedStoresArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StoreLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    notification<T extends User$notificationArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     messages<T extends User$messagesArgs<ExtArgs> = {}>(args?: Subset<T, User$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     buyer<T extends User$buyerArgs<ExtArgs> = {}>(args?: Subset<T, User$buyerArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    UserPresence<T extends User$UserPresenceArgs<ExtArgs> = {}>(args?: Subset<T, User$UserPresenceArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPresencePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2589,6 +2815,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.notification
+   */
+  export type User$notificationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    where?: NotificationWhereInput
+    orderBy?: NotificationOrderByWithRelationInput | NotificationOrderByWithRelationInput[]
+    cursor?: NotificationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
+  }
+
+  /**
    * User.messages
    */
   export type User$messagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2634,6 +2884,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ConversationScalarFieldEnum | ConversationScalarFieldEnum[]
+  }
+
+  /**
+   * User.UserPresence
+   */
+  export type User$UserPresenceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserPresence
+     */
+    select?: UserPresenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserPresence
+     */
+    omit?: UserPresenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserPresenceInclude<ExtArgs> | null
+    where?: UserPresenceWhereInput
+    orderBy?: UserPresenceOrderByWithRelationInput | UserPresenceOrderByWithRelationInput[]
+    cursor?: UserPresenceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserPresenceScalarFieldEnum | UserPresenceScalarFieldEnum[]
   }
 
   /**
@@ -6400,6 +6674,8 @@ export namespace Prisma {
     store?: boolean | StoreDefaultArgs<ExtArgs>
     buyer?: boolean | UserDefaultArgs<ExtArgs>
     messages?: boolean | Conversation$messagesArgs<ExtArgs>
+    notification?: boolean | Conversation$notificationArgs<ExtArgs>
+    UserPresence?: boolean | Conversation$UserPresenceArgs<ExtArgs>
     _count?: boolean | ConversationCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["conversation"]>
 
@@ -6436,6 +6712,8 @@ export namespace Prisma {
     store?: boolean | StoreDefaultArgs<ExtArgs>
     buyer?: boolean | UserDefaultArgs<ExtArgs>
     messages?: boolean | Conversation$messagesArgs<ExtArgs>
+    notification?: boolean | Conversation$notificationArgs<ExtArgs>
+    UserPresence?: boolean | Conversation$UserPresenceArgs<ExtArgs>
     _count?: boolean | ConversationCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ConversationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6453,6 +6731,8 @@ export namespace Prisma {
       store: Prisma.$StorePayload<ExtArgs>
       buyer: Prisma.$UserPayload<ExtArgs>
       messages: Prisma.$MessagePayload<ExtArgs>[]
+      notification: Prisma.$NotificationPayload<ExtArgs>[]
+      UserPresence: Prisma.$UserPresencePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6857,6 +7137,8 @@ export namespace Prisma {
     store<T extends StoreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StoreDefaultArgs<ExtArgs>>): Prisma__StoreClient<$Result.GetResult<Prisma.$StorePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     buyer<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     messages<T extends Conversation$messagesArgs<ExtArgs> = {}>(args?: Subset<T, Conversation$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    notification<T extends Conversation$notificationArgs<ExtArgs> = {}>(args?: Subset<T, Conversation$notificationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    UserPresence<T extends Conversation$UserPresenceArgs<ExtArgs> = {}>(args?: Subset<T, Conversation$UserPresenceArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPresencePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7308,6 +7590,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: MessageScalarFieldEnum | MessageScalarFieldEnum[]
+  }
+
+  /**
+   * Conversation.notification
+   */
+  export type Conversation$notificationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    where?: NotificationWhereInput
+    orderBy?: NotificationOrderByWithRelationInput | NotificationOrderByWithRelationInput[]
+    cursor?: NotificationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
+  }
+
+  /**
+   * Conversation.UserPresence
+   */
+  export type Conversation$UserPresenceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserPresence
+     */
+    select?: UserPresenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserPresence
+     */
+    omit?: UserPresenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserPresenceInclude<ExtArgs> | null
+    where?: UserPresenceWhereInput
+    orderBy?: UserPresenceOrderByWithRelationInput | UserPresenceOrderByWithRelationInput[]
+    cursor?: UserPresenceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserPresenceScalarFieldEnum | UserPresenceScalarFieldEnum[]
   }
 
   /**
@@ -8409,6 +8739,2144 @@ export namespace Prisma {
 
 
   /**
+   * Model Notification
+   */
+
+  export type AggregateNotification = {
+    _count: NotificationCountAggregateOutputType | null
+    _min: NotificationMinAggregateOutputType | null
+    _max: NotificationMaxAggregateOutputType | null
+  }
+
+  export type NotificationMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    conversationId: string | null
+    message: string | null
+    isRead: boolean | null
+    createdAt: Date | null
+  }
+
+  export type NotificationMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    conversationId: string | null
+    message: string | null
+    isRead: boolean | null
+    createdAt: Date | null
+  }
+
+  export type NotificationCountAggregateOutputType = {
+    id: number
+    userId: number
+    conversationId: number
+    message: number
+    isRead: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type NotificationMinAggregateInputType = {
+    id?: true
+    userId?: true
+    conversationId?: true
+    message?: true
+    isRead?: true
+    createdAt?: true
+  }
+
+  export type NotificationMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    conversationId?: true
+    message?: true
+    isRead?: true
+    createdAt?: true
+  }
+
+  export type NotificationCountAggregateInputType = {
+    id?: true
+    userId?: true
+    conversationId?: true
+    message?: true
+    isRead?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type NotificationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Notification to aggregate.
+     */
+    where?: NotificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Notifications to fetch.
+     */
+    orderBy?: NotificationOrderByWithRelationInput | NotificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: NotificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Notifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Notifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Notifications
+    **/
+    _count?: true | NotificationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: NotificationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: NotificationMaxAggregateInputType
+  }
+
+  export type GetNotificationAggregateType<T extends NotificationAggregateArgs> = {
+        [P in keyof T & keyof AggregateNotification]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateNotification[P]>
+      : GetScalarType<T[P], AggregateNotification[P]>
+  }
+
+
+
+
+  export type NotificationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NotificationWhereInput
+    orderBy?: NotificationOrderByWithAggregationInput | NotificationOrderByWithAggregationInput[]
+    by: NotificationScalarFieldEnum[] | NotificationScalarFieldEnum
+    having?: NotificationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: NotificationCountAggregateInputType | true
+    _min?: NotificationMinAggregateInputType
+    _max?: NotificationMaxAggregateInputType
+  }
+
+  export type NotificationGroupByOutputType = {
+    id: string
+    userId: string
+    conversationId: string
+    message: string
+    isRead: boolean
+    createdAt: Date
+    _count: NotificationCountAggregateOutputType | null
+    _min: NotificationMinAggregateOutputType | null
+    _max: NotificationMaxAggregateOutputType | null
+  }
+
+  type GetNotificationGroupByPayload<T extends NotificationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<NotificationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof NotificationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], NotificationGroupByOutputType[P]>
+            : GetScalarType<T[P], NotificationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type NotificationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    conversationId?: boolean
+    message?: boolean
+    isRead?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    conversation?: boolean | ConversationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["notification"]>
+
+  export type NotificationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    conversationId?: boolean
+    message?: boolean
+    isRead?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    conversation?: boolean | ConversationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["notification"]>
+
+  export type NotificationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    conversationId?: boolean
+    message?: boolean
+    isRead?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    conversation?: boolean | ConversationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["notification"]>
+
+  export type NotificationSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    conversationId?: boolean
+    message?: boolean
+    isRead?: boolean
+    createdAt?: boolean
+  }
+
+  export type NotificationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "conversationId" | "message" | "isRead" | "createdAt", ExtArgs["result"]["notification"]>
+  export type NotificationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    conversation?: boolean | ConversationDefaultArgs<ExtArgs>
+  }
+  export type NotificationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    conversation?: boolean | ConversationDefaultArgs<ExtArgs>
+  }
+  export type NotificationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    conversation?: boolean | ConversationDefaultArgs<ExtArgs>
+  }
+
+  export type $NotificationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Notification"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      conversation: Prisma.$ConversationPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      conversationId: string
+      message: string
+      isRead: boolean
+      createdAt: Date
+    }, ExtArgs["result"]["notification"]>
+    composites: {}
+  }
+
+  type NotificationGetPayload<S extends boolean | null | undefined | NotificationDefaultArgs> = $Result.GetResult<Prisma.$NotificationPayload, S>
+
+  type NotificationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<NotificationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: NotificationCountAggregateInputType | true
+    }
+
+  export interface NotificationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Notification'], meta: { name: 'Notification' } }
+    /**
+     * Find zero or one Notification that matches the filter.
+     * @param {NotificationFindUniqueArgs} args - Arguments to find a Notification
+     * @example
+     * // Get one Notification
+     * const notification = await prisma.notification.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends NotificationFindUniqueArgs>(args: SelectSubset<T, NotificationFindUniqueArgs<ExtArgs>>): Prisma__NotificationClient<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Notification that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {NotificationFindUniqueOrThrowArgs} args - Arguments to find a Notification
+     * @example
+     * // Get one Notification
+     * const notification = await prisma.notification.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends NotificationFindUniqueOrThrowArgs>(args: SelectSubset<T, NotificationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__NotificationClient<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Notification that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationFindFirstArgs} args - Arguments to find a Notification
+     * @example
+     * // Get one Notification
+     * const notification = await prisma.notification.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends NotificationFindFirstArgs>(args?: SelectSubset<T, NotificationFindFirstArgs<ExtArgs>>): Prisma__NotificationClient<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Notification that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationFindFirstOrThrowArgs} args - Arguments to find a Notification
+     * @example
+     * // Get one Notification
+     * const notification = await prisma.notification.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends NotificationFindFirstOrThrowArgs>(args?: SelectSubset<T, NotificationFindFirstOrThrowArgs<ExtArgs>>): Prisma__NotificationClient<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Notifications that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Notifications
+     * const notifications = await prisma.notification.findMany()
+     * 
+     * // Get first 10 Notifications
+     * const notifications = await prisma.notification.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const notificationWithIdOnly = await prisma.notification.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends NotificationFindManyArgs>(args?: SelectSubset<T, NotificationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Notification.
+     * @param {NotificationCreateArgs} args - Arguments to create a Notification.
+     * @example
+     * // Create one Notification
+     * const Notification = await prisma.notification.create({
+     *   data: {
+     *     // ... data to create a Notification
+     *   }
+     * })
+     * 
+     */
+    create<T extends NotificationCreateArgs>(args: SelectSubset<T, NotificationCreateArgs<ExtArgs>>): Prisma__NotificationClient<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Notifications.
+     * @param {NotificationCreateManyArgs} args - Arguments to create many Notifications.
+     * @example
+     * // Create many Notifications
+     * const notification = await prisma.notification.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends NotificationCreateManyArgs>(args?: SelectSubset<T, NotificationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Notifications and returns the data saved in the database.
+     * @param {NotificationCreateManyAndReturnArgs} args - Arguments to create many Notifications.
+     * @example
+     * // Create many Notifications
+     * const notification = await prisma.notification.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Notifications and only return the `id`
+     * const notificationWithIdOnly = await prisma.notification.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends NotificationCreateManyAndReturnArgs>(args?: SelectSubset<T, NotificationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Notification.
+     * @param {NotificationDeleteArgs} args - Arguments to delete one Notification.
+     * @example
+     * // Delete one Notification
+     * const Notification = await prisma.notification.delete({
+     *   where: {
+     *     // ... filter to delete one Notification
+     *   }
+     * })
+     * 
+     */
+    delete<T extends NotificationDeleteArgs>(args: SelectSubset<T, NotificationDeleteArgs<ExtArgs>>): Prisma__NotificationClient<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Notification.
+     * @param {NotificationUpdateArgs} args - Arguments to update one Notification.
+     * @example
+     * // Update one Notification
+     * const notification = await prisma.notification.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends NotificationUpdateArgs>(args: SelectSubset<T, NotificationUpdateArgs<ExtArgs>>): Prisma__NotificationClient<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Notifications.
+     * @param {NotificationDeleteManyArgs} args - Arguments to filter Notifications to delete.
+     * @example
+     * // Delete a few Notifications
+     * const { count } = await prisma.notification.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends NotificationDeleteManyArgs>(args?: SelectSubset<T, NotificationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Notifications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Notifications
+     * const notification = await prisma.notification.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends NotificationUpdateManyArgs>(args: SelectSubset<T, NotificationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Notifications and returns the data updated in the database.
+     * @param {NotificationUpdateManyAndReturnArgs} args - Arguments to update many Notifications.
+     * @example
+     * // Update many Notifications
+     * const notification = await prisma.notification.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Notifications and only return the `id`
+     * const notificationWithIdOnly = await prisma.notification.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends NotificationUpdateManyAndReturnArgs>(args: SelectSubset<T, NotificationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Notification.
+     * @param {NotificationUpsertArgs} args - Arguments to update or create a Notification.
+     * @example
+     * // Update or create a Notification
+     * const notification = await prisma.notification.upsert({
+     *   create: {
+     *     // ... data to create a Notification
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Notification we want to update
+     *   }
+     * })
+     */
+    upsert<T extends NotificationUpsertArgs>(args: SelectSubset<T, NotificationUpsertArgs<ExtArgs>>): Prisma__NotificationClient<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Notifications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationCountArgs} args - Arguments to filter Notifications to count.
+     * @example
+     * // Count the number of Notifications
+     * const count = await prisma.notification.count({
+     *   where: {
+     *     // ... the filter for the Notifications we want to count
+     *   }
+     * })
+    **/
+    count<T extends NotificationCountArgs>(
+      args?: Subset<T, NotificationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], NotificationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Notification.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends NotificationAggregateArgs>(args: Subset<T, NotificationAggregateArgs>): Prisma.PrismaPromise<GetNotificationAggregateType<T>>
+
+    /**
+     * Group by Notification.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends NotificationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: NotificationGroupByArgs['orderBy'] }
+        : { orderBy?: NotificationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, NotificationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetNotificationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Notification model
+   */
+  readonly fields: NotificationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Notification.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__NotificationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    conversation<T extends ConversationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ConversationDefaultArgs<ExtArgs>>): Prisma__ConversationClient<$Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Notification model
+   */
+  interface NotificationFieldRefs {
+    readonly id: FieldRef<"Notification", 'String'>
+    readonly userId: FieldRef<"Notification", 'String'>
+    readonly conversationId: FieldRef<"Notification", 'String'>
+    readonly message: FieldRef<"Notification", 'String'>
+    readonly isRead: FieldRef<"Notification", 'Boolean'>
+    readonly createdAt: FieldRef<"Notification", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Notification findUnique
+   */
+  export type NotificationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * Filter, which Notification to fetch.
+     */
+    where: NotificationWhereUniqueInput
+  }
+
+  /**
+   * Notification findUniqueOrThrow
+   */
+  export type NotificationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * Filter, which Notification to fetch.
+     */
+    where: NotificationWhereUniqueInput
+  }
+
+  /**
+   * Notification findFirst
+   */
+  export type NotificationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * Filter, which Notification to fetch.
+     */
+    where?: NotificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Notifications to fetch.
+     */
+    orderBy?: NotificationOrderByWithRelationInput | NotificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Notifications.
+     */
+    cursor?: NotificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Notifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Notifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Notifications.
+     */
+    distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
+  }
+
+  /**
+   * Notification findFirstOrThrow
+   */
+  export type NotificationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * Filter, which Notification to fetch.
+     */
+    where?: NotificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Notifications to fetch.
+     */
+    orderBy?: NotificationOrderByWithRelationInput | NotificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Notifications.
+     */
+    cursor?: NotificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Notifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Notifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Notifications.
+     */
+    distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
+  }
+
+  /**
+   * Notification findMany
+   */
+  export type NotificationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * Filter, which Notifications to fetch.
+     */
+    where?: NotificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Notifications to fetch.
+     */
+    orderBy?: NotificationOrderByWithRelationInput | NotificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Notifications.
+     */
+    cursor?: NotificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Notifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Notifications.
+     */
+    skip?: number
+    distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
+  }
+
+  /**
+   * Notification create
+   */
+  export type NotificationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Notification.
+     */
+    data: XOR<NotificationCreateInput, NotificationUncheckedCreateInput>
+  }
+
+  /**
+   * Notification createMany
+   */
+  export type NotificationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Notifications.
+     */
+    data: NotificationCreateManyInput | NotificationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Notification createManyAndReturn
+   */
+  export type NotificationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * The data used to create many Notifications.
+     */
+    data: NotificationCreateManyInput | NotificationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Notification update
+   */
+  export type NotificationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Notification.
+     */
+    data: XOR<NotificationUpdateInput, NotificationUncheckedUpdateInput>
+    /**
+     * Choose, which Notification to update.
+     */
+    where: NotificationWhereUniqueInput
+  }
+
+  /**
+   * Notification updateMany
+   */
+  export type NotificationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Notifications.
+     */
+    data: XOR<NotificationUpdateManyMutationInput, NotificationUncheckedUpdateManyInput>
+    /**
+     * Filter which Notifications to update
+     */
+    where?: NotificationWhereInput
+    /**
+     * Limit how many Notifications to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Notification updateManyAndReturn
+   */
+  export type NotificationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * The data used to update Notifications.
+     */
+    data: XOR<NotificationUpdateManyMutationInput, NotificationUncheckedUpdateManyInput>
+    /**
+     * Filter which Notifications to update
+     */
+    where?: NotificationWhereInput
+    /**
+     * Limit how many Notifications to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Notification upsert
+   */
+  export type NotificationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Notification to update in case it exists.
+     */
+    where: NotificationWhereUniqueInput
+    /**
+     * In case the Notification found by the `where` argument doesn't exist, create a new Notification with this data.
+     */
+    create: XOR<NotificationCreateInput, NotificationUncheckedCreateInput>
+    /**
+     * In case the Notification was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<NotificationUpdateInput, NotificationUncheckedUpdateInput>
+  }
+
+  /**
+   * Notification delete
+   */
+  export type NotificationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * Filter which Notification to delete.
+     */
+    where: NotificationWhereUniqueInput
+  }
+
+  /**
+   * Notification deleteMany
+   */
+  export type NotificationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Notifications to delete
+     */
+    where?: NotificationWhereInput
+    /**
+     * Limit how many Notifications to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Notification without action
+   */
+  export type NotificationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model UserPresence
+   */
+
+  export type AggregateUserPresence = {
+    _count: UserPresenceCountAggregateOutputType | null
+    _min: UserPresenceMinAggregateOutputType | null
+    _max: UserPresenceMaxAggregateOutputType | null
+  }
+
+  export type UserPresenceMinAggregateOutputType = {
+    userId: string | null
+    conversationId: string | null
+    updatedAt: Date | null
+  }
+
+  export type UserPresenceMaxAggregateOutputType = {
+    userId: string | null
+    conversationId: string | null
+    updatedAt: Date | null
+  }
+
+  export type UserPresenceCountAggregateOutputType = {
+    userId: number
+    conversationId: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type UserPresenceMinAggregateInputType = {
+    userId?: true
+    conversationId?: true
+    updatedAt?: true
+  }
+
+  export type UserPresenceMaxAggregateInputType = {
+    userId?: true
+    conversationId?: true
+    updatedAt?: true
+  }
+
+  export type UserPresenceCountAggregateInputType = {
+    userId?: true
+    conversationId?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type UserPresenceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserPresence to aggregate.
+     */
+    where?: UserPresenceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserPresences to fetch.
+     */
+    orderBy?: UserPresenceOrderByWithRelationInput | UserPresenceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserPresenceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserPresences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserPresences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UserPresences
+    **/
+    _count?: true | UserPresenceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserPresenceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserPresenceMaxAggregateInputType
+  }
+
+  export type GetUserPresenceAggregateType<T extends UserPresenceAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserPresence]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserPresence[P]>
+      : GetScalarType<T[P], AggregateUserPresence[P]>
+  }
+
+
+
+
+  export type UserPresenceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserPresenceWhereInput
+    orderBy?: UserPresenceOrderByWithAggregationInput | UserPresenceOrderByWithAggregationInput[]
+    by: UserPresenceScalarFieldEnum[] | UserPresenceScalarFieldEnum
+    having?: UserPresenceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserPresenceCountAggregateInputType | true
+    _min?: UserPresenceMinAggregateInputType
+    _max?: UserPresenceMaxAggregateInputType
+  }
+
+  export type UserPresenceGroupByOutputType = {
+    userId: string
+    conversationId: string | null
+    updatedAt: Date
+    _count: UserPresenceCountAggregateOutputType | null
+    _min: UserPresenceMinAggregateOutputType | null
+    _max: UserPresenceMaxAggregateOutputType | null
+  }
+
+  type GetUserPresenceGroupByPayload<T extends UserPresenceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserPresenceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserPresenceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserPresenceGroupByOutputType[P]>
+            : GetScalarType<T[P], UserPresenceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserPresenceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    conversationId?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    conversation?: boolean | UserPresence$conversationArgs<ExtArgs>
+  }, ExtArgs["result"]["userPresence"]>
+
+  export type UserPresenceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    conversationId?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    conversation?: boolean | UserPresence$conversationArgs<ExtArgs>
+  }, ExtArgs["result"]["userPresence"]>
+
+  export type UserPresenceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    conversationId?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    conversation?: boolean | UserPresence$conversationArgs<ExtArgs>
+  }, ExtArgs["result"]["userPresence"]>
+
+  export type UserPresenceSelectScalar = {
+    userId?: boolean
+    conversationId?: boolean
+    updatedAt?: boolean
+  }
+
+  export type UserPresenceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "conversationId" | "updatedAt", ExtArgs["result"]["userPresence"]>
+  export type UserPresenceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    conversation?: boolean | UserPresence$conversationArgs<ExtArgs>
+  }
+  export type UserPresenceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    conversation?: boolean | UserPresence$conversationArgs<ExtArgs>
+  }
+  export type UserPresenceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    conversation?: boolean | UserPresence$conversationArgs<ExtArgs>
+  }
+
+  export type $UserPresencePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserPresence"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      conversation: Prisma.$ConversationPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      userId: string
+      conversationId: string | null
+      updatedAt: Date
+    }, ExtArgs["result"]["userPresence"]>
+    composites: {}
+  }
+
+  type UserPresenceGetPayload<S extends boolean | null | undefined | UserPresenceDefaultArgs> = $Result.GetResult<Prisma.$UserPresencePayload, S>
+
+  type UserPresenceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserPresenceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserPresenceCountAggregateInputType | true
+    }
+
+  export interface UserPresenceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserPresence'], meta: { name: 'UserPresence' } }
+    /**
+     * Find zero or one UserPresence that matches the filter.
+     * @param {UserPresenceFindUniqueArgs} args - Arguments to find a UserPresence
+     * @example
+     * // Get one UserPresence
+     * const userPresence = await prisma.userPresence.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserPresenceFindUniqueArgs>(args: SelectSubset<T, UserPresenceFindUniqueArgs<ExtArgs>>): Prisma__UserPresenceClient<$Result.GetResult<Prisma.$UserPresencePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UserPresence that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserPresenceFindUniqueOrThrowArgs} args - Arguments to find a UserPresence
+     * @example
+     * // Get one UserPresence
+     * const userPresence = await prisma.userPresence.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserPresenceFindUniqueOrThrowArgs>(args: SelectSubset<T, UserPresenceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserPresenceClient<$Result.GetResult<Prisma.$UserPresencePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserPresence that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserPresenceFindFirstArgs} args - Arguments to find a UserPresence
+     * @example
+     * // Get one UserPresence
+     * const userPresence = await prisma.userPresence.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserPresenceFindFirstArgs>(args?: SelectSubset<T, UserPresenceFindFirstArgs<ExtArgs>>): Prisma__UserPresenceClient<$Result.GetResult<Prisma.$UserPresencePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserPresence that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserPresenceFindFirstOrThrowArgs} args - Arguments to find a UserPresence
+     * @example
+     * // Get one UserPresence
+     * const userPresence = await prisma.userPresence.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserPresenceFindFirstOrThrowArgs>(args?: SelectSubset<T, UserPresenceFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserPresenceClient<$Result.GetResult<Prisma.$UserPresencePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UserPresences that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserPresenceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserPresences
+     * const userPresences = await prisma.userPresence.findMany()
+     * 
+     * // Get first 10 UserPresences
+     * const userPresences = await prisma.userPresence.findMany({ take: 10 })
+     * 
+     * // Only select the `userId`
+     * const userPresenceWithUserIdOnly = await prisma.userPresence.findMany({ select: { userId: true } })
+     * 
+     */
+    findMany<T extends UserPresenceFindManyArgs>(args?: SelectSubset<T, UserPresenceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPresencePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UserPresence.
+     * @param {UserPresenceCreateArgs} args - Arguments to create a UserPresence.
+     * @example
+     * // Create one UserPresence
+     * const UserPresence = await prisma.userPresence.create({
+     *   data: {
+     *     // ... data to create a UserPresence
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserPresenceCreateArgs>(args: SelectSubset<T, UserPresenceCreateArgs<ExtArgs>>): Prisma__UserPresenceClient<$Result.GetResult<Prisma.$UserPresencePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UserPresences.
+     * @param {UserPresenceCreateManyArgs} args - Arguments to create many UserPresences.
+     * @example
+     * // Create many UserPresences
+     * const userPresence = await prisma.userPresence.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserPresenceCreateManyArgs>(args?: SelectSubset<T, UserPresenceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many UserPresences and returns the data saved in the database.
+     * @param {UserPresenceCreateManyAndReturnArgs} args - Arguments to create many UserPresences.
+     * @example
+     * // Create many UserPresences
+     * const userPresence = await prisma.userPresence.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many UserPresences and only return the `userId`
+     * const userPresenceWithUserIdOnly = await prisma.userPresence.createManyAndReturn({
+     *   select: { userId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UserPresenceCreateManyAndReturnArgs>(args?: SelectSubset<T, UserPresenceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPresencePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a UserPresence.
+     * @param {UserPresenceDeleteArgs} args - Arguments to delete one UserPresence.
+     * @example
+     * // Delete one UserPresence
+     * const UserPresence = await prisma.userPresence.delete({
+     *   where: {
+     *     // ... filter to delete one UserPresence
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserPresenceDeleteArgs>(args: SelectSubset<T, UserPresenceDeleteArgs<ExtArgs>>): Prisma__UserPresenceClient<$Result.GetResult<Prisma.$UserPresencePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UserPresence.
+     * @param {UserPresenceUpdateArgs} args - Arguments to update one UserPresence.
+     * @example
+     * // Update one UserPresence
+     * const userPresence = await prisma.userPresence.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserPresenceUpdateArgs>(args: SelectSubset<T, UserPresenceUpdateArgs<ExtArgs>>): Prisma__UserPresenceClient<$Result.GetResult<Prisma.$UserPresencePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UserPresences.
+     * @param {UserPresenceDeleteManyArgs} args - Arguments to filter UserPresences to delete.
+     * @example
+     * // Delete a few UserPresences
+     * const { count } = await prisma.userPresence.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserPresenceDeleteManyArgs>(args?: SelectSubset<T, UserPresenceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserPresences.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserPresenceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserPresences
+     * const userPresence = await prisma.userPresence.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserPresenceUpdateManyArgs>(args: SelectSubset<T, UserPresenceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserPresences and returns the data updated in the database.
+     * @param {UserPresenceUpdateManyAndReturnArgs} args - Arguments to update many UserPresences.
+     * @example
+     * // Update many UserPresences
+     * const userPresence = await prisma.userPresence.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more UserPresences and only return the `userId`
+     * const userPresenceWithUserIdOnly = await prisma.userPresence.updateManyAndReturn({
+     *   select: { userId: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UserPresenceUpdateManyAndReturnArgs>(args: SelectSubset<T, UserPresenceUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPresencePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one UserPresence.
+     * @param {UserPresenceUpsertArgs} args - Arguments to update or create a UserPresence.
+     * @example
+     * // Update or create a UserPresence
+     * const userPresence = await prisma.userPresence.upsert({
+     *   create: {
+     *     // ... data to create a UserPresence
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserPresence we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserPresenceUpsertArgs>(args: SelectSubset<T, UserPresenceUpsertArgs<ExtArgs>>): Prisma__UserPresenceClient<$Result.GetResult<Prisma.$UserPresencePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of UserPresences.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserPresenceCountArgs} args - Arguments to filter UserPresences to count.
+     * @example
+     * // Count the number of UserPresences
+     * const count = await prisma.userPresence.count({
+     *   where: {
+     *     // ... the filter for the UserPresences we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserPresenceCountArgs>(
+      args?: Subset<T, UserPresenceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserPresenceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UserPresence.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserPresenceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserPresenceAggregateArgs>(args: Subset<T, UserPresenceAggregateArgs>): Prisma.PrismaPromise<GetUserPresenceAggregateType<T>>
+
+    /**
+     * Group by UserPresence.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserPresenceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserPresenceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserPresenceGroupByArgs['orderBy'] }
+        : { orderBy?: UserPresenceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserPresenceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserPresenceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UserPresence model
+   */
+  readonly fields: UserPresenceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserPresence.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserPresenceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    conversation<T extends UserPresence$conversationArgs<ExtArgs> = {}>(args?: Subset<T, UserPresence$conversationArgs<ExtArgs>>): Prisma__ConversationClient<$Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UserPresence model
+   */
+  interface UserPresenceFieldRefs {
+    readonly userId: FieldRef<"UserPresence", 'String'>
+    readonly conversationId: FieldRef<"UserPresence", 'String'>
+    readonly updatedAt: FieldRef<"UserPresence", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UserPresence findUnique
+   */
+  export type UserPresenceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserPresence
+     */
+    select?: UserPresenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserPresence
+     */
+    omit?: UserPresenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserPresenceInclude<ExtArgs> | null
+    /**
+     * Filter, which UserPresence to fetch.
+     */
+    where: UserPresenceWhereUniqueInput
+  }
+
+  /**
+   * UserPresence findUniqueOrThrow
+   */
+  export type UserPresenceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserPresence
+     */
+    select?: UserPresenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserPresence
+     */
+    omit?: UserPresenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserPresenceInclude<ExtArgs> | null
+    /**
+     * Filter, which UserPresence to fetch.
+     */
+    where: UserPresenceWhereUniqueInput
+  }
+
+  /**
+   * UserPresence findFirst
+   */
+  export type UserPresenceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserPresence
+     */
+    select?: UserPresenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserPresence
+     */
+    omit?: UserPresenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserPresenceInclude<ExtArgs> | null
+    /**
+     * Filter, which UserPresence to fetch.
+     */
+    where?: UserPresenceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserPresences to fetch.
+     */
+    orderBy?: UserPresenceOrderByWithRelationInput | UserPresenceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserPresences.
+     */
+    cursor?: UserPresenceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserPresences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserPresences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserPresences.
+     */
+    distinct?: UserPresenceScalarFieldEnum | UserPresenceScalarFieldEnum[]
+  }
+
+  /**
+   * UserPresence findFirstOrThrow
+   */
+  export type UserPresenceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserPresence
+     */
+    select?: UserPresenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserPresence
+     */
+    omit?: UserPresenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserPresenceInclude<ExtArgs> | null
+    /**
+     * Filter, which UserPresence to fetch.
+     */
+    where?: UserPresenceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserPresences to fetch.
+     */
+    orderBy?: UserPresenceOrderByWithRelationInput | UserPresenceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserPresences.
+     */
+    cursor?: UserPresenceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserPresences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserPresences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserPresences.
+     */
+    distinct?: UserPresenceScalarFieldEnum | UserPresenceScalarFieldEnum[]
+  }
+
+  /**
+   * UserPresence findMany
+   */
+  export type UserPresenceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserPresence
+     */
+    select?: UserPresenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserPresence
+     */
+    omit?: UserPresenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserPresenceInclude<ExtArgs> | null
+    /**
+     * Filter, which UserPresences to fetch.
+     */
+    where?: UserPresenceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserPresences to fetch.
+     */
+    orderBy?: UserPresenceOrderByWithRelationInput | UserPresenceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UserPresences.
+     */
+    cursor?: UserPresenceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserPresences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserPresences.
+     */
+    skip?: number
+    distinct?: UserPresenceScalarFieldEnum | UserPresenceScalarFieldEnum[]
+  }
+
+  /**
+   * UserPresence create
+   */
+  export type UserPresenceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserPresence
+     */
+    select?: UserPresenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserPresence
+     */
+    omit?: UserPresenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserPresenceInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UserPresence.
+     */
+    data: XOR<UserPresenceCreateInput, UserPresenceUncheckedCreateInput>
+  }
+
+  /**
+   * UserPresence createMany
+   */
+  export type UserPresenceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UserPresences.
+     */
+    data: UserPresenceCreateManyInput | UserPresenceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * UserPresence createManyAndReturn
+   */
+  export type UserPresenceCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserPresence
+     */
+    select?: UserPresenceSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserPresence
+     */
+    omit?: UserPresenceOmit<ExtArgs> | null
+    /**
+     * The data used to create many UserPresences.
+     */
+    data: UserPresenceCreateManyInput | UserPresenceCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserPresenceIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserPresence update
+   */
+  export type UserPresenceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserPresence
+     */
+    select?: UserPresenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserPresence
+     */
+    omit?: UserPresenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserPresenceInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UserPresence.
+     */
+    data: XOR<UserPresenceUpdateInput, UserPresenceUncheckedUpdateInput>
+    /**
+     * Choose, which UserPresence to update.
+     */
+    where: UserPresenceWhereUniqueInput
+  }
+
+  /**
+   * UserPresence updateMany
+   */
+  export type UserPresenceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserPresences.
+     */
+    data: XOR<UserPresenceUpdateManyMutationInput, UserPresenceUncheckedUpdateManyInput>
+    /**
+     * Filter which UserPresences to update
+     */
+    where?: UserPresenceWhereInput
+    /**
+     * Limit how many UserPresences to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserPresence updateManyAndReturn
+   */
+  export type UserPresenceUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserPresence
+     */
+    select?: UserPresenceSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserPresence
+     */
+    omit?: UserPresenceOmit<ExtArgs> | null
+    /**
+     * The data used to update UserPresences.
+     */
+    data: XOR<UserPresenceUpdateManyMutationInput, UserPresenceUncheckedUpdateManyInput>
+    /**
+     * Filter which UserPresences to update
+     */
+    where?: UserPresenceWhereInput
+    /**
+     * Limit how many UserPresences to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserPresenceIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserPresence upsert
+   */
+  export type UserPresenceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserPresence
+     */
+    select?: UserPresenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserPresence
+     */
+    omit?: UserPresenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserPresenceInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UserPresence to update in case it exists.
+     */
+    where: UserPresenceWhereUniqueInput
+    /**
+     * In case the UserPresence found by the `where` argument doesn't exist, create a new UserPresence with this data.
+     */
+    create: XOR<UserPresenceCreateInput, UserPresenceUncheckedCreateInput>
+    /**
+     * In case the UserPresence was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserPresenceUpdateInput, UserPresenceUncheckedUpdateInput>
+  }
+
+  /**
+   * UserPresence delete
+   */
+  export type UserPresenceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserPresence
+     */
+    select?: UserPresenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserPresence
+     */
+    omit?: UserPresenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserPresenceInclude<ExtArgs> | null
+    /**
+     * Filter which UserPresence to delete.
+     */
+    where: UserPresenceWhereUniqueInput
+  }
+
+  /**
+   * UserPresence deleteMany
+   */
+  export type UserPresenceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserPresences to delete
+     */
+    where?: UserPresenceWhereInput
+    /**
+     * Limit how many UserPresences to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserPresence.conversation
+   */
+  export type UserPresence$conversationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Conversation
+     */
+    select?: ConversationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Conversation
+     */
+    omit?: ConversationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConversationInclude<ExtArgs> | null
+    where?: ConversationWhereInput
+  }
+
+  /**
+   * UserPresence without action
+   */
+  export type UserPresenceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserPresence
+     */
+    select?: UserPresenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserPresence
+     */
+    omit?: UserPresenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserPresenceInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -8507,6 +10975,27 @@ export namespace Prisma {
   };
 
   export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
+
+
+  export const NotificationScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    conversationId: 'conversationId',
+    message: 'message',
+    isRead: 'isRead',
+    createdAt: 'createdAt'
+  };
+
+  export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
+
+
+  export const UserPresenceScalarFieldEnum: {
+    userId: 'userId',
+    conversationId: 'conversationId',
+    updatedAt: 'updatedAt'
+  };
+
+  export type UserPresenceScalarFieldEnum = (typeof UserPresenceScalarFieldEnum)[keyof typeof UserPresenceScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -8631,8 +11120,10 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     stores?: StoreListRelationFilter
     likedStores?: StoreLikeListRelationFilter
+    notification?: NotificationListRelationFilter
     messages?: MessageListRelationFilter
     buyer?: ConversationListRelationFilter
+    UserPresence?: UserPresenceListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -8645,8 +11136,10 @@ export namespace Prisma {
     createdAt?: SortOrder
     stores?: StoreOrderByRelationAggregateInput
     likedStores?: StoreLikeOrderByRelationAggregateInput
+    notification?: NotificationOrderByRelationAggregateInput
     messages?: MessageOrderByRelationAggregateInput
     buyer?: ConversationOrderByRelationAggregateInput
+    UserPresence?: UserPresenceOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -8662,8 +11155,10 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     stores?: StoreListRelationFilter
     likedStores?: StoreLikeListRelationFilter
+    notification?: NotificationListRelationFilter
     messages?: MessageListRelationFilter
     buyer?: ConversationListRelationFilter
+    UserPresence?: UserPresenceListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -8976,6 +11471,8 @@ export namespace Prisma {
     store?: XOR<StoreScalarRelationFilter, StoreWhereInput>
     buyer?: XOR<UserScalarRelationFilter, UserWhereInput>
     messages?: MessageListRelationFilter
+    notification?: NotificationListRelationFilter
+    UserPresence?: UserPresenceListRelationFilter
   }
 
   export type ConversationOrderByWithRelationInput = {
@@ -8987,6 +11484,8 @@ export namespace Prisma {
     store?: StoreOrderByWithRelationInput
     buyer?: UserOrderByWithRelationInput
     messages?: MessageOrderByRelationAggregateInput
+    notification?: NotificationOrderByRelationAggregateInput
+    UserPresence?: UserPresenceOrderByRelationAggregateInput
   }
 
   export type ConversationWhereUniqueInput = Prisma.AtLeast<{
@@ -9002,6 +11501,8 @@ export namespace Prisma {
     store?: XOR<StoreScalarRelationFilter, StoreWhereInput>
     buyer?: XOR<UserScalarRelationFilter, UserWhereInput>
     messages?: MessageListRelationFilter
+    notification?: NotificationListRelationFilter
+    UserPresence?: UserPresenceListRelationFilter
   }, "id" | "storeId_buyerId">
 
   export type ConversationOrderByWithAggregationInput = {
@@ -9089,6 +11590,117 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Message"> | Date | string
   }
 
+  export type NotificationWhereInput = {
+    AND?: NotificationWhereInput | NotificationWhereInput[]
+    OR?: NotificationWhereInput[]
+    NOT?: NotificationWhereInput | NotificationWhereInput[]
+    id?: StringFilter<"Notification"> | string
+    userId?: StringFilter<"Notification"> | string
+    conversationId?: StringFilter<"Notification"> | string
+    message?: StringFilter<"Notification"> | string
+    isRead?: BoolFilter<"Notification"> | boolean
+    createdAt?: DateTimeFilter<"Notification"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    conversation?: XOR<ConversationScalarRelationFilter, ConversationWhereInput>
+  }
+
+  export type NotificationOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    conversationId?: SortOrder
+    message?: SortOrder
+    isRead?: SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    conversation?: ConversationOrderByWithRelationInput
+  }
+
+  export type NotificationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: NotificationWhereInput | NotificationWhereInput[]
+    OR?: NotificationWhereInput[]
+    NOT?: NotificationWhereInput | NotificationWhereInput[]
+    userId?: StringFilter<"Notification"> | string
+    conversationId?: StringFilter<"Notification"> | string
+    message?: StringFilter<"Notification"> | string
+    isRead?: BoolFilter<"Notification"> | boolean
+    createdAt?: DateTimeFilter<"Notification"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    conversation?: XOR<ConversationScalarRelationFilter, ConversationWhereInput>
+  }, "id">
+
+  export type NotificationOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    conversationId?: SortOrder
+    message?: SortOrder
+    isRead?: SortOrder
+    createdAt?: SortOrder
+    _count?: NotificationCountOrderByAggregateInput
+    _max?: NotificationMaxOrderByAggregateInput
+    _min?: NotificationMinOrderByAggregateInput
+  }
+
+  export type NotificationScalarWhereWithAggregatesInput = {
+    AND?: NotificationScalarWhereWithAggregatesInput | NotificationScalarWhereWithAggregatesInput[]
+    OR?: NotificationScalarWhereWithAggregatesInput[]
+    NOT?: NotificationScalarWhereWithAggregatesInput | NotificationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Notification"> | string
+    userId?: StringWithAggregatesFilter<"Notification"> | string
+    conversationId?: StringWithAggregatesFilter<"Notification"> | string
+    message?: StringWithAggregatesFilter<"Notification"> | string
+    isRead?: BoolWithAggregatesFilter<"Notification"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Notification"> | Date | string
+  }
+
+  export type UserPresenceWhereInput = {
+    AND?: UserPresenceWhereInput | UserPresenceWhereInput[]
+    OR?: UserPresenceWhereInput[]
+    NOT?: UserPresenceWhereInput | UserPresenceWhereInput[]
+    userId?: StringFilter<"UserPresence"> | string
+    conversationId?: StringNullableFilter<"UserPresence"> | string | null
+    updatedAt?: DateTimeFilter<"UserPresence"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    conversation?: XOR<ConversationNullableScalarRelationFilter, ConversationWhereInput> | null
+  }
+
+  export type UserPresenceOrderByWithRelationInput = {
+    userId?: SortOrder
+    conversationId?: SortOrderInput | SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    conversation?: ConversationOrderByWithRelationInput
+  }
+
+  export type UserPresenceWhereUniqueInput = Prisma.AtLeast<{
+    userId?: string
+    AND?: UserPresenceWhereInput | UserPresenceWhereInput[]
+    OR?: UserPresenceWhereInput[]
+    NOT?: UserPresenceWhereInput | UserPresenceWhereInput[]
+    conversationId?: StringNullableFilter<"UserPresence"> | string | null
+    updatedAt?: DateTimeFilter<"UserPresence"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    conversation?: XOR<ConversationNullableScalarRelationFilter, ConversationWhereInput> | null
+  }, "userId">
+
+  export type UserPresenceOrderByWithAggregationInput = {
+    userId?: SortOrder
+    conversationId?: SortOrderInput | SortOrder
+    updatedAt?: SortOrder
+    _count?: UserPresenceCountOrderByAggregateInput
+    _max?: UserPresenceMaxOrderByAggregateInput
+    _min?: UserPresenceMinOrderByAggregateInput
+  }
+
+  export type UserPresenceScalarWhereWithAggregatesInput = {
+    AND?: UserPresenceScalarWhereWithAggregatesInput | UserPresenceScalarWhereWithAggregatesInput[]
+    OR?: UserPresenceScalarWhereWithAggregatesInput[]
+    NOT?: UserPresenceScalarWhereWithAggregatesInput | UserPresenceScalarWhereWithAggregatesInput[]
+    userId?: StringWithAggregatesFilter<"UserPresence"> | string
+    conversationId?: StringNullableWithAggregatesFilter<"UserPresence"> | string | null
+    updatedAt?: DateTimeWithAggregatesFilter<"UserPresence"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     name?: string | null
@@ -9099,8 +11711,10 @@ export namespace Prisma {
     createdAt?: Date | string
     stores?: StoreCreateNestedManyWithoutOwnerInput
     likedStores?: StoreLikeCreateNestedManyWithoutUserInput
+    notification?: NotificationCreateNestedManyWithoutUserInput
     messages?: MessageCreateNestedManyWithoutSenderInput
     buyer?: ConversationCreateNestedManyWithoutBuyerInput
+    UserPresence?: UserPresenceCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -9113,8 +11727,10 @@ export namespace Prisma {
     createdAt?: Date | string
     stores?: StoreUncheckedCreateNestedManyWithoutOwnerInput
     likedStores?: StoreLikeUncheckedCreateNestedManyWithoutUserInput
+    notification?: NotificationUncheckedCreateNestedManyWithoutUserInput
     messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
     buyer?: ConversationUncheckedCreateNestedManyWithoutBuyerInput
+    UserPresence?: UserPresenceUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -9127,8 +11743,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     stores?: StoreUpdateManyWithoutOwnerNestedInput
     likedStores?: StoreLikeUpdateManyWithoutUserNestedInput
+    notification?: NotificationUpdateManyWithoutUserNestedInput
     messages?: MessageUpdateManyWithoutSenderNestedInput
     buyer?: ConversationUpdateManyWithoutBuyerNestedInput
+    UserPresence?: UserPresenceUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -9141,8 +11759,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     stores?: StoreUncheckedUpdateManyWithoutOwnerNestedInput
     likedStores?: StoreLikeUncheckedUpdateManyWithoutUserNestedInput
+    notification?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     buyer?: ConversationUncheckedUpdateManyWithoutBuyerNestedInput
+    UserPresence?: UserPresenceUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -9484,6 +12104,8 @@ export namespace Prisma {
     store: StoreCreateNestedOneWithoutStoreInput
     buyer: UserCreateNestedOneWithoutBuyerInput
     messages?: MessageCreateNestedManyWithoutConversationInput
+    notification?: NotificationCreateNestedManyWithoutConversationInput
+    UserPresence?: UserPresenceCreateNestedManyWithoutConversationInput
   }
 
   export type ConversationUncheckedCreateInput = {
@@ -9493,6 +12115,8 @@ export namespace Prisma {
     createdAt?: Date | string
     lastMessageAt?: Date | string
     messages?: MessageUncheckedCreateNestedManyWithoutConversationInput
+    notification?: NotificationUncheckedCreateNestedManyWithoutConversationInput
+    UserPresence?: UserPresenceUncheckedCreateNestedManyWithoutConversationInput
   }
 
   export type ConversationUpdateInput = {
@@ -9502,6 +12126,8 @@ export namespace Prisma {
     store?: StoreUpdateOneRequiredWithoutStoreNestedInput
     buyer?: UserUpdateOneRequiredWithoutBuyerNestedInput
     messages?: MessageUpdateManyWithoutConversationNestedInput
+    notification?: NotificationUpdateManyWithoutConversationNestedInput
+    UserPresence?: UserPresenceUpdateManyWithoutConversationNestedInput
   }
 
   export type ConversationUncheckedUpdateInput = {
@@ -9511,6 +12137,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
     messages?: MessageUncheckedUpdateManyWithoutConversationNestedInput
+    notification?: NotificationUncheckedUpdateManyWithoutConversationNestedInput
+    UserPresence?: UserPresenceUncheckedUpdateManyWithoutConversationNestedInput
   }
 
   export type ConversationCreateManyInput = {
@@ -9596,6 +12224,107 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type NotificationCreateInput = {
+    id?: string
+    message: string
+    isRead?: boolean
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutNotificationInput
+    conversation: ConversationCreateNestedOneWithoutNotificationInput
+  }
+
+  export type NotificationUncheckedCreateInput = {
+    id?: string
+    userId: string
+    conversationId: string
+    message: string
+    isRead?: boolean
+    createdAt?: Date | string
+  }
+
+  export type NotificationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutNotificationNestedInput
+    conversation?: ConversationUpdateOneRequiredWithoutNotificationNestedInput
+  }
+
+  export type NotificationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    conversationId?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationCreateManyInput = {
+    id?: string
+    userId: string
+    conversationId: string
+    message: string
+    isRead?: boolean
+    createdAt?: Date | string
+  }
+
+  export type NotificationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    conversationId?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserPresenceCreateInput = {
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutUserPresenceInput
+    conversation?: ConversationCreateNestedOneWithoutUserPresenceInput
+  }
+
+  export type UserPresenceUncheckedCreateInput = {
+    userId: string
+    conversationId?: string | null
+    updatedAt?: Date | string
+  }
+
+  export type UserPresenceUpdateInput = {
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutUserPresenceNestedInput
+    conversation?: ConversationUpdateOneWithoutUserPresenceNestedInput
+  }
+
+  export type UserPresenceUncheckedUpdateInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    conversationId?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserPresenceCreateManyInput = {
+    userId: string
+    conversationId?: string | null
+    updatedAt?: Date | string
+  }
+
+  export type UserPresenceUpdateManyMutationInput = {
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserPresenceUncheckedUpdateManyInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    conversationId?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -9654,6 +12383,12 @@ export namespace Prisma {
     none?: StoreLikeWhereInput
   }
 
+  export type NotificationListRelationFilter = {
+    every?: NotificationWhereInput
+    some?: NotificationWhereInput
+    none?: NotificationWhereInput
+  }
+
   export type MessageListRelationFilter = {
     every?: MessageWhereInput
     some?: MessageWhereInput
@@ -9664,6 +12399,12 @@ export namespace Prisma {
     every?: ConversationWhereInput
     some?: ConversationWhereInput
     none?: ConversationWhereInput
+  }
+
+  export type UserPresenceListRelationFilter = {
+    every?: UserPresenceWhereInput
+    some?: UserPresenceWhereInput
+    none?: UserPresenceWhereInput
   }
 
   export type SortOrderInput = {
@@ -9679,11 +12420,19 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type NotificationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type MessageOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type ConversationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UserPresenceOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -10113,6 +12862,56 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
+  export type NotificationCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    conversationId?: SortOrder
+    message?: SortOrder
+    isRead?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type NotificationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    conversationId?: SortOrder
+    message?: SortOrder
+    isRead?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type NotificationMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    conversationId?: SortOrder
+    message?: SortOrder
+    isRead?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ConversationNullableScalarRelationFilter = {
+    is?: ConversationWhereInput | null
+    isNot?: ConversationWhereInput | null
+  }
+
+  export type UserPresenceCountOrderByAggregateInput = {
+    userId?: SortOrder
+    conversationId?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserPresenceMaxOrderByAggregateInput = {
+    userId?: SortOrder
+    conversationId?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserPresenceMinOrderByAggregateInput = {
+    userId?: SortOrder
+    conversationId?: SortOrder
+    updatedAt?: SortOrder
+  }
+
   export type StoreCreateNestedManyWithoutOwnerInput = {
     create?: XOR<StoreCreateWithoutOwnerInput, StoreUncheckedCreateWithoutOwnerInput> | StoreCreateWithoutOwnerInput[] | StoreUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: StoreCreateOrConnectWithoutOwnerInput | StoreCreateOrConnectWithoutOwnerInput[]
@@ -10125,6 +12924,13 @@ export namespace Prisma {
     connectOrCreate?: StoreLikeCreateOrConnectWithoutUserInput | StoreLikeCreateOrConnectWithoutUserInput[]
     createMany?: StoreLikeCreateManyUserInputEnvelope
     connect?: StoreLikeWhereUniqueInput | StoreLikeWhereUniqueInput[]
+  }
+
+  export type NotificationCreateNestedManyWithoutUserInput = {
+    create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
+    createMany?: NotificationCreateManyUserInputEnvelope
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
   }
 
   export type MessageCreateNestedManyWithoutSenderInput = {
@@ -10141,6 +12947,13 @@ export namespace Prisma {
     connect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
   }
 
+  export type UserPresenceCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserPresenceCreateWithoutUserInput, UserPresenceUncheckedCreateWithoutUserInput> | UserPresenceCreateWithoutUserInput[] | UserPresenceUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserPresenceCreateOrConnectWithoutUserInput | UserPresenceCreateOrConnectWithoutUserInput[]
+    createMany?: UserPresenceCreateManyUserInputEnvelope
+    connect?: UserPresenceWhereUniqueInput | UserPresenceWhereUniqueInput[]
+  }
+
   export type StoreUncheckedCreateNestedManyWithoutOwnerInput = {
     create?: XOR<StoreCreateWithoutOwnerInput, StoreUncheckedCreateWithoutOwnerInput> | StoreCreateWithoutOwnerInput[] | StoreUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: StoreCreateOrConnectWithoutOwnerInput | StoreCreateOrConnectWithoutOwnerInput[]
@@ -10155,6 +12968,13 @@ export namespace Prisma {
     connect?: StoreLikeWhereUniqueInput | StoreLikeWhereUniqueInput[]
   }
 
+  export type NotificationUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
+    createMany?: NotificationCreateManyUserInputEnvelope
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+  }
+
   export type MessageUncheckedCreateNestedManyWithoutSenderInput = {
     create?: XOR<MessageCreateWithoutSenderInput, MessageUncheckedCreateWithoutSenderInput> | MessageCreateWithoutSenderInput[] | MessageUncheckedCreateWithoutSenderInput[]
     connectOrCreate?: MessageCreateOrConnectWithoutSenderInput | MessageCreateOrConnectWithoutSenderInput[]
@@ -10167,6 +12987,13 @@ export namespace Prisma {
     connectOrCreate?: ConversationCreateOrConnectWithoutBuyerInput | ConversationCreateOrConnectWithoutBuyerInput[]
     createMany?: ConversationCreateManyBuyerInputEnvelope
     connect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+  }
+
+  export type UserPresenceUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserPresenceCreateWithoutUserInput, UserPresenceUncheckedCreateWithoutUserInput> | UserPresenceCreateWithoutUserInput[] | UserPresenceUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserPresenceCreateOrConnectWithoutUserInput | UserPresenceCreateOrConnectWithoutUserInput[]
+    createMany?: UserPresenceCreateManyUserInputEnvelope
+    connect?: UserPresenceWhereUniqueInput | UserPresenceWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -10213,6 +13040,20 @@ export namespace Prisma {
     deleteMany?: StoreLikeScalarWhereInput | StoreLikeScalarWhereInput[]
   }
 
+  export type NotificationUpdateManyWithoutUserNestedInput = {
+    create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
+    upsert?: NotificationUpsertWithWhereUniqueWithoutUserInput | NotificationUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: NotificationCreateManyUserInputEnvelope
+    set?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    disconnect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    delete?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    update?: NotificationUpdateWithWhereUniqueWithoutUserInput | NotificationUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: NotificationUpdateManyWithWhereWithoutUserInput | NotificationUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+  }
+
   export type MessageUpdateManyWithoutSenderNestedInput = {
     create?: XOR<MessageCreateWithoutSenderInput, MessageUncheckedCreateWithoutSenderInput> | MessageCreateWithoutSenderInput[] | MessageUncheckedCreateWithoutSenderInput[]
     connectOrCreate?: MessageCreateOrConnectWithoutSenderInput | MessageCreateOrConnectWithoutSenderInput[]
@@ -10239,6 +13080,20 @@ export namespace Prisma {
     update?: ConversationUpdateWithWhereUniqueWithoutBuyerInput | ConversationUpdateWithWhereUniqueWithoutBuyerInput[]
     updateMany?: ConversationUpdateManyWithWhereWithoutBuyerInput | ConversationUpdateManyWithWhereWithoutBuyerInput[]
     deleteMany?: ConversationScalarWhereInput | ConversationScalarWhereInput[]
+  }
+
+  export type UserPresenceUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserPresenceCreateWithoutUserInput, UserPresenceUncheckedCreateWithoutUserInput> | UserPresenceCreateWithoutUserInput[] | UserPresenceUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserPresenceCreateOrConnectWithoutUserInput | UserPresenceCreateOrConnectWithoutUserInput[]
+    upsert?: UserPresenceUpsertWithWhereUniqueWithoutUserInput | UserPresenceUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserPresenceCreateManyUserInputEnvelope
+    set?: UserPresenceWhereUniqueInput | UserPresenceWhereUniqueInput[]
+    disconnect?: UserPresenceWhereUniqueInput | UserPresenceWhereUniqueInput[]
+    delete?: UserPresenceWhereUniqueInput | UserPresenceWhereUniqueInput[]
+    connect?: UserPresenceWhereUniqueInput | UserPresenceWhereUniqueInput[]
+    update?: UserPresenceUpdateWithWhereUniqueWithoutUserInput | UserPresenceUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserPresenceUpdateManyWithWhereWithoutUserInput | UserPresenceUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserPresenceScalarWhereInput | UserPresenceScalarWhereInput[]
   }
 
   export type StoreUncheckedUpdateManyWithoutOwnerNestedInput = {
@@ -10269,6 +13124,20 @@ export namespace Prisma {
     deleteMany?: StoreLikeScalarWhereInput | StoreLikeScalarWhereInput[]
   }
 
+  export type NotificationUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
+    upsert?: NotificationUpsertWithWhereUniqueWithoutUserInput | NotificationUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: NotificationCreateManyUserInputEnvelope
+    set?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    disconnect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    delete?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    update?: NotificationUpdateWithWhereUniqueWithoutUserInput | NotificationUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: NotificationUpdateManyWithWhereWithoutUserInput | NotificationUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+  }
+
   export type MessageUncheckedUpdateManyWithoutSenderNestedInput = {
     create?: XOR<MessageCreateWithoutSenderInput, MessageUncheckedCreateWithoutSenderInput> | MessageCreateWithoutSenderInput[] | MessageUncheckedCreateWithoutSenderInput[]
     connectOrCreate?: MessageCreateOrConnectWithoutSenderInput | MessageCreateOrConnectWithoutSenderInput[]
@@ -10295,6 +13164,20 @@ export namespace Prisma {
     update?: ConversationUpdateWithWhereUniqueWithoutBuyerInput | ConversationUpdateWithWhereUniqueWithoutBuyerInput[]
     updateMany?: ConversationUpdateManyWithWhereWithoutBuyerInput | ConversationUpdateManyWithWhereWithoutBuyerInput[]
     deleteMany?: ConversationScalarWhereInput | ConversationScalarWhereInput[]
+  }
+
+  export type UserPresenceUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserPresenceCreateWithoutUserInput, UserPresenceUncheckedCreateWithoutUserInput> | UserPresenceCreateWithoutUserInput[] | UserPresenceUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserPresenceCreateOrConnectWithoutUserInput | UserPresenceCreateOrConnectWithoutUserInput[]
+    upsert?: UserPresenceUpsertWithWhereUniqueWithoutUserInput | UserPresenceUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserPresenceCreateManyUserInputEnvelope
+    set?: UserPresenceWhereUniqueInput | UserPresenceWhereUniqueInput[]
+    disconnect?: UserPresenceWhereUniqueInput | UserPresenceWhereUniqueInput[]
+    delete?: UserPresenceWhereUniqueInput | UserPresenceWhereUniqueInput[]
+    connect?: UserPresenceWhereUniqueInput | UserPresenceWhereUniqueInput[]
+    update?: UserPresenceUpdateWithWhereUniqueWithoutUserInput | UserPresenceUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserPresenceUpdateManyWithWhereWithoutUserInput | UserPresenceUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserPresenceScalarWhereInput | UserPresenceScalarWhereInput[]
   }
 
   export type StoreCreatedaysInput = {
@@ -10535,11 +13418,39 @@ export namespace Prisma {
     connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
   }
 
+  export type NotificationCreateNestedManyWithoutConversationInput = {
+    create?: XOR<NotificationCreateWithoutConversationInput, NotificationUncheckedCreateWithoutConversationInput> | NotificationCreateWithoutConversationInput[] | NotificationUncheckedCreateWithoutConversationInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutConversationInput | NotificationCreateOrConnectWithoutConversationInput[]
+    createMany?: NotificationCreateManyConversationInputEnvelope
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+  }
+
+  export type UserPresenceCreateNestedManyWithoutConversationInput = {
+    create?: XOR<UserPresenceCreateWithoutConversationInput, UserPresenceUncheckedCreateWithoutConversationInput> | UserPresenceCreateWithoutConversationInput[] | UserPresenceUncheckedCreateWithoutConversationInput[]
+    connectOrCreate?: UserPresenceCreateOrConnectWithoutConversationInput | UserPresenceCreateOrConnectWithoutConversationInput[]
+    createMany?: UserPresenceCreateManyConversationInputEnvelope
+    connect?: UserPresenceWhereUniqueInput | UserPresenceWhereUniqueInput[]
+  }
+
   export type MessageUncheckedCreateNestedManyWithoutConversationInput = {
     create?: XOR<MessageCreateWithoutConversationInput, MessageUncheckedCreateWithoutConversationInput> | MessageCreateWithoutConversationInput[] | MessageUncheckedCreateWithoutConversationInput[]
     connectOrCreate?: MessageCreateOrConnectWithoutConversationInput | MessageCreateOrConnectWithoutConversationInput[]
     createMany?: MessageCreateManyConversationInputEnvelope
     connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+  }
+
+  export type NotificationUncheckedCreateNestedManyWithoutConversationInput = {
+    create?: XOR<NotificationCreateWithoutConversationInput, NotificationUncheckedCreateWithoutConversationInput> | NotificationCreateWithoutConversationInput[] | NotificationUncheckedCreateWithoutConversationInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutConversationInput | NotificationCreateOrConnectWithoutConversationInput[]
+    createMany?: NotificationCreateManyConversationInputEnvelope
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+  }
+
+  export type UserPresenceUncheckedCreateNestedManyWithoutConversationInput = {
+    create?: XOR<UserPresenceCreateWithoutConversationInput, UserPresenceUncheckedCreateWithoutConversationInput> | UserPresenceCreateWithoutConversationInput[] | UserPresenceUncheckedCreateWithoutConversationInput[]
+    connectOrCreate?: UserPresenceCreateOrConnectWithoutConversationInput | UserPresenceCreateOrConnectWithoutConversationInput[]
+    createMany?: UserPresenceCreateManyConversationInputEnvelope
+    connect?: UserPresenceWhereUniqueInput | UserPresenceWhereUniqueInput[]
   }
 
   export type StoreUpdateOneRequiredWithoutStoreNestedInput = {
@@ -10572,6 +13483,34 @@ export namespace Prisma {
     deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
   }
 
+  export type NotificationUpdateManyWithoutConversationNestedInput = {
+    create?: XOR<NotificationCreateWithoutConversationInput, NotificationUncheckedCreateWithoutConversationInput> | NotificationCreateWithoutConversationInput[] | NotificationUncheckedCreateWithoutConversationInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutConversationInput | NotificationCreateOrConnectWithoutConversationInput[]
+    upsert?: NotificationUpsertWithWhereUniqueWithoutConversationInput | NotificationUpsertWithWhereUniqueWithoutConversationInput[]
+    createMany?: NotificationCreateManyConversationInputEnvelope
+    set?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    disconnect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    delete?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    update?: NotificationUpdateWithWhereUniqueWithoutConversationInput | NotificationUpdateWithWhereUniqueWithoutConversationInput[]
+    updateMany?: NotificationUpdateManyWithWhereWithoutConversationInput | NotificationUpdateManyWithWhereWithoutConversationInput[]
+    deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+  }
+
+  export type UserPresenceUpdateManyWithoutConversationNestedInput = {
+    create?: XOR<UserPresenceCreateWithoutConversationInput, UserPresenceUncheckedCreateWithoutConversationInput> | UserPresenceCreateWithoutConversationInput[] | UserPresenceUncheckedCreateWithoutConversationInput[]
+    connectOrCreate?: UserPresenceCreateOrConnectWithoutConversationInput | UserPresenceCreateOrConnectWithoutConversationInput[]
+    upsert?: UserPresenceUpsertWithWhereUniqueWithoutConversationInput | UserPresenceUpsertWithWhereUniqueWithoutConversationInput[]
+    createMany?: UserPresenceCreateManyConversationInputEnvelope
+    set?: UserPresenceWhereUniqueInput | UserPresenceWhereUniqueInput[]
+    disconnect?: UserPresenceWhereUniqueInput | UserPresenceWhereUniqueInput[]
+    delete?: UserPresenceWhereUniqueInput | UserPresenceWhereUniqueInput[]
+    connect?: UserPresenceWhereUniqueInput | UserPresenceWhereUniqueInput[]
+    update?: UserPresenceUpdateWithWhereUniqueWithoutConversationInput | UserPresenceUpdateWithWhereUniqueWithoutConversationInput[]
+    updateMany?: UserPresenceUpdateManyWithWhereWithoutConversationInput | UserPresenceUpdateManyWithWhereWithoutConversationInput[]
+    deleteMany?: UserPresenceScalarWhereInput | UserPresenceScalarWhereInput[]
+  }
+
   export type MessageUncheckedUpdateManyWithoutConversationNestedInput = {
     create?: XOR<MessageCreateWithoutConversationInput, MessageUncheckedCreateWithoutConversationInput> | MessageCreateWithoutConversationInput[] | MessageUncheckedCreateWithoutConversationInput[]
     connectOrCreate?: MessageCreateOrConnectWithoutConversationInput | MessageCreateOrConnectWithoutConversationInput[]
@@ -10584,6 +13523,34 @@ export namespace Prisma {
     update?: MessageUpdateWithWhereUniqueWithoutConversationInput | MessageUpdateWithWhereUniqueWithoutConversationInput[]
     updateMany?: MessageUpdateManyWithWhereWithoutConversationInput | MessageUpdateManyWithWhereWithoutConversationInput[]
     deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
+  }
+
+  export type NotificationUncheckedUpdateManyWithoutConversationNestedInput = {
+    create?: XOR<NotificationCreateWithoutConversationInput, NotificationUncheckedCreateWithoutConversationInput> | NotificationCreateWithoutConversationInput[] | NotificationUncheckedCreateWithoutConversationInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutConversationInput | NotificationCreateOrConnectWithoutConversationInput[]
+    upsert?: NotificationUpsertWithWhereUniqueWithoutConversationInput | NotificationUpsertWithWhereUniqueWithoutConversationInput[]
+    createMany?: NotificationCreateManyConversationInputEnvelope
+    set?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    disconnect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    delete?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    update?: NotificationUpdateWithWhereUniqueWithoutConversationInput | NotificationUpdateWithWhereUniqueWithoutConversationInput[]
+    updateMany?: NotificationUpdateManyWithWhereWithoutConversationInput | NotificationUpdateManyWithWhereWithoutConversationInput[]
+    deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+  }
+
+  export type UserPresenceUncheckedUpdateManyWithoutConversationNestedInput = {
+    create?: XOR<UserPresenceCreateWithoutConversationInput, UserPresenceUncheckedCreateWithoutConversationInput> | UserPresenceCreateWithoutConversationInput[] | UserPresenceUncheckedCreateWithoutConversationInput[]
+    connectOrCreate?: UserPresenceCreateOrConnectWithoutConversationInput | UserPresenceCreateOrConnectWithoutConversationInput[]
+    upsert?: UserPresenceUpsertWithWhereUniqueWithoutConversationInput | UserPresenceUpsertWithWhereUniqueWithoutConversationInput[]
+    createMany?: UserPresenceCreateManyConversationInputEnvelope
+    set?: UserPresenceWhereUniqueInput | UserPresenceWhereUniqueInput[]
+    disconnect?: UserPresenceWhereUniqueInput | UserPresenceWhereUniqueInput[]
+    delete?: UserPresenceWhereUniqueInput | UserPresenceWhereUniqueInput[]
+    connect?: UserPresenceWhereUniqueInput | UserPresenceWhereUniqueInput[]
+    update?: UserPresenceUpdateWithWhereUniqueWithoutConversationInput | UserPresenceUpdateWithWhereUniqueWithoutConversationInput[]
+    updateMany?: UserPresenceUpdateManyWithWhereWithoutConversationInput | UserPresenceUpdateManyWithWhereWithoutConversationInput[]
+    deleteMany?: UserPresenceScalarWhereInput | UserPresenceScalarWhereInput[]
   }
 
   export type ConversationCreateNestedOneWithoutMessagesInput = {
@@ -10612,6 +13579,64 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutMessagesInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMessagesInput, UserUpdateWithoutMessagesInput>, UserUncheckedUpdateWithoutMessagesInput>
+  }
+
+  export type UserCreateNestedOneWithoutNotificationInput = {
+    create?: XOR<UserCreateWithoutNotificationInput, UserUncheckedCreateWithoutNotificationInput>
+    connectOrCreate?: UserCreateOrConnectWithoutNotificationInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type ConversationCreateNestedOneWithoutNotificationInput = {
+    create?: XOR<ConversationCreateWithoutNotificationInput, ConversationUncheckedCreateWithoutNotificationInput>
+    connectOrCreate?: ConversationCreateOrConnectWithoutNotificationInput
+    connect?: ConversationWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutNotificationNestedInput = {
+    create?: XOR<UserCreateWithoutNotificationInput, UserUncheckedCreateWithoutNotificationInput>
+    connectOrCreate?: UserCreateOrConnectWithoutNotificationInput
+    upsert?: UserUpsertWithoutNotificationInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutNotificationInput, UserUpdateWithoutNotificationInput>, UserUncheckedUpdateWithoutNotificationInput>
+  }
+
+  export type ConversationUpdateOneRequiredWithoutNotificationNestedInput = {
+    create?: XOR<ConversationCreateWithoutNotificationInput, ConversationUncheckedCreateWithoutNotificationInput>
+    connectOrCreate?: ConversationCreateOrConnectWithoutNotificationInput
+    upsert?: ConversationUpsertWithoutNotificationInput
+    connect?: ConversationWhereUniqueInput
+    update?: XOR<XOR<ConversationUpdateToOneWithWhereWithoutNotificationInput, ConversationUpdateWithoutNotificationInput>, ConversationUncheckedUpdateWithoutNotificationInput>
+  }
+
+  export type UserCreateNestedOneWithoutUserPresenceInput = {
+    create?: XOR<UserCreateWithoutUserPresenceInput, UserUncheckedCreateWithoutUserPresenceInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUserPresenceInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type ConversationCreateNestedOneWithoutUserPresenceInput = {
+    create?: XOR<ConversationCreateWithoutUserPresenceInput, ConversationUncheckedCreateWithoutUserPresenceInput>
+    connectOrCreate?: ConversationCreateOrConnectWithoutUserPresenceInput
+    connect?: ConversationWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutUserPresenceNestedInput = {
+    create?: XOR<UserCreateWithoutUserPresenceInput, UserUncheckedCreateWithoutUserPresenceInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUserPresenceInput
+    upsert?: UserUpsertWithoutUserPresenceInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutUserPresenceInput, UserUpdateWithoutUserPresenceInput>, UserUncheckedUpdateWithoutUserPresenceInput>
+  }
+
+  export type ConversationUpdateOneWithoutUserPresenceNestedInput = {
+    create?: XOR<ConversationCreateWithoutUserPresenceInput, ConversationUncheckedCreateWithoutUserPresenceInput>
+    connectOrCreate?: ConversationCreateOrConnectWithoutUserPresenceInput
+    upsert?: ConversationUpsertWithoutUserPresenceInput
+    disconnect?: ConversationWhereInput | boolean
+    delete?: ConversationWhereInput | boolean
+    connect?: ConversationWhereUniqueInput
+    update?: XOR<XOR<ConversationUpdateToOneWithWhereWithoutUserPresenceInput, ConversationUpdateWithoutUserPresenceInput>, ConversationUncheckedUpdateWithoutUserPresenceInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -10913,6 +13938,32 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type NotificationCreateWithoutUserInput = {
+    id?: string
+    message: string
+    isRead?: boolean
+    createdAt?: Date | string
+    conversation: ConversationCreateNestedOneWithoutNotificationInput
+  }
+
+  export type NotificationUncheckedCreateWithoutUserInput = {
+    id?: string
+    conversationId: string
+    message: string
+    isRead?: boolean
+    createdAt?: Date | string
+  }
+
+  export type NotificationCreateOrConnectWithoutUserInput = {
+    where: NotificationWhereUniqueInput
+    create: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput>
+  }
+
+  export type NotificationCreateManyUserInputEnvelope = {
+    data: NotificationCreateManyUserInput | NotificationCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type MessageCreateWithoutSenderInput = {
     id?: string
     text: string
@@ -10945,6 +13996,8 @@ export namespace Prisma {
     lastMessageAt?: Date | string
     store: StoreCreateNestedOneWithoutStoreInput
     messages?: MessageCreateNestedManyWithoutConversationInput
+    notification?: NotificationCreateNestedManyWithoutConversationInput
+    UserPresence?: UserPresenceCreateNestedManyWithoutConversationInput
   }
 
   export type ConversationUncheckedCreateWithoutBuyerInput = {
@@ -10953,6 +14006,8 @@ export namespace Prisma {
     createdAt?: Date | string
     lastMessageAt?: Date | string
     messages?: MessageUncheckedCreateNestedManyWithoutConversationInput
+    notification?: NotificationUncheckedCreateNestedManyWithoutConversationInput
+    UserPresence?: UserPresenceUncheckedCreateNestedManyWithoutConversationInput
   }
 
   export type ConversationCreateOrConnectWithoutBuyerInput = {
@@ -10962,6 +14017,26 @@ export namespace Prisma {
 
   export type ConversationCreateManyBuyerInputEnvelope = {
     data: ConversationCreateManyBuyerInput | ConversationCreateManyBuyerInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserPresenceCreateWithoutUserInput = {
+    updatedAt?: Date | string
+    conversation?: ConversationCreateNestedOneWithoutUserPresenceInput
+  }
+
+  export type UserPresenceUncheckedCreateWithoutUserInput = {
+    conversationId?: string | null
+    updatedAt?: Date | string
+  }
+
+  export type UserPresenceCreateOrConnectWithoutUserInput = {
+    where: UserPresenceWhereUniqueInput
+    create: XOR<UserPresenceCreateWithoutUserInput, UserPresenceUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserPresenceCreateManyUserInputEnvelope = {
+    data: UserPresenceCreateManyUserInput | UserPresenceCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -11037,6 +14112,34 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"StoreLike"> | Date | string
   }
 
+  export type NotificationUpsertWithWhereUniqueWithoutUserInput = {
+    where: NotificationWhereUniqueInput
+    update: XOR<NotificationUpdateWithoutUserInput, NotificationUncheckedUpdateWithoutUserInput>
+    create: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput>
+  }
+
+  export type NotificationUpdateWithWhereUniqueWithoutUserInput = {
+    where: NotificationWhereUniqueInput
+    data: XOR<NotificationUpdateWithoutUserInput, NotificationUncheckedUpdateWithoutUserInput>
+  }
+
+  export type NotificationUpdateManyWithWhereWithoutUserInput = {
+    where: NotificationScalarWhereInput
+    data: XOR<NotificationUpdateManyMutationInput, NotificationUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type NotificationScalarWhereInput = {
+    AND?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+    OR?: NotificationScalarWhereInput[]
+    NOT?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+    id?: StringFilter<"Notification"> | string
+    userId?: StringFilter<"Notification"> | string
+    conversationId?: StringFilter<"Notification"> | string
+    message?: StringFilter<"Notification"> | string
+    isRead?: BoolFilter<"Notification"> | boolean
+    createdAt?: DateTimeFilter<"Notification"> | Date | string
+  }
+
   export type MessageUpsertWithWhereUniqueWithoutSenderInput = {
     where: MessageWhereUniqueInput
     update: XOR<MessageUpdateWithoutSenderInput, MessageUncheckedUpdateWithoutSenderInput>
@@ -11092,6 +14195,31 @@ export namespace Prisma {
     lastMessageAt?: DateTimeFilter<"Conversation"> | Date | string
   }
 
+  export type UserPresenceUpsertWithWhereUniqueWithoutUserInput = {
+    where: UserPresenceWhereUniqueInput
+    update: XOR<UserPresenceUpdateWithoutUserInput, UserPresenceUncheckedUpdateWithoutUserInput>
+    create: XOR<UserPresenceCreateWithoutUserInput, UserPresenceUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserPresenceUpdateWithWhereUniqueWithoutUserInput = {
+    where: UserPresenceWhereUniqueInput
+    data: XOR<UserPresenceUpdateWithoutUserInput, UserPresenceUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserPresenceUpdateManyWithWhereWithoutUserInput = {
+    where: UserPresenceScalarWhereInput
+    data: XOR<UserPresenceUpdateManyMutationInput, UserPresenceUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type UserPresenceScalarWhereInput = {
+    AND?: UserPresenceScalarWhereInput | UserPresenceScalarWhereInput[]
+    OR?: UserPresenceScalarWhereInput[]
+    NOT?: UserPresenceScalarWhereInput | UserPresenceScalarWhereInput[]
+    userId?: StringFilter<"UserPresence"> | string
+    conversationId?: StringNullableFilter<"UserPresence"> | string | null
+    updatedAt?: DateTimeFilter<"UserPresence"> | Date | string
+  }
+
   export type UserCreateWithoutStoresInput = {
     id?: string
     name?: string | null
@@ -11101,8 +14229,10 @@ export namespace Prisma {
     phoneVerified?: boolean
     createdAt?: Date | string
     likedStores?: StoreLikeCreateNestedManyWithoutUserInput
+    notification?: NotificationCreateNestedManyWithoutUserInput
     messages?: MessageCreateNestedManyWithoutSenderInput
     buyer?: ConversationCreateNestedManyWithoutBuyerInput
+    UserPresence?: UserPresenceCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutStoresInput = {
@@ -11114,8 +14244,10 @@ export namespace Prisma {
     phoneVerified?: boolean
     createdAt?: Date | string
     likedStores?: StoreLikeUncheckedCreateNestedManyWithoutUserInput
+    notification?: NotificationUncheckedCreateNestedManyWithoutUserInput
     messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
     buyer?: ConversationUncheckedCreateNestedManyWithoutBuyerInput
+    UserPresence?: UserPresenceUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutStoresInput = {
@@ -11175,6 +14307,8 @@ export namespace Prisma {
     lastMessageAt?: Date | string
     buyer: UserCreateNestedOneWithoutBuyerInput
     messages?: MessageCreateNestedManyWithoutConversationInput
+    notification?: NotificationCreateNestedManyWithoutConversationInput
+    UserPresence?: UserPresenceCreateNestedManyWithoutConversationInput
   }
 
   export type ConversationUncheckedCreateWithoutStoreInput = {
@@ -11183,6 +14317,8 @@ export namespace Prisma {
     createdAt?: Date | string
     lastMessageAt?: Date | string
     messages?: MessageUncheckedCreateNestedManyWithoutConversationInput
+    notification?: NotificationUncheckedCreateNestedManyWithoutConversationInput
+    UserPresence?: UserPresenceUncheckedCreateNestedManyWithoutConversationInput
   }
 
   export type ConversationCreateOrConnectWithoutStoreInput = {
@@ -11215,8 +14351,10 @@ export namespace Prisma {
     phoneVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     likedStores?: StoreLikeUpdateManyWithoutUserNestedInput
+    notification?: NotificationUpdateManyWithoutUserNestedInput
     messages?: MessageUpdateManyWithoutSenderNestedInput
     buyer?: ConversationUpdateManyWithoutBuyerNestedInput
+    UserPresence?: UserPresenceUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutStoresInput = {
@@ -11228,8 +14366,10 @@ export namespace Prisma {
     phoneVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     likedStores?: StoreLikeUncheckedUpdateManyWithoutUserNestedInput
+    notification?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     buyer?: ConversationUncheckedUpdateManyWithoutBuyerNestedInput
+    UserPresence?: UserPresenceUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type StoreImageUpsertWithWhereUniqueWithoutStoreInput = {
@@ -11432,8 +14572,10 @@ export namespace Prisma {
     phoneVerified?: boolean
     createdAt?: Date | string
     stores?: StoreCreateNestedManyWithoutOwnerInput
+    notification?: NotificationCreateNestedManyWithoutUserInput
     messages?: MessageCreateNestedManyWithoutSenderInput
     buyer?: ConversationCreateNestedManyWithoutBuyerInput
+    UserPresence?: UserPresenceCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutLikedStoresInput = {
@@ -11445,8 +14587,10 @@ export namespace Prisma {
     phoneVerified?: boolean
     createdAt?: Date | string
     stores?: StoreUncheckedCreateNestedManyWithoutOwnerInput
+    notification?: NotificationUncheckedCreateNestedManyWithoutUserInput
     messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
     buyer?: ConversationUncheckedCreateNestedManyWithoutBuyerInput
+    UserPresence?: UserPresenceUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutLikedStoresInput = {
@@ -11537,8 +14681,10 @@ export namespace Prisma {
     phoneVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     stores?: StoreUpdateManyWithoutOwnerNestedInput
+    notification?: NotificationUpdateManyWithoutUserNestedInput
     messages?: MessageUpdateManyWithoutSenderNestedInput
     buyer?: ConversationUpdateManyWithoutBuyerNestedInput
+    UserPresence?: UserPresenceUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLikedStoresInput = {
@@ -11550,8 +14696,10 @@ export namespace Prisma {
     phoneVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     stores?: StoreUncheckedUpdateManyWithoutOwnerNestedInput
+    notification?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     buyer?: ConversationUncheckedUpdateManyWithoutBuyerNestedInput
+    UserPresence?: UserPresenceUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type StoreUpsertWithoutLikesInput = {
@@ -11696,7 +14844,9 @@ export namespace Prisma {
     createdAt?: Date | string
     stores?: StoreCreateNestedManyWithoutOwnerInput
     likedStores?: StoreLikeCreateNestedManyWithoutUserInput
+    notification?: NotificationCreateNestedManyWithoutUserInput
     messages?: MessageCreateNestedManyWithoutSenderInput
+    UserPresence?: UserPresenceCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBuyerInput = {
@@ -11709,7 +14859,9 @@ export namespace Prisma {
     createdAt?: Date | string
     stores?: StoreUncheckedCreateNestedManyWithoutOwnerInput
     likedStores?: StoreLikeUncheckedCreateNestedManyWithoutUserInput
+    notification?: NotificationUncheckedCreateNestedManyWithoutUserInput
     messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    UserPresence?: UserPresenceUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBuyerInput = {
@@ -11740,6 +14892,52 @@ export namespace Prisma {
 
   export type MessageCreateManyConversationInputEnvelope = {
     data: MessageCreateManyConversationInput | MessageCreateManyConversationInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type NotificationCreateWithoutConversationInput = {
+    id?: string
+    message: string
+    isRead?: boolean
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutNotificationInput
+  }
+
+  export type NotificationUncheckedCreateWithoutConversationInput = {
+    id?: string
+    userId: string
+    message: string
+    isRead?: boolean
+    createdAt?: Date | string
+  }
+
+  export type NotificationCreateOrConnectWithoutConversationInput = {
+    where: NotificationWhereUniqueInput
+    create: XOR<NotificationCreateWithoutConversationInput, NotificationUncheckedCreateWithoutConversationInput>
+  }
+
+  export type NotificationCreateManyConversationInputEnvelope = {
+    data: NotificationCreateManyConversationInput | NotificationCreateManyConversationInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserPresenceCreateWithoutConversationInput = {
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutUserPresenceInput
+  }
+
+  export type UserPresenceUncheckedCreateWithoutConversationInput = {
+    userId: string
+    updatedAt?: Date | string
+  }
+
+  export type UserPresenceCreateOrConnectWithoutConversationInput = {
+    where: UserPresenceWhereUniqueInput
+    create: XOR<UserPresenceCreateWithoutConversationInput, UserPresenceUncheckedCreateWithoutConversationInput>
+  }
+
+  export type UserPresenceCreateManyConversationInputEnvelope = {
+    data: UserPresenceCreateManyConversationInput | UserPresenceCreateManyConversationInput[]
     skipDuplicates?: boolean
   }
 
@@ -11833,7 +15031,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     stores?: StoreUpdateManyWithoutOwnerNestedInput
     likedStores?: StoreLikeUpdateManyWithoutUserNestedInput
+    notification?: NotificationUpdateManyWithoutUserNestedInput
     messages?: MessageUpdateManyWithoutSenderNestedInput
+    UserPresence?: UserPresenceUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBuyerInput = {
@@ -11846,7 +15046,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     stores?: StoreUncheckedUpdateManyWithoutOwnerNestedInput
     likedStores?: StoreLikeUncheckedUpdateManyWithoutUserNestedInput
+    notification?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    UserPresence?: UserPresenceUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type MessageUpsertWithWhereUniqueWithoutConversationInput = {
@@ -11865,12 +15067,46 @@ export namespace Prisma {
     data: XOR<MessageUpdateManyMutationInput, MessageUncheckedUpdateManyWithoutConversationInput>
   }
 
+  export type NotificationUpsertWithWhereUniqueWithoutConversationInput = {
+    where: NotificationWhereUniqueInput
+    update: XOR<NotificationUpdateWithoutConversationInput, NotificationUncheckedUpdateWithoutConversationInput>
+    create: XOR<NotificationCreateWithoutConversationInput, NotificationUncheckedCreateWithoutConversationInput>
+  }
+
+  export type NotificationUpdateWithWhereUniqueWithoutConversationInput = {
+    where: NotificationWhereUniqueInput
+    data: XOR<NotificationUpdateWithoutConversationInput, NotificationUncheckedUpdateWithoutConversationInput>
+  }
+
+  export type NotificationUpdateManyWithWhereWithoutConversationInput = {
+    where: NotificationScalarWhereInput
+    data: XOR<NotificationUpdateManyMutationInput, NotificationUncheckedUpdateManyWithoutConversationInput>
+  }
+
+  export type UserPresenceUpsertWithWhereUniqueWithoutConversationInput = {
+    where: UserPresenceWhereUniqueInput
+    update: XOR<UserPresenceUpdateWithoutConversationInput, UserPresenceUncheckedUpdateWithoutConversationInput>
+    create: XOR<UserPresenceCreateWithoutConversationInput, UserPresenceUncheckedCreateWithoutConversationInput>
+  }
+
+  export type UserPresenceUpdateWithWhereUniqueWithoutConversationInput = {
+    where: UserPresenceWhereUniqueInput
+    data: XOR<UserPresenceUpdateWithoutConversationInput, UserPresenceUncheckedUpdateWithoutConversationInput>
+  }
+
+  export type UserPresenceUpdateManyWithWhereWithoutConversationInput = {
+    where: UserPresenceScalarWhereInput
+    data: XOR<UserPresenceUpdateManyMutationInput, UserPresenceUncheckedUpdateManyWithoutConversationInput>
+  }
+
   export type ConversationCreateWithoutMessagesInput = {
     id?: string
     createdAt?: Date | string
     lastMessageAt?: Date | string
     store: StoreCreateNestedOneWithoutStoreInput
     buyer: UserCreateNestedOneWithoutBuyerInput
+    notification?: NotificationCreateNestedManyWithoutConversationInput
+    UserPresence?: UserPresenceCreateNestedManyWithoutConversationInput
   }
 
   export type ConversationUncheckedCreateWithoutMessagesInput = {
@@ -11879,6 +15115,8 @@ export namespace Prisma {
     buyerId: string
     createdAt?: Date | string
     lastMessageAt?: Date | string
+    notification?: NotificationUncheckedCreateNestedManyWithoutConversationInput
+    UserPresence?: UserPresenceUncheckedCreateNestedManyWithoutConversationInput
   }
 
   export type ConversationCreateOrConnectWithoutMessagesInput = {
@@ -11896,7 +15134,9 @@ export namespace Prisma {
     createdAt?: Date | string
     stores?: StoreCreateNestedManyWithoutOwnerInput
     likedStores?: StoreLikeCreateNestedManyWithoutUserInput
+    notification?: NotificationCreateNestedManyWithoutUserInput
     buyer?: ConversationCreateNestedManyWithoutBuyerInput
+    UserPresence?: UserPresenceCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMessagesInput = {
@@ -11909,7 +15149,9 @@ export namespace Prisma {
     createdAt?: Date | string
     stores?: StoreUncheckedCreateNestedManyWithoutOwnerInput
     likedStores?: StoreLikeUncheckedCreateNestedManyWithoutUserInput
+    notification?: NotificationUncheckedCreateNestedManyWithoutUserInput
     buyer?: ConversationUncheckedCreateNestedManyWithoutBuyerInput
+    UserPresence?: UserPresenceUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMessagesInput = {
@@ -11934,6 +15176,8 @@ export namespace Prisma {
     lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
     store?: StoreUpdateOneRequiredWithoutStoreNestedInput
     buyer?: UserUpdateOneRequiredWithoutBuyerNestedInput
+    notification?: NotificationUpdateManyWithoutConversationNestedInput
+    UserPresence?: UserPresenceUpdateManyWithoutConversationNestedInput
   }
 
   export type ConversationUncheckedUpdateWithoutMessagesInput = {
@@ -11942,6 +15186,8 @@ export namespace Prisma {
     buyerId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notification?: NotificationUncheckedUpdateManyWithoutConversationNestedInput
+    UserPresence?: UserPresenceUncheckedUpdateManyWithoutConversationNestedInput
   }
 
   export type UserUpsertWithoutMessagesInput = {
@@ -11965,7 +15211,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     stores?: StoreUpdateManyWithoutOwnerNestedInput
     likedStores?: StoreLikeUpdateManyWithoutUserNestedInput
+    notification?: NotificationUpdateManyWithoutUserNestedInput
     buyer?: ConversationUpdateManyWithoutBuyerNestedInput
+    UserPresence?: UserPresenceUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMessagesInput = {
@@ -11978,7 +15226,273 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     stores?: StoreUncheckedUpdateManyWithoutOwnerNestedInput
     likedStores?: StoreLikeUncheckedUpdateManyWithoutUserNestedInput
+    notification?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     buyer?: ConversationUncheckedUpdateManyWithoutBuyerNestedInput
+    UserPresence?: UserPresenceUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutNotificationInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    image?: string | null
+    phone?: string | null
+    phoneVerified?: boolean
+    createdAt?: Date | string
+    stores?: StoreCreateNestedManyWithoutOwnerInput
+    likedStores?: StoreLikeCreateNestedManyWithoutUserInput
+    messages?: MessageCreateNestedManyWithoutSenderInput
+    buyer?: ConversationCreateNestedManyWithoutBuyerInput
+    UserPresence?: UserPresenceCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutNotificationInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    image?: string | null
+    phone?: string | null
+    phoneVerified?: boolean
+    createdAt?: Date | string
+    stores?: StoreUncheckedCreateNestedManyWithoutOwnerInput
+    likedStores?: StoreLikeUncheckedCreateNestedManyWithoutUserInput
+    messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    buyer?: ConversationUncheckedCreateNestedManyWithoutBuyerInput
+    UserPresence?: UserPresenceUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutNotificationInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutNotificationInput, UserUncheckedCreateWithoutNotificationInput>
+  }
+
+  export type ConversationCreateWithoutNotificationInput = {
+    id?: string
+    createdAt?: Date | string
+    lastMessageAt?: Date | string
+    store: StoreCreateNestedOneWithoutStoreInput
+    buyer: UserCreateNestedOneWithoutBuyerInput
+    messages?: MessageCreateNestedManyWithoutConversationInput
+    UserPresence?: UserPresenceCreateNestedManyWithoutConversationInput
+  }
+
+  export type ConversationUncheckedCreateWithoutNotificationInput = {
+    id?: string
+    storeId: string
+    buyerId: string
+    createdAt?: Date | string
+    lastMessageAt?: Date | string
+    messages?: MessageUncheckedCreateNestedManyWithoutConversationInput
+    UserPresence?: UserPresenceUncheckedCreateNestedManyWithoutConversationInput
+  }
+
+  export type ConversationCreateOrConnectWithoutNotificationInput = {
+    where: ConversationWhereUniqueInput
+    create: XOR<ConversationCreateWithoutNotificationInput, ConversationUncheckedCreateWithoutNotificationInput>
+  }
+
+  export type UserUpsertWithoutNotificationInput = {
+    update: XOR<UserUpdateWithoutNotificationInput, UserUncheckedUpdateWithoutNotificationInput>
+    create: XOR<UserCreateWithoutNotificationInput, UserUncheckedCreateWithoutNotificationInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutNotificationInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutNotificationInput, UserUncheckedUpdateWithoutNotificationInput>
+  }
+
+  export type UserUpdateWithoutNotificationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    stores?: StoreUpdateManyWithoutOwnerNestedInput
+    likedStores?: StoreLikeUpdateManyWithoutUserNestedInput
+    messages?: MessageUpdateManyWithoutSenderNestedInput
+    buyer?: ConversationUpdateManyWithoutBuyerNestedInput
+    UserPresence?: UserPresenceUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutNotificationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    stores?: StoreUncheckedUpdateManyWithoutOwnerNestedInput
+    likedStores?: StoreLikeUncheckedUpdateManyWithoutUserNestedInput
+    messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    buyer?: ConversationUncheckedUpdateManyWithoutBuyerNestedInput
+    UserPresence?: UserPresenceUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type ConversationUpsertWithoutNotificationInput = {
+    update: XOR<ConversationUpdateWithoutNotificationInput, ConversationUncheckedUpdateWithoutNotificationInput>
+    create: XOR<ConversationCreateWithoutNotificationInput, ConversationUncheckedCreateWithoutNotificationInput>
+    where?: ConversationWhereInput
+  }
+
+  export type ConversationUpdateToOneWithWhereWithoutNotificationInput = {
+    where?: ConversationWhereInput
+    data: XOR<ConversationUpdateWithoutNotificationInput, ConversationUncheckedUpdateWithoutNotificationInput>
+  }
+
+  export type ConversationUpdateWithoutNotificationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    store?: StoreUpdateOneRequiredWithoutStoreNestedInput
+    buyer?: UserUpdateOneRequiredWithoutBuyerNestedInput
+    messages?: MessageUpdateManyWithoutConversationNestedInput
+    UserPresence?: UserPresenceUpdateManyWithoutConversationNestedInput
+  }
+
+  export type ConversationUncheckedUpdateWithoutNotificationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
+    buyerId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messages?: MessageUncheckedUpdateManyWithoutConversationNestedInput
+    UserPresence?: UserPresenceUncheckedUpdateManyWithoutConversationNestedInput
+  }
+
+  export type UserCreateWithoutUserPresenceInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    image?: string | null
+    phone?: string | null
+    phoneVerified?: boolean
+    createdAt?: Date | string
+    stores?: StoreCreateNestedManyWithoutOwnerInput
+    likedStores?: StoreLikeCreateNestedManyWithoutUserInput
+    notification?: NotificationCreateNestedManyWithoutUserInput
+    messages?: MessageCreateNestedManyWithoutSenderInput
+    buyer?: ConversationCreateNestedManyWithoutBuyerInput
+  }
+
+  export type UserUncheckedCreateWithoutUserPresenceInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    image?: string | null
+    phone?: string | null
+    phoneVerified?: boolean
+    createdAt?: Date | string
+    stores?: StoreUncheckedCreateNestedManyWithoutOwnerInput
+    likedStores?: StoreLikeUncheckedCreateNestedManyWithoutUserInput
+    notification?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    buyer?: ConversationUncheckedCreateNestedManyWithoutBuyerInput
+  }
+
+  export type UserCreateOrConnectWithoutUserPresenceInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutUserPresenceInput, UserUncheckedCreateWithoutUserPresenceInput>
+  }
+
+  export type ConversationCreateWithoutUserPresenceInput = {
+    id?: string
+    createdAt?: Date | string
+    lastMessageAt?: Date | string
+    store: StoreCreateNestedOneWithoutStoreInput
+    buyer: UserCreateNestedOneWithoutBuyerInput
+    messages?: MessageCreateNestedManyWithoutConversationInput
+    notification?: NotificationCreateNestedManyWithoutConversationInput
+  }
+
+  export type ConversationUncheckedCreateWithoutUserPresenceInput = {
+    id?: string
+    storeId: string
+    buyerId: string
+    createdAt?: Date | string
+    lastMessageAt?: Date | string
+    messages?: MessageUncheckedCreateNestedManyWithoutConversationInput
+    notification?: NotificationUncheckedCreateNestedManyWithoutConversationInput
+  }
+
+  export type ConversationCreateOrConnectWithoutUserPresenceInput = {
+    where: ConversationWhereUniqueInput
+    create: XOR<ConversationCreateWithoutUserPresenceInput, ConversationUncheckedCreateWithoutUserPresenceInput>
+  }
+
+  export type UserUpsertWithoutUserPresenceInput = {
+    update: XOR<UserUpdateWithoutUserPresenceInput, UserUncheckedUpdateWithoutUserPresenceInput>
+    create: XOR<UserCreateWithoutUserPresenceInput, UserUncheckedCreateWithoutUserPresenceInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutUserPresenceInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutUserPresenceInput, UserUncheckedUpdateWithoutUserPresenceInput>
+  }
+
+  export type UserUpdateWithoutUserPresenceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    stores?: StoreUpdateManyWithoutOwnerNestedInput
+    likedStores?: StoreLikeUpdateManyWithoutUserNestedInput
+    notification?: NotificationUpdateManyWithoutUserNestedInput
+    messages?: MessageUpdateManyWithoutSenderNestedInput
+    buyer?: ConversationUpdateManyWithoutBuyerNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutUserPresenceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    stores?: StoreUncheckedUpdateManyWithoutOwnerNestedInput
+    likedStores?: StoreLikeUncheckedUpdateManyWithoutUserNestedInput
+    notification?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    buyer?: ConversationUncheckedUpdateManyWithoutBuyerNestedInput
+  }
+
+  export type ConversationUpsertWithoutUserPresenceInput = {
+    update: XOR<ConversationUpdateWithoutUserPresenceInput, ConversationUncheckedUpdateWithoutUserPresenceInput>
+    create: XOR<ConversationCreateWithoutUserPresenceInput, ConversationUncheckedCreateWithoutUserPresenceInput>
+    where?: ConversationWhereInput
+  }
+
+  export type ConversationUpdateToOneWithWhereWithoutUserPresenceInput = {
+    where?: ConversationWhereInput
+    data: XOR<ConversationUpdateWithoutUserPresenceInput, ConversationUncheckedUpdateWithoutUserPresenceInput>
+  }
+
+  export type ConversationUpdateWithoutUserPresenceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    store?: StoreUpdateOneRequiredWithoutStoreNestedInput
+    buyer?: UserUpdateOneRequiredWithoutBuyerNestedInput
+    messages?: MessageUpdateManyWithoutConversationNestedInput
+    notification?: NotificationUpdateManyWithoutConversationNestedInput
+  }
+
+  export type ConversationUncheckedUpdateWithoutUserPresenceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
+    buyerId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messages?: MessageUncheckedUpdateManyWithoutConversationNestedInput
+    notification?: NotificationUncheckedUpdateManyWithoutConversationNestedInput
   }
 
   export type StoreCreateManyOwnerInput = {
@@ -12013,6 +15527,14 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type NotificationCreateManyUserInput = {
+    id?: string
+    conversationId: string
+    message: string
+    isRead?: boolean
+    createdAt?: Date | string
+  }
+
   export type MessageCreateManySenderInput = {
     id?: string
     conversationId: string
@@ -12026,6 +15548,11 @@ export namespace Prisma {
     storeId: string
     createdAt?: Date | string
     lastMessageAt?: Date | string
+  }
+
+  export type UserPresenceCreateManyUserInput = {
+    conversationId?: string | null
+    updatedAt?: Date | string
   }
 
   export type StoreUpdateWithoutOwnerInput = {
@@ -12130,6 +15657,30 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type NotificationUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    conversation?: ConversationUpdateOneRequiredWithoutNotificationNestedInput
+  }
+
+  export type NotificationUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    conversationId?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    conversationId?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type MessageUpdateWithoutSenderInput = {
     id?: StringFieldUpdateOperationsInput | string
     text?: StringFieldUpdateOperationsInput | string
@@ -12160,6 +15711,8 @@ export namespace Prisma {
     lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
     store?: StoreUpdateOneRequiredWithoutStoreNestedInput
     messages?: MessageUpdateManyWithoutConversationNestedInput
+    notification?: NotificationUpdateManyWithoutConversationNestedInput
+    UserPresence?: UserPresenceUpdateManyWithoutConversationNestedInput
   }
 
   export type ConversationUncheckedUpdateWithoutBuyerInput = {
@@ -12168,6 +15721,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
     messages?: MessageUncheckedUpdateManyWithoutConversationNestedInput
+    notification?: NotificationUncheckedUpdateManyWithoutConversationNestedInput
+    UserPresence?: UserPresenceUncheckedUpdateManyWithoutConversationNestedInput
   }
 
   export type ConversationUncheckedUpdateManyWithoutBuyerInput = {
@@ -12175,6 +15730,21 @@ export namespace Prisma {
     storeId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserPresenceUpdateWithoutUserInput = {
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    conversation?: ConversationUpdateOneWithoutUserPresenceNestedInput
+  }
+
+  export type UserPresenceUncheckedUpdateWithoutUserInput = {
+    conversationId?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserPresenceUncheckedUpdateManyWithoutUserInput = {
+    conversationId?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StoreImageCreateManyStoreInput = {
@@ -12242,6 +15812,8 @@ export namespace Prisma {
     lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
     buyer?: UserUpdateOneRequiredWithoutBuyerNestedInput
     messages?: MessageUpdateManyWithoutConversationNestedInput
+    notification?: NotificationUpdateManyWithoutConversationNestedInput
+    UserPresence?: UserPresenceUpdateManyWithoutConversationNestedInput
   }
 
   export type ConversationUncheckedUpdateWithoutStoreInput = {
@@ -12250,6 +15822,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastMessageAt?: DateTimeFieldUpdateOperationsInput | Date | string
     messages?: MessageUncheckedUpdateManyWithoutConversationNestedInput
+    notification?: NotificationUncheckedUpdateManyWithoutConversationNestedInput
+    UserPresence?: UserPresenceUncheckedUpdateManyWithoutConversationNestedInput
   }
 
   export type ConversationUncheckedUpdateManyWithoutStoreInput = {
@@ -12265,6 +15839,19 @@ export namespace Prisma {
     text: string
     seen?: boolean
     createdAt?: Date | string
+  }
+
+  export type NotificationCreateManyConversationInput = {
+    id?: string
+    userId: string
+    message: string
+    isRead?: boolean
+    createdAt?: Date | string
+  }
+
+  export type UserPresenceCreateManyConversationInput = {
+    userId: string
+    updatedAt?: Date | string
   }
 
   export type MessageUpdateWithoutConversationInput = {
@@ -12289,6 +15876,45 @@ export namespace Prisma {
     text?: StringFieldUpdateOperationsInput | string
     seen?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationUpdateWithoutConversationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutNotificationNestedInput
+  }
+
+  export type NotificationUncheckedUpdateWithoutConversationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationUncheckedUpdateManyWithoutConversationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserPresenceUpdateWithoutConversationInput = {
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutUserPresenceNestedInput
+  }
+
+  export type UserPresenceUncheckedUpdateWithoutConversationInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserPresenceUncheckedUpdateManyWithoutConversationInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

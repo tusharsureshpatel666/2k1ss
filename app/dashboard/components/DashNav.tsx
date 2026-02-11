@@ -1,6 +1,6 @@
 import Userbtn from "@/app/components/login/userbtn";
 import { Button } from "@/components/ui/button";
-import { Plus, Search, Store } from "lucide-react";
+import { MessageCircle, Plus, Search, Store } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -42,6 +42,12 @@ const DashNav = () => {
           <Button className="rounded-md lg:rounded-full cursor-pointer font-semibold flex items-center gap-2">
             <Plus className="w-5 h-5" />
             <span className="hidden lg:inline">List Your Store</span>
+          </Button>
+        </Link>
+        <Link href={"/chat/conversation"}>
+          <Button className="rounded-full px-5 py-5" variant={"secondary"}>
+            <MessageCircle className="w-5 h-5" />
+            <span>Message</span>
           </Button>
         </Link>
 
