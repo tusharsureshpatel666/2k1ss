@@ -6,6 +6,7 @@ import { LocationProvider } from "./store/[id]/components/LoactionProvider";
 import { ApolloProvider } from "@apollo/client/react";
 import { client } from "@/lib/apollo-client";
 import Providers from "./components/provider";
+import MainMobileFooter from "../chat/components/MainMobileFooter";
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -27,6 +28,7 @@ export default async function DashboardLayout({
       <div className="max-w-7xl px-5 py-4 min-h-[90vh]  flex justify-center items-center mx-auto ">
         <Providers>{children}</Providers>
       </div>
+      <MainMobileFooter />
     </div>
   );
 }

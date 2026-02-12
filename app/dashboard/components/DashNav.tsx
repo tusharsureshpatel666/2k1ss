@@ -47,7 +47,7 @@ const DashNav = () => {
         <Link href={"/chat/conversation"}>
           <Button className="rounded-full px-5 py-5" variant={"secondary"}>
             <MessageCircle className="w-5 h-5" />
-            <span>Message</span>
+            <span className="hidden md:flex">Message</span>
           </Button>
         </Link>
 
