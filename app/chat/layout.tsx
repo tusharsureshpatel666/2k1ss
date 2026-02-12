@@ -1,17 +1,14 @@
-import ConversationList from "./components/ChatList";
+import ChatLayoutClient from "./chatclient";
 import Sidebar from "./components/sidebar/Sidebar";
 
-export default async function ChatLayout({
+export default function ChatLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
     <Sidebar>
-      <div className="h-screen flex">
-        <ConversationList />
-        {children}
-      </div>
+      <ChatLayoutClient>{children}</ChatLayoutClient>
     </Sidebar>
   );
 }

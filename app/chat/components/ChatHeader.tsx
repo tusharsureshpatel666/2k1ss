@@ -7,6 +7,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { ChatHeaderSkeleton } from "@/app/loader/ChatHeaderLoader";
 import { Button } from "@/components/ui/button";
 import { Phone } from "lucide-react";
+import { FaBackward } from "react-icons/fa";
+import Link from "next/link";
 
 export default function ChatHeader({
   conversationId,
@@ -49,6 +51,11 @@ export default function ChatHeader({
 
   return (
     <div className="flex items-center justify-between gap-3 border-b px-4 py-3 bg-white dark:bg-black">
+      <Link href={"/chat/conversation"} className="flex lg:hidden">
+        <Button variant={"secondary"}>
+          <FaBackward />
+        </Button>
+      </Link>
       <div className="flex items-center gap-4">
         <Image
           src={header.image}

@@ -19,7 +19,7 @@ export default function ChatInput({
     setText("");
   };
   return (
-    <div className="flex items-center gap-3 bg-white border-t dark:bg-black px-4 py-4">
+    <div className="flex  items-center gap-3 bg-white border-t dark:bg-black px-4 py-4">
       <input
         placeholder="Type a message"
         onChange={(e) => setText(e.target.value)}

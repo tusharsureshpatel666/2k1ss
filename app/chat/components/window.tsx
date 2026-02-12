@@ -7,7 +7,9 @@ export default function Windows({ id }: { id: string }) {
     <div className="flex h-full flex-col bg-gray-100 dark:bg-black">
       <ChatHeader conversationId={id} />
       <MessageList conversationId={id} />
-      <ChatInput conversationId={id} />
+      <div className="pb-[56px] lg:pb-0">
+        <ChatInput conversationId={id} />
+      </div>
     </div>
   );
 }
