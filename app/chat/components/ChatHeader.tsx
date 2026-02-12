@@ -9,6 +9,8 @@ import { Button } from "@/components/ui/button";
 import { Phone } from "lucide-react";
 import { FaBackward } from "react-icons/fa";
 import Link from "next/link";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { AvatarFallback } from "@radix-ui/react-avatar";
 
 export default function ChatHeader({
   conversationId,
@@ -57,13 +59,12 @@ export default function ChatHeader({
         </Button>
       </Link>
       <div className="flex items-center gap-4">
-        <Image
-          src={header.image}
-          alt={header.name}
-          width={44}
-          height={44}
-          className="rounded-full object-cover"
-        />
+        <Avatar className="h-10 w-10">
+          <AvatarImage src={header.image} alt={header.name} />
+          <AvatarFallback>
+            {header.name?.charAt(0).toUpperCase()}
+          </AvatarFallback>
+        </Avatar>
 
         <div>
           <p className="font-medium text-black dark:text-white">

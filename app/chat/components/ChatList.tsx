@@ -8,6 +8,7 @@ import { useSession } from "next-auth/react";
 import clsx from "clsx";
 import { pusherClient } from "@/lib/pusher/client";
 import { ConversationSkeleton } from "@/app/loader/ChatListLoader";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default function ConversationList() {
   const [conversations, setConversations] = useState<any[]>([]);
@@ -111,13 +112,12 @@ export default function ConversationList() {
               >
                 {/* Avatar + Online dot */}
                 <div className="relative">
-                  <Image
-                    src={other.image}
-                    alt={other.name}
-                    width={40}
-                    height={40}
-                    className="rounded-full object-cover"
-                  />
+                  <Avatar className="h-10 w-10">
+                    <AvatarImage src={other.image} alt={other.name} />
+                    <AvatarFallback>
+                      {other.name?.charAt(0).toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
 
                   {isOnline && (
                     <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white dark:border-black" />

@@ -10,6 +10,8 @@ import { MdHome } from "react-icons/md";
 import { MessageCircle } from "lucide-react";
 import { FaStoreAlt } from "react-icons/fa";
 import { CiSearch } from "react-icons/ci";
+import { IoChatboxEllipsesOutline } from "react-icons/io5";
+import { PiStorefrontLight } from "react-icons/pi";
 
 export const useMobile = () => {
   const pathName = usePathname();
@@ -40,14 +42,14 @@ export const useMobile = () => {
         label: "Messages",
         href: "/chat/conversation",
 
-        icon: MessageCircle,
+        icon: IoChatboxEllipsesOutline,
         active: pathName === "/chat/conversation",
       },
       {
         label: "Your Store",
         href: "/dashboard/yourstore",
 
-        icon: FaStoreAlt,
+        icon: PiStorefrontLight,
         active: pathName === "/chat/conversation",
       },
     ],
