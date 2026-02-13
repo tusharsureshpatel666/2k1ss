@@ -48,7 +48,7 @@ export default function MessageBubble({
 
             {isMine &&
               (seen ? (
-                <CheckCheck className="h-3 w-3 text-blue-400" />
+                <CheckCheck className="h-3 w-3 text-green-400" />
               ) : (
                 <Check className="h-3 w-3" />
               ))}
