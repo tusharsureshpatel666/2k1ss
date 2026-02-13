@@ -17,10 +17,34 @@ export async function POST(req: Request) {
   const message = await prisma.message.create({
     data: {
       conversationId,
-      senderId: session.user.id,
+      senderId,
       text,
     },
+    include: {
+      conversation: {
+        include: {
+          store: true,
+        },
+      },
+    },
   });
+
+  const conversation = message.conversation;
+
+  const recieverId =
+    conversation.buyerId === senderId
+      ? conversation.store.ownerId
+      : conversation.buyerId;
+
+  if (recieverId) {
+    await prisma.notification.create({
+      data: {
+        userId: recieverId,
+        conversationId,
+        message: text,
+      },
+    });
+  }
 
   await prisma.conversation.update({
     where: { id: conversationId },

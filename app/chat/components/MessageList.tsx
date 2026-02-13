@@ -44,11 +44,10 @@ export default function MessageList({
     });
 
     channel.bind("messages-seen", ({ seenBy }: { seenBy: string }) => {
-      // ✅ mark messages as seen ONLY if I am NOT the sender
-      if (seenBy !== session.user.id) {
+      if (seenBy !== session.user?.id) {
         setMessages((prev) =>
           prev.map((m) =>
-            m.senderId === session.user.id ? { ...m, seen: true } : m,
+            m.senderId === session.user?.id ? { ...m, seen: true } : m,
           ),
         );
       }
@@ -65,7 +64,7 @@ export default function MessageList({
     if (!conversationId || messages.length === 0) return;
 
     axios.post("/api/message/seen", { conversationId });
-  }, [conversationId]);
+  }, [conversationId, messages]);
 
   // 4️⃣ Auto scroll
   useEffect(() => {

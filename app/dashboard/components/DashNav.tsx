@@ -1,4 +1,5 @@
 import Userbtn from "@/app/components/login/userbtn";
+import NotificationBell from "@/app/components/notification/NotificaitonBell";
 import { Button } from "@/components/ui/button";
 import { MessageCircle, Plus, Search, Store } from "lucide-react";
 import Image from "next/image";
@@ -50,6 +51,7 @@ const DashNav = () => {
             <span className="hidden md:flex">Message</span>
           </Button>
         </Link>
+        <NotificationBell />
 
         <Userbtn />
       </div>

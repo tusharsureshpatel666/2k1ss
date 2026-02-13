@@ -25,7 +25,10 @@ export async function POST(req: Request) {
   await pusherServer.trigger(
     `conversation-${conversationId}`,
     "messages-seen",
-    { conversationId },
+    {
+      conversationId,
+      seenBy: session.user.id, // 👈 ADD THIS
+    },
   );
 
   return NextResponse.json({ success: true });
