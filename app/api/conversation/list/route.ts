@@ -38,6 +38,9 @@ export async function GET() {
         },
       },
       messages: {
+        where: {
+          seen: false,
+        },
         orderBy: { createdAt: "desc" },
         take: 1, // last message only
       },

@@ -14,7 +14,16 @@ export async function POST(req: Request) {
   const socketId = body.get("socket_id") as string;
   const channel = body.get("channel_name") as string;
 
-  const authResponse = pusherServer.authorizeChannel(socketId, channel);
+  const presenceData = {
+    user_id: session.user.id,
+    user_info: { name: session.user.name },
+  };
+
+  const authResponse = pusherServer.authorizeChannel(
+    socketId,
+    channel,
+    presenceData,
+  );
 
   return NextResponse.json(authResponse);
 }

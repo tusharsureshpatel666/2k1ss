@@ -51,7 +51,7 @@ const DashNav = () => {
             <span className="hidden md:flex">Message</span>
           </Button>
         </Link>
-        <NotificationBell />
+        {/* <NotificationBell /> */}
 
         <Userbtn />
       </div>

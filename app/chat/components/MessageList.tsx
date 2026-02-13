@@ -15,7 +15,6 @@ export default function MessageList({
   const { data: session } = useSession();
   const bottomRef = useRef<HTMLDivElement>(null);
 
-  // 1️⃣ Fetch messages
   useEffect(() => {
     if (!conversationId) return;
 
@@ -60,17 +59,17 @@ export default function MessageList({
   }, [conversationId, session?.user?.id]);
 
   // 3️⃣ Mark messages as seen ONCE
-  useEffect(() => {
-    if (!conversationId || !session?.user?.id) return;
+  // useEffect(() => {
+  //   if (!conversationId || !session?.user?.id) return;
 
-    const hasUnseenMessages = messages.some(
-      (m) => !m.seen && m.senderId !== session.user.id,
-    );
+  //   const hasUnseenMessages = messages.some(
+  //     (m) => !m.seen && m.senderId !== session.user.id,
+  //   );
 
-    if (!hasUnseenMessages) return;
+  //   if (!hasUnseenMessages) return;
 
-    axios.post("/api/message/seen", { conversationId });
-  }, [messages, conversationId, session?.user?.id]);
+  //   axios.post("/api/message/seen", { conversationId });
+  // }, [messages, conversationId, session?.user?.id]);
 
   // 4️⃣ Auto scroll
   useEffect(() => {

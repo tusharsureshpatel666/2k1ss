@@ -38,41 +38,41 @@ export default function ConversationList() {
   useEffect(() => {
     const channel = pusherClient.subscribe("presence-global");
 
-    channel.bind("user-online", (data: { userId: string }) => {
+    // When subscription is ready
+    channel.bind("pusher:subscription_succeeded", (members: any) => {
+      console.log("Successfully subscribed! Members found:", members.count);
+      const onlineUsers: Record<string, boolean> = {};
+
+      members.each((member: any) => {
+        onlineUsers[member.id] = true;
+      });
+
+      setOnlineMap(onlineUsers);
+    });
+    channel.bind("pusher:subscription_error", (error: any) => {
+      console.error("Pusher Auth Error:", error);
+    });
+
+    // When someone comes online
+    channel.bind("pusher:member_added", (member: any) => {
       setOnlineMap((prev) => ({
         ...prev,
-        [data.userId]: true,
+        [member.id]: true,
       }));
     });
 
-    channel.bind("user-offline", (data: { userId: string }) => {
+    // When someone goes offline
+    channel.bind("pusher:member_removed", (member: any) => {
       setOnlineMap((prev) => ({
         ...prev,
-        [data.userId]: false,
+        [member.id]: false,
       }));
     });
+
     return () => {
       pusherClient.unsubscribe("presence-global");
     };
   }, []);
-
-  // 🔴 check presence
-  useEffect(() => {
-    conversations.forEach((conv) => {
-      const isOwner = conv.store.ownerId === session?.user?.id;
-
-      const otherUserId = isOwner ? conv.buyerId : conv.store.ownerId;
-
-      if (!otherUserId) return;
-
-      axios.get(`/api/presence/status?userId=${otherUserId}`).then((res) => {
-        setOnlineMap((prev) => ({
-          ...prev,
-          [otherUserId]: res.data.online,
-        }));
-      });
-    });
-  }, [conversations, session?.user?.id]);
 
   return (
     <div className="lg:w-80 md:w-full w-full border-r bg-white dark:bg-black">
@@ -83,6 +83,8 @@ export default function ConversationList() {
           ))
         : conversations.map((conv) => {
             const isOwner = conv.store.ownerId === session?.user?.id;
+            const unRead = conv.messages;
+            console.log(unRead);
 
             const other = isOwner
               ? {
