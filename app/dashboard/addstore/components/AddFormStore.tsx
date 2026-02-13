@@ -19,6 +19,7 @@ import PriceInput from "./form-steps/stepprice";
 import StepDesc from "./form-steps/StepDesc";
 import PeopleDesc from "./form-steps/PeopleDesc";
 import toast from "react-hot-toast";
+import imageCompression from "browser-image-compression";
 
 const AddFormStore = () => {
   const router = useRouter();
@@ -98,22 +99,27 @@ const AddFormStore = () => {
 
   const uploadMedia = async () => {
     if (!bannerImage) throw new Error("Banner missing");
-
     const images = otherImages.filter(Boolean) as File[];
-    if (images.length !== 4) {
-      throw new Error("Exactly 4 images required");
-    }
+    const options = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 1024,
+      useWebWorker: true,
+    };
 
     const formData = new FormData();
-    formData.append("banner", bannerImage);
-    //je;;p
 
-    images.forEach((img, index) => {
-      formData.append(`image_${index}`, img);
-    });
+    // Compress and append banner
+    const compBanner = await imageCompression(bannerImage, options);
+    formData.append("banner", compBanner);
+
+    // Compress and append others
+    for (const [index, img] of images.entries()) {
+      const compImg = await imageCompression(img, options);
+      formData.append(`image_${index}`, compImg);
+    }
 
     const res = await axios.post("/api/upload/imagess", formData);
-    return res.data as { bannerUrl: string; imageUrls: string[] };
+    return res.data;
   };
 
   /* ---------------- FINAL SUBMIT ---------------- */
