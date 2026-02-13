@@ -61,10 +61,16 @@ export default function MessageList({
 
   // 3️⃣ Mark messages as seen ONCE
   useEffect(() => {
-    if (!conversationId || messages.length === 0) return;
+    if (!conversationId || !session?.user?.id) return;
+
+    const hasUnseenMessages = messages.some(
+      (m) => !m.seen && m.senderId !== session.user.id,
+    );
+
+    if (!hasUnseenMessages) return;
 
     axios.post("/api/message/seen", { conversationId });
-  }, [conversationId, messages]);
+  }, [messages, conversationId, session?.user?.id]);
 
   // 4️⃣ Auto scroll
   useEffect(() => {
