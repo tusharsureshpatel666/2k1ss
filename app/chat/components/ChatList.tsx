@@ -101,6 +101,7 @@ export default function ConversationList() {
   return (
     <div className="lg:w-80 md:w-full w-full border-r bg-white dark:bg-black">
       <h1 className="text-xl px-3 py-5">Chats</h1>
+
       {loading
         ? Array.from({ length: 8 }).map((_, i) => (
             <ConversationSkeleton key={i} />

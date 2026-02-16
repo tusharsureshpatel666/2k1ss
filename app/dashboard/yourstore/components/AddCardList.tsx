@@ -87,74 +87,53 @@ const AddCardList = () => {
      UI
   ========================= */
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 w-full">
       <Heading
         title="Your Stores"
         description="Manage and view all your listed stores"
       />
 
-      <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-2 gap-2 md:gap-4 lg:gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {stores.map((store, index) => (
           <motion.div
             key={store.id}
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45, delay: index * 0.06 }}
-            className="
-              relative rounded-[28px] dark:bg-black  bg-neutral-50 p-3
-              shadow-[0_20px_60px_rgba(0,0,0,0.08)]
-              transition hover:shadow-[0_30px_80px_rgba(0,0,0,0.12)]
-            "
           >
-            {/* IMAGE */}
-            <div className="relative h-[370px] w-full overflow-hidden rounded-[22px]">
-              <Image
-                src={store.bannerImageUrl}
-                alt={store.title}
-                fill
-                className="object-cover transition-transform duration-500 hover:scale-105"
-              />
-            </div>
+            <Link
+              href={`/dashboard/store/${store.id}`}
+              className="group cursor-pointer block mb-6"
+            >
+              {/* IMAGE */}
+              <div className="relative aspect-square overflow-hidden rounded-3xl">
+                <Image
+                  src={store.bannerImageUrl || "/placeholder.jpg"}
+                  alt={store.title}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
 
-            {/* CONTENT */}
-            <div className="px-3 pb-3 pt-4 w-[350px] space-y-3">
-              <div className="flex justify-between px-2">
-                <div className="flex items-center">
-                  <h3 className=" text-lg font-semibold ">{store.title}</h3>
-                </div>
-                {/* <Link href={`/dashboard/edit/${store.id}`}>
-                  <Button>
-                    <Edit className="w-5 h-5 rounded-full" />
-                  </Button>
-                </Link> */}
+                {/* Optional badge example */}
+                {/* {store.shareMode && (
+                  <div className="absolute top-3 left-3 bg-black/70 text-white px-3 py-1 rounded-full text-xs font-medium">
+                    {formatShareMode(store.shareMode)}
+                  </div>
+                )} */}
               </div>
 
-              {/* <p className="text-sm text-neutral-500">{store.businessType}</p> */}
+              {/* CONTENT */}
+              <div className="mt-3 space-y-1 px-1">
+                <h3 className="text-sm font-semibold text-gray-800 dark:text-white truncate">
+                  {store.title}
+                </h3>
 
-              {/* <div className="flex items-center gap-2 text-sm text-neutral-500">
-                <MapPin className="h-4 w-4" />
-                <span className="line-clamp-1">
-                  {store.city}, {store.state}, {store.country}
-                </span>
-              </div> */}
-
-              <div className="flex items-center justify-between pt-2 ">
-                <div className="flex items-center gap-1 text-base font-semibold ">
-                  <IndianRupee className="h-4 w-4" />
-                  {store.priceInr}
-                </div>
-
-                <Link href={`/dashboard/store/${store.id}`}>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="rounded-full px-6"
-                  >
-                    Manage
-                  </Button>
-                </Link>
+                <p className="text-sm font-medium text-gray-900 dark:text-white">
+                  ₹{store.priceInr}
+                  <span className="text-gray-500 font-normal"> / month</span>
+                </p>
               </div>
-            </div>
+            </Link>
           </motion.div>
         ))}
       </div>

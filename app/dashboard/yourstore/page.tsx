@@ -3,7 +3,7 @@ import AddCardList from "./components/AddCardList";
 
 const page = () => {
   return (
-    <div>
+    <div className="h-screen w-full">
       <AddCardList />
     </div>
   );
