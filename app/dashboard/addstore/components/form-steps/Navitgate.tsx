@@ -14,7 +14,7 @@ type Props = {
   onFinish: () => void;
 };
 
-const TOTAL_STEPS = 12; // 👈 total steps in your form
+const TOTAL_STEPS = 11; // 👈 total steps in your form
 
 const FormNavigation = ({
   step,
