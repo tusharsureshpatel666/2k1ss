@@ -163,10 +163,11 @@ export default async function StorePage({ params }: StorePageProps) {
             <h1 className="text-2xl">Store Price</h1>
             {/* Discount + Price */}
             <div className="space-y-1">
-              <div className="flex items-center gap-2">
-                <span className="text-3xl font-bold text-gray-900 dark:text-white">
+              <div className="flex items-end gap-1">
+                <span className="text-3xl font-bold text-gray-900 dark:text-white leading-none">
                   ₹{store?.priceInr}
                 </span>
+                <span className="text-sm text-gray-500 mb-1">/month</span>
               </div>
 
               <p className="text-sm text-gray-600 dark:text-gray-300">
@@ -222,15 +223,14 @@ export default async function StorePage({ params }: StorePageProps) {
       >
         <div
           className="w-full bg-white border-t border-gray-200 
-                    px-6 py-3 flex items-center justify-between"
+                    py-3 px-1 flex items-center justify-between"
         >
           {/* Left Section */}
-          <div className="flex flex-col">
-            <span className="font-semibold text-gray-900">Pricing</span>
-
-            <div className="flex items-center gap-1 text-sm text-gray-600 mt-1">
-              <span>Inclusive of all taxes</span>
-            </div>
+          <div className="flex items-end gap-1">
+            <span className="text-3xl font-bold text-gray-900 dark:text-white leading-none">
+              ₹{store?.priceInr}
+            </span>
+            <span className="text-sm text-gray-500 mb-1">/month</span>
           </div>
           {isOwner ? <Editbutton /> : <ChatPartnerButton storeId={store?.id} />}
 
