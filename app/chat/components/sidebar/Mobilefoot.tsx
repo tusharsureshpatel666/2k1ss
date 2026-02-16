@@ -10,7 +10,7 @@ const Mobilefooter = () => {
   const { isOpen } = useConversation();
 
   return (
-    <div className="fixed justify-between w-full bottom-0 z-40 flex items-center bg-white dark:bg-black border lg:hidden">
+    <div className="fixed justify-between w-full bottom-0 z-7000 flex items-center bg-white dark:bg-black border lg:hidden">
       {routes.map((route) => (
         <MobileItem
           key={route.href}

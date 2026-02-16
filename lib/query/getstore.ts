@@ -24,6 +24,7 @@ export async function getStoreById(id: string) {
       sqft: true,
       days: true,
       dayOrNight: true,
+      storeSize: true,
 
       priceInr: true,
       businessType: true,

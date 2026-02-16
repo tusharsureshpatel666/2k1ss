@@ -22,7 +22,7 @@ import { DesktopImageGrid } from "./components/Desktopgrid";
 import VideoPlay from "./components/videoplay";
 import OwnerButton from "./components/OwerButton";
 import Heading from "../../components/heading";
-import ReserveCard from "./components/priceCard";
+
 import PeopleDesc from "./components/peopleDesc";
 import { Button } from "@/components/ui/button";
 import ReportDialog from "../../components/report";
@@ -32,6 +32,11 @@ import axios from "axios";
 import ChatPartnerButton from "../../components/ChatPartner";
 import StoreDesc from "../../components/StoreDesc";
 import prisma from "@/lib/prisma";
+import SharingType from "./components/SharingType";
+import OwnerDesc from "./components/OwnerDesc";
+import People from "./components/people";
+import LocationMap from "./components/MapShower";
+import Editbutton from "./components/Editbutton";
 
 interface StorePageProps {
   params: {
@@ -79,7 +84,7 @@ export default async function StorePage({ params }: StorePageProps) {
   ].filter(Boolean);
 
   return (
-    <div className="max-w-7xl w-full space-y-6  md:mt-2   lg:px-0">
+    <div className="max-w-7xl w-full space-y-6  md:mt-2 mb-[150px] lg:mb-0   lg:px-0">
       {/* ================= HEADER ================= */}
       <div className="flex  gap-4 flex-col md:flex-row sm:items-center items-center justify-between">
         <h1 className="text-xl  font-semibold break-words leading-tight">
@@ -103,64 +108,137 @@ export default async function StorePage({ params }: StorePageProps) {
         />
       </div>
 
-      {/* ================= LOCATION ================= */}
-      <Heading title={`Rental Store on ${store?.city}`} className="mb-3" />
-      <div className="flex gap-2 items-center">
-        <h1 className="text-2xl">{`₹ ${store?.priceInr}`}</h1>
-        <span className="text-gray-500 text-sm">/ month</span>
-      </div>
+      {/* ================= HEADER ================= */}
+      <Heading
+        title={`${store?.storeSize?.replace(/store/i, "size")} in ${store?.city}`}
+        className="mb-2"
+      />
 
-      {/* ================= MAIN CONTENT ================= */}
-      <div className="grid grid-cols-1  gap-6 ">
-        {/* LEFT CONTENT */}
-        <div className="lg:col-span-2 space-y-4">
-          <div className="flex  md:flex-row justify-between md:items-center">
+      {/* ================= MAIN GRID ================= */}
+      <div className="grid grid-cols-1 mt-5 lg:grid-cols-3 gap-8">
+        {/* ================= LEFT CONTENT ================= */}
+        <div className="lg:col-span-2 space-y-6">
+          {/* Owner Section */}
+          <div className="flex justify-between items-center border-b pb-6">
             <OwnerButton
               image={OwerDetail.image || "/avatar.avif"}
               name={OwerDetail.name || ""}
               createAt={String(store?.createdAt)}
             />
-            {/* Spacer for mobile footer height */}
+            <ReportDialog />
+          </div>
 
-            {/* Bottom Footer */}
-            <div
-              className="
-              z-10
-              flex justify-center items-center
-    fixed bottom-12 left-0 right-0 
-    border-t bg-background px-2 py-3
-     gap-2
-    sm:static sm:border-0 sm:p-0
-  "
-            >
-              {/* Chat */}
-              {userId?.user?.id && !isOwner && (
-                <ChatPartnerButton storeId={storeId.id} />
-              )}
+          <div className="gap-4 flex flex-col ">
+            <h1 className="text-xl">Store Sharing Method</h1>
+            <SharingType
+              sharetype={store?.shareMode}
+              days={store?.days}
+              startTime={store?.startTime ?? ""}
+              endTime={store?.endTime ?? ""}
+              dayOrNight={store?.dayOrNight}
+            />
+            <OwnerDesc
+              businessName={store?.businessType}
+              ownerName={OwerDetail.name}
+              description={store?.desc}
+            />
+            <People description={store?.peopleDesc} />
+          </div>
 
-              {/* Share / Reserve */}
-              <ReserveCard
-                price={store?.priceInr}
-                sharetype={store?.shareMode}
-                partnerBussiness={store?.businessType}
-                days={store?.days}
-                startTime={store?.startTime ?? ""}
-                endTime={store?.endTime ?? ""}
-                dayOrNight={store?.dayOrNight}
-              />
+          {/* Map */}
+          {/* <StoreLocationMap
+            lat={store?.latitude}
+            lng={store?.longitude}
+            storeName={`${store?.storeSize} in ${store?.city}`}
+          /> */}
+        </div>
 
-              {/* Report */}
-              <ReportDialog />
+        {/* ================= RIGHT SIDE (Desktop Reserve Card) ================= */}
+        <div className="hidden lg:block">
+          <div
+            className="sticky top-24 border border-gray-200 dark:border-gray-700 
+                  bg-white dark:bg-gray-900
+                  rounded-2xl shadow-sm p-6 space-y-5 "
+          >
+            <h1 className="text-2xl">Store Price</h1>
+            {/* Discount + Price */}
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <span className="text-3xl font-bold text-gray-900 dark:text-white">
+                  ₹{store?.priceInr}
+                </span>
+              </div>
+
+              <p className="text-sm text-gray-600 dark:text-gray-300">
+                Inclusive of all taxes
+              </p>
+            </div>
+
+            {/* Divider */}
+            <div className="border-t border-gray-200 dark:border-gray-700"></div>
+
+            {/* Offers Section */}
+            {/* <div className="space-y-3">
+              <h3 className="text-sm font-semibold text-orange-600">
+                Save Extra with 3 offers
+              </h3>
+
+              <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-xl text-sm text-gray-700 dark:text-gray-300">
+                <span className="font-medium text-black dark:text-white">
+                  Cashback:
+                </span>{" "}
+                Get 5% back with select bank cards.
+              </div>
+
+              <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-xl text-sm text-gray-700 dark:text-gray-300">
+                <span className="font-medium text-black dark:text-white">
+                  Bank Offer:
+                </span>{" "}
+                7.5% Instant Discount on EMI transactions.
+              </div>
+            </div> */}
+
+            {/* CTA Button */}
+            {store?.ownerId === userId ? (
+              <ChatPartnerButton storeId={store?.id} />
+            ) : (
+              <Editbutton />
+            )}
+          </div>
+        </div>
+      </div>
+      <LocationMap lat={store?.latitude} lng={store?.longitude} />
+
+      {/* ================= MOBILE STICKY FOOTER ================= */}
+      <div
+        className="
+  lg:hidden
+  fixed bottom-9 left-0 right-0
+  border-t bg-background
+  px-4 py-3
+  z-6000
+  flex items-center justify-between
+"
+      >
+        <div
+          className="w-full bg-white border-t border-gray-200 
+                    px-6 py-3 flex items-center justify-between"
+        >
+          {/* Left Section */}
+          <div className="flex flex-col">
+            <span className="font-semibold text-gray-900">Pricing</span>
+
+            <div className="flex items-center gap-1 text-sm text-gray-600 mt-1">
+              <span>Inclusive of all taxes</span>
             </div>
           </div>
-          <StoreDesc description={store?.desc || ""} />
-          {/* <PeopleDesc peopleDesc={store?.desc} /> */}
+          {store?.ownerId === userId ? (
+            <ChatPartnerButton storeId={store?.id} />
+          ) : (
+            <Editbutton />
+          )}
 
-          <StoreLocationMap
-            lat={store.latitude}
-            lng={store.longitude}
-            storeName="New Delhi Store"
-          />
+          {/* Right Button */}
         </div>
       </div>
     </div>
