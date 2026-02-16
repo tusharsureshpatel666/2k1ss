@@ -199,10 +199,10 @@ export default async function StorePage({ params }: StorePageProps) {
             </div> */}
 
             {/* CTA Button */}
-            {store?.ownerId === userId ? (
-              <ChatPartnerButton storeId={store?.id} />
-            ) : (
+            {isOwner ? (
               <Editbutton />
+            ) : (
+              <ChatPartnerButton storeId={store?.id} />
             )}
           </div>
         </div>
@@ -232,11 +232,7 @@ export default async function StorePage({ params }: StorePageProps) {
               <span>Inclusive of all taxes</span>
             </div>
           </div>
-          {store?.ownerId === userId ? (
-            <ChatPartnerButton storeId={store?.id} />
-          ) : (
-            <Editbutton />
-          )}
+          {isOwner ? <Editbutton /> : <ChatPartnerButton storeId={store?.id} />}
 
           {/* Right Button */}
         </div>
