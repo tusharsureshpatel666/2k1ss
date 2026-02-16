@@ -27,6 +27,7 @@ export function DesktopImageGrid({ banner, images }: DesktopImageGridProps) {
           gap-2
           rounded-2xl
           overflow-hidden
+       
           h-[360px] sm:h-[320px] md:h-[480px] lg:h-[580px]
         "
       >
@@ -69,23 +70,6 @@ export function DesktopImageGrid({ banner, images }: DesktopImageGridProps) {
         ))}
 
         {/* SHOW ALL PHOTOS BUTTON */}
-        <Button
-          variant="secondary"
-          className="
-            absolute
-            bottom-3 right-3
-            z-10
-            bg-blue-500 text-white
-            hover:bg-blue-600
-            text-xs sm:text-sm
-          "
-          onClick={() => {
-            setIndex(0);
-            setOpen(true);
-          }}
-        >
-          Get Video Tour
-        </Button>
       </div>
 
       {/* IMAGE MODAL */}

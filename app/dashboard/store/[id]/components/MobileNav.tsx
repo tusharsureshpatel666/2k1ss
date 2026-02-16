@@ -17,7 +17,7 @@ export function MobileImageSlider({ images }: { images: string[] }) {
           {images.map((img, i) => (
             <SwiperSlide key={i}>
               <div
-                className="relative h-[365px] rounded-xl overflow-hidden cursor-pointer"
+                className="relative w-full aspect-[4/5] rounded-xl overflow-hidden cursor-pointer"
                 onClick={() => {
                   setIndex(i);
                   setOpen(true);

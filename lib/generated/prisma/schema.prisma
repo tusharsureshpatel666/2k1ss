@@ -59,18 +59,21 @@ model Store {
   ownerId String
   owner   User   @relation("OwerStores", fields: [ownerId], references: [id])
 
-  title      String
-  desc       String
-  peopleDesc String
+  title          String
+  desc           String
+  peopleDesc     String
+  flatno         String
+  streetAddress  String
+  NearbyLandMark String
+  areaLocality   String
 
   storeSize    String
   businessType String
 
-  country     String
-  state       String
-  city        String
-  pin         String
-  fullAddress String
+  country String
+  state   String
+  city    String
+  pin     String
 
   latitude  Float?
   longitude Float?

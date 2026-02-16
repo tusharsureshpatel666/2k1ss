@@ -1,12 +1,13 @@
-// lib/actions/toggle-store-like.ts
 "use server";
 
 import { auth } from "@/lib/auth";
-import prisma from "./prisma";
+import prisma from "@/lib/prisma";
 
 export async function toggleStoreLike(storeId: string) {
   const session = await auth();
-  if (!session?.user?.id) throw new Error("Unauthorized");
+  if (!session?.user?.id) {
+    throw new Error("Unauthorized");
+  }
 
   const userId = session.user.id;
 
@@ -23,6 +24,7 @@ export async function toggleStoreLike(storeId: string) {
     await prisma.storeLike.delete({
       where: { id: existing.id },
     });
+
     return { liked: false };
   }
 

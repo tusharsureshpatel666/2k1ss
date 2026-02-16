@@ -25,7 +25,6 @@ export async function getStoreById(id: string) {
       days: true,
       dayOrNight: true,
 
-      fullAddress: true,
       priceInr: true,
       businessType: true,
       bannerImageUrl: true,

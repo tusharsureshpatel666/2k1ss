@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
+import { getLatLng } from "@/lib/Getlatlog";
+import { VideoOff } from "lucide-react";
 
 export async function POST(req: Request) {
   try {
@@ -23,10 +25,14 @@ export async function POST(req: Request) {
       title,
       desc,
       country,
+      flat,
+      street,
+      nearby,
+      district,
       state,
       city,
       pin,
-      fullAddress,
+      videoUrl,
       businessType,
       peopleDesc,
       storeSize,
@@ -35,6 +41,17 @@ export async function POST(req: Request) {
       images,
       share,
     } = body;
+
+    const { lat, lng } = await getLatLng({
+      flat,
+      street,
+      nearby,
+      district,
+      city,
+      state,
+      pin,
+      country,
+    });
 
     /* ----------------------------- */
     /* 3. Validation */
@@ -46,7 +63,7 @@ export async function POST(req: Request) {
       );
     }
 
-    if (!country || !state || !city || !pin || !fullAddress) {
+    if (!country || !state || !city || !pin || !flat || !street || !district) {
       return NextResponse.json({ error: "Invalid location" }, { status: 400 });
     }
 
@@ -70,6 +87,12 @@ export async function POST(req: Request) {
         { status: 400 },
       );
     }
+    if (!videoUrl) {
+      return NextResponse.json(
+        { error: "Video Url Not Found" },
+        { status: 400 },
+      );
+    }
 
     /* ----------------------------- */
     /* 4. Create Store */
@@ -86,7 +109,13 @@ export async function POST(req: Request) {
         state,
         city,
         pin,
-        fullAddress,
+        flatno: flat,
+        streetAddress: street,
+        NearbyLandMark: nearby,
+        areaLocality: district,
+        latitude: lat,
+        longitude: lng,
+
         priceInr,
         bannerImageUrl,
 

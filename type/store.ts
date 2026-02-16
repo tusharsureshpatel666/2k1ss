@@ -7,7 +7,7 @@ export interface Store {
   state: string;
   city: string;
   pin: string;
-  fullAddress: string;
+
   priceInr: number;
   bannerImageUrl: string | null;
   businessType: string;

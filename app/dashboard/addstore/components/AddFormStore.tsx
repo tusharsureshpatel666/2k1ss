@@ -11,7 +11,7 @@ import StepTitle from "./form-steps/StepTitle";
 import FormNavigation from "./form-steps/Navitgate";
 import StepTypeStore from "./form-steps/StepTypeStore";
 import LocationPicker from "./form-steps/stepMap";
-import { isValidDelhiPin } from "@/type/pinvalidation";
+
 import StepImage from "./form-steps/StepImage";
 import StepPartic from "./form-steps/StepPartic";
 import StoreMethodtype from "./form-steps/StoreMethodtype";
@@ -20,6 +20,7 @@ import StepDesc from "./form-steps/StepDesc";
 import PeopleDesc from "./form-steps/PeopleDesc";
 import toast from "react-hot-toast";
 import imageCompression from "browser-image-compression";
+import TrueVideo from "./form-steps/trueVideo";
 
 const AddFormStore = () => {
   const router = useRouter();
@@ -32,11 +33,16 @@ const AddFormStore = () => {
   // form fields
   const [title, setTitle] = useState("");
   const [storeType, setStoreType] = useState("");
-  const [country, setCountry] = useState("");
-  const [state, Sstate] = useState("");
+  const [country, setCountry] = useState("IN");
+  const [flat, setFlat] = useState("");
+  const [street, setStreet] = useState("");
+  const [nearby, setNearby] = useState("");
+  const [district, setDistrict] = useState("");
   const [city, setCity] = useState("");
+  const [state, Sstate] = useState("");
+
   const [pin, setPin] = useState("");
-  const [fullAdd, setFullAdd] = useState("");
+
   const [desc, setDesc] = useState("");
   const [peopleDesc, setPeopleDesc] = useState("");
   const [bussinessType, setBussinessType] = useState("");
@@ -61,11 +67,11 @@ const AddFormStore = () => {
     (sStep === 1 && title.trim() !== "") ||
     (sStep === 2 && storeType.trim() !== "") ||
     (sStep === 3 &&
-      country === "India" &&
-      state === "Delhi" &&
-      city.trim() !== "" &&
-      isValidDelhiPin(pin) &&
-      fullAdd.trim().length > 10) ||
+      country !== "" &&
+      state !== "" &&
+      flat !== "" &&
+      street !== "" &&
+      city !== "") ||
     (sStep === 4 &&
       bannerImage !== null &&
       otherImages.filter(Boolean).length === 4) ||
@@ -137,10 +143,15 @@ const AddFormStore = () => {
         title,
         storeSize: storeType,
         country,
-        state,
+        flat,
+        street,
+        nearby,
+        district,
         city,
+        state,
+
         pin,
-        fullAddress: fullAdd,
+
         desc,
         priceInr: Number(price),
         businessType: bussinessType,
@@ -192,8 +203,14 @@ const AddFormStore = () => {
           setCity={setCity}
           pin={pin}
           setPin={setPin}
-          fullAdd={fullAdd}
-          setFullAdd={setFullAdd}
+          flatNo={flat}
+          setFlatNo={setFlat}
+          street={street}
+          setStreet={setStreet}
+          nearby={nearby}
+          setNearby={setNearby}
+          district={district}
+          setDistrict={setDistrict}
         />
       )}
 
@@ -207,13 +224,7 @@ const AddFormStore = () => {
       )}
       {sStep == 5 && <StepPartic />}
       {sStep == 6 && <StoreMethodtype />}
-      {/* {sStep == 7 && (
-        <TrueVideo
-          setVideoFile={setVideoFile}
-          videoUrl={videoUrl}
-          setVideoUrl={setVideoUrl}
-        />
-      )} */}
+
       {sStep == 7 && <PriceInput price={price} setPrice={setPrice} />}
 
       {sStep == 8 && (

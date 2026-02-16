@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { StoreCardSkeleton } from "../store/[id]/components/storeSkeleton";
+import { Heart } from "lucide-react";
 
 const STORES_CARD_QUERY = gql`
   query StoresCard {
@@ -14,12 +15,20 @@ const STORES_CARD_QUERY = gql`
       title
       bannerImageUrl
       priceInr
+      shareMode
     }
   }
 `;
 
 const ListedStore = () => {
   const { data, loading, error } = useQuery(STORES_CARD_QUERY);
+  const formatShareMode = (mode: string) =>
+    mode
+      .replaceAll("_", " ")
+      .toLowerCase()
+      .replace(/\b\w/g, (c) => c.toUpperCase());
+
+  console.log(data);
   // const { data: session } = useSession();
 
   if (loading) {
@@ -39,32 +48,43 @@ const ListedStore = () => {
   return (
     <div className="mx-auto max-w-7xl lg:px-4 px-0 py-8">
       <div className="grid grid-cols-2 gap-2 md:gap-4 lg:gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {data.stores.map((item: any) => (
+        {data?.stores?.map((item: any) => (
           <Link
             href={`/dashboard/store/${item.id}`}
             key={item.id}
-            className="group cursor-pointer overflow-hidden mb-4"
+            className="group cursor-pointer mb-4"
           >
-            {/* Image */}
-            <div className="relative aspect-square overflow-hidden rounded-2xl">
+            {/* IMAGE CONTAINER */}
+            <div className="relative aspect-square overflow-hidden rounded-3xl">
               <Image
-                width={400}
-                height={400}
+                width={500}
+                height={500}
                 src={item.bannerImageUrl || "/placeholder.jpg"}
                 alt={item.title}
-                className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
+
+              {/* Guest Favourite Badge */}
+
+              {/* Share Type Badge */}
+              {item.shareMode && (
+                <div className="absolute top-2 left-2 bg-black/70 text-white px-3 py-1 rounded-full text-xs font-medium">
+                  {formatShareMode(item.shareMode)}
+                </div>
+              )}
+
+              {/* Heart Icon */}
             </div>
 
-            {/* Content */}
+            {/* CONTENT */}
             <div className="mt-3 space-y-1">
-              <h3 className="md:text-sm text-xs font-semibold text-gray-800 dark:text-white">
+              <h3 className="text-sm font-semibold text-gray-800 dark:text-white truncate">
                 {item.title}
               </h3>
 
-              <p className="md:text-sm text-xs font-medium text-gray-900 dark:text-white">
+              <p className="text-sm font-medium text-gray-900 dark:text-white">
                 ₹{item.priceInr}
-                <span className="text-gray-500"> / month</span>
+                <span className="text-gray-500 font-normal"> / month</span>
               </p>
             </div>
           </Link>

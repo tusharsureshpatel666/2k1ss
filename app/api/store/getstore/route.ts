@@ -47,7 +47,7 @@ export async function POST(req: Request) {
         state: true,
         city: true,
         pin: true,
-        fullAddress: true,
+
         priceInr: true,
         bannerImageUrl: true,
         businessType: true,

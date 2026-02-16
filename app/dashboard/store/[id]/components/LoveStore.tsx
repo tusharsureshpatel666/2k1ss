@@ -6,19 +6,15 @@ import { motion } from "framer-motion";
 import { useState, useTransition } from "react";
 import { cn } from "@/lib/utils";
 import { toggleStoreLike } from "@/lib/Like";
-// import { toggleStoreLike } from "@/lib/actions/toggle-store-like";
 
 const MotionHeart = motion(Heart);
 
 interface LoveStoreProps {
-  storeId?: string; // optional for now
-  initialLiked?: boolean; // from server
+  storeId: string;
+  initialLiked: boolean;
 }
 
-export default function LoveStore({
-  storeId,
-  initialLiked = false,
-}: LoveStoreProps) {
+export default function LoveStore({ storeId, initialLiked }: LoveStoreProps) {
   const [liked, setLiked] = useState(initialLiked);
   const [isPending, startTransition] = useTransition();
 
@@ -30,14 +26,11 @@ export default function LoveStore({
 
     startTransition(async () => {
       try {
-        const res = await toggleStoreLike(storeId!);
+        const res = await toggleStoreLike(storeId);
         setLiked(res.liked);
-
-        // TEMP: simulate network delay
-        await new Promise((r) => setTimeout(r, 300));
       } catch (error) {
-        // rollback on error
-        setLiked(initialLiked);
+        // rollback if error
+        setLiked((prev) => !prev);
       }
     });
   };
@@ -52,7 +45,6 @@ export default function LoveStore({
         liked && "border-red-500",
       )}
     >
-      {/* ❤️ Animated Heart */}
       <MotionHeart
         className={cn(
           "h-5 w-5 transition-colors",
@@ -67,7 +59,6 @@ export default function LoveStore({
         }}
       />
 
-      {/* 💥 Heart Burst (Instagram feel) */}
       {liked && (
         <motion.span
           className="absolute"

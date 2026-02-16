@@ -3,11 +3,15 @@ import { startServerAndCreateNextHandler } from "@as-integrations/next";
 import prisma from "@/lib/prisma";
 
 const typeDefs = `#graphql
-  enum ShareMode {
-    DAY
-    NIGHT
-    BOTH
-  }
+ enum ShareMode {
+  HOURS_BY_HOURS
+  DAYS_BY_DAYS
+  SPLIT_STORE
+  DAY_OR_NIGHT
+  Weekend
+  Regular
+}
+
 
   type Store {
     id: ID!
@@ -20,7 +24,7 @@ const typeDefs = `#graphql
     state: String!
     city: String!
     pin: String!
-    fullAddress: String!
+    
     latitude: Float
     longitude: Float
     bannerImageUrl: String

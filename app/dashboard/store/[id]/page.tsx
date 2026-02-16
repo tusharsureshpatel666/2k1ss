@@ -31,6 +31,7 @@ import StoreLocationMap from "./components/ShowMap";
 import axios from "axios";
 import ChatPartnerButton from "../../components/ChatPartner";
 import StoreDesc from "../../components/StoreDesc";
+import prisma from "@/lib/prisma";
 
 interface StorePageProps {
   params: {
@@ -40,10 +41,22 @@ interface StorePageProps {
 
 export default async function StorePage({ params }: StorePageProps) {
   const storeId = await params;
-  console.log(storeId.id);
 
   const userId = await auth();
-  console.log(userId?.user?.id);
+  let initialLiked = false;
+
+  if (userId) {
+    const like = await prisma.storeLike.findUnique({
+      where: {
+        userId_storeId: {
+          userId: userId.user?.id as string,
+          storeId: storeId.id,
+        },
+      },
+    });
+
+    initialLiked = !!like;
+  }
 
   if (!storeId) {
     return <div className="p-6">Store not found</div>;
@@ -57,11 +70,8 @@ export default async function StorePage({ params }: StorePageProps) {
   };
 
   const store = await fetchStores();
-  console.log("store", store);
   const OwerDetail = await findUserById(store?.ownerId);
-  console.log(OwerDetail);
   const isOwner = (await userId?.user?.id) === (await store?.ownerId);
-  console.log(storeId.id, store?.ownerId);
 
   const allImages = [
     store?.bannerImageUrl,
@@ -69,14 +79,16 @@ export default async function StorePage({ params }: StorePageProps) {
   ].filter(Boolean);
 
   return (
-    <div className="max-w-7xl w-full space-y-6 mb-[50px] md:mt-2  sm:px-6 lg:px-0">
+    <div className="max-w-7xl w-full space-y-6  md:mt-2   lg:px-0">
       {/* ================= HEADER ================= */}
-      <div className="flex  gap-4 sm:flex-row sm:items-center justify-between">
-        <h1 className="text-2xl font-semibold break-words">{store?.title}</h1>
+      <div className="flex  gap-4 flex-col md:flex-row sm:items-center items-center justify-between">
+        <h1 className="text-xl  font-semibold break-words leading-tight">
+          {store?.title}
+        </h1>
 
         <div className="flex gap-4 items-center text-sm">
           <ShareStore paramsId={storeId} />
-          <LoveStore storeId={storeId.id} initialLiked={userId?.user?.id} />
+          <LoveStore storeId={storeId.id} initialLiked={initialLiked} />
           {isOwner && <DeleteStoreButton storeId={store?.id} />}
         </div>
       </div>
@@ -115,7 +127,7 @@ export default async function StorePage({ params }: StorePageProps) {
               className="
               z-10
               flex justify-center items-center
-    fixed bottom-0 left-0 right-0 
+    fixed bottom-12 left-0 right-0 
     border-t bg-background px-2 py-3
      gap-2
     sm:static sm:border-0 sm:p-0
@@ -143,12 +155,12 @@ export default async function StorePage({ params }: StorePageProps) {
           </div>
           <StoreDesc description={store?.desc || ""} />
           {/* <PeopleDesc peopleDesc={store?.desc} /> */}
-          {/* 
+
           <StoreLocationMap
-            lat={store?.latitude}
-            lng={store?.longitude}
+            lat={store.latitude}
+            lng={store.longitude}
             storeName="New Delhi Store"
-          /> */}
+          />
         </div>
       </div>
     </div>

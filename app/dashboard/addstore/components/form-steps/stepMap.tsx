@@ -1,214 +1,169 @@
 "use client";
 
+import { useState } from "react";
 import Heading from "@/app/dashboard/components/heading";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Label } from "@/components/ui/label";
-import { DELHI_LOCATION } from "@/type/Loctation";
-import { isValidDelhiPin } from "@/type/pinvalidation";
-import React, { useState } from "react";
+import { Input } from "@/components/ui/input";
+import CountrySelect from "./country";
 
 type Props = {
-  country: string;
-  setCountry: (v: string) => void;
-
-  state: string;
-  Sstate: (v: string) => void;
-
+  flatNo: string;
+  setFlatNo: (v: string) => void;
+  street: string;
+  setStreet: (v: string) => void;
+  nearby: string;
+  setNearby: (v: string) => void;
+  district: string;
+  setDistrict: (v: string) => void;
   city: string;
   setCity: (v: string) => void;
-
+  country: string;
+  setCountry: (v: string) => void;
+  state: string;
+  Sstate: (v: string) => void;
   pin: string;
   setPin: (v: string) => void;
-
-  fullAdd: string;
-  setFullAdd: (v: string) => void;
 };
 
-const inputClass =
-  "w-full rounded-lg border border-gray-300 bg-background px-3 py-2 text-sm shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary";
-
 const LocationPicker = ({
+  flatNo,
+  setFlatNo,
+  street,
+  setStreet,
+  nearby,
+  setNearby,
+  district,
+  setDistrict,
+  city,
+  setCity,
   country,
   setCountry,
   state,
   Sstate,
-  city,
-  setCity,
   pin,
   setPin,
-  fullAdd,
-  setFullAdd,
 }: Props) => {
-  const [loadingLocation, setLoadingLocation] = useState(false);
-  const isPinInvalid = pin.length > 0 && !isValidDelhiPin(pin);
+  const [loading, setLoading] = useState(false);
 
-  // Auto-set country/state
-  React.useEffect(() => {
-    setCountry(DELHI_LOCATION.country);
-    Sstate(DELHI_LOCATION.state);
-  }, []);
-
-  // Get user location
-  const handleUseCurrentLocation = () => {
+  // 🟢 Get Current Location
+  const getCurrentLocation = () => {
     if (!navigator.geolocation) {
       alert("Geolocation is not supported by your browser");
       return;
     }
 
-    setLoadingLocation(true);
+    setLoading(true);
 
     navigator.geolocation.getCurrentPosition(
-      async (position) => {
-        const { latitude, longitude } = position.coords;
+      (position) => {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
 
-        try {
-          // Use OpenStreetMap Nominatim API for reverse geocoding
-          const response = await fetch(
-            `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`,
-          );
-          const data = await response.json();
-
-          // Fill fields from address data
-          const address = data.address || {};
-
-          setCity(address.suburb || address.city || address.town || "");
-          setPin(address.postcode || "");
-          const addrParts = [
-            address.house_number,
-            address.road,
-            address.neighbourhood,
-            address.suburb,
-          ];
-          setFullAdd(addrParts.filter(Boolean).join(", "));
-        } catch (error) {
-          console.error("Error fetching address:", error);
-          alert("Unable to fetch address from your location");
-        } finally {
-          setLoadingLocation(false);
-        }
+        reverseGeocode(latitude, longitude);
       },
-      (err) => {
-        console.error(err);
-        alert("Unable to get your location");
-        setLoadingLocation(false);
+      (error) => {
+        console.error(error);
+        alert("Unable to retrieve location. Please allow permission.");
+        setLoading(false);
       },
     );
   };
 
+  // 🟢 Reverse Geocoding (OpenStreetMap - FREE)
+  const reverseGeocode = async (lat: number, lng: number) => {
+    try {
+      const res = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`,
+      );
+
+      const data = await res.json();
+
+      if (data && data.address) {
+        const address = data.address;
+
+        setStreet(address.road || "");
+        setDistrict(address.suburb || address.village || "");
+        setCity(address.city || address.town || address.village || "");
+        Sstate(address.state || "");
+        setPin(address.postcode || "");
+        setCountry(address.country || "");
+      }
+    } catch (error) {
+      console.error("Reverse geocoding failed:", error);
+      alert("Failed to fetch address");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <div className="space-y-6 rounded-xl w-full lg:p-6">
-      <Heading
-        title="Store Location"
-        description="Select your store location (Delhi only)"
-      />
-
-      {/* Use current location */}
-      <div className="flex justify-end">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={handleUseCurrentLocation}
-          disabled={loadingLocation}
-        >
-          {loadingLocation ? "Fetching..." : "Use Current Location"}
-        </Button>
-      </div>
-
-      {/* Country + State */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <div className="space-y-3">
-          <Label>Country</Label>
-          <Button
-            variant="outline"
-            disabled
-            className="w-full py-6 justify-start text-muted-foreground"
-          >
-            India
-          </Button>
-        </div>
-
-        <div className="space-y-3">
-          <Label>State</Label>
-          <Button
-            variant="outline"
-            disabled
-            className="w-full py-6 justify-start text-muted-foreground"
-          >
-            Delhi
-          </Button>
-        </div>
-      </div>
-
-      {/* City */}
-      <div className="space-y-4">
-        <Label>Area / City</Label>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              variant="outline"
-              className="w-full justify-between py-6  font-normal"
-            >
-              {city || "Select area"}
-            </Button>
-          </DropdownMenuTrigger>
-
-          <DropdownMenuContent className="max-h-60 w-[var(--radix-dropdown-menu-trigger-width)] overflow-y-auto">
-            {DELHI_LOCATION.cities.map((c) => (
-              <DropdownMenuItem
-                key={c}
-                onClick={() => setCity(c)}
-                className="cursor-pointer"
-              >
-                {c}
-              </DropdownMenuItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
-
-      {/* PIN */}
-      <div className="space-y-3 w-full">
-        <Label>PIN Code</Label>
-        <input
-          type="text"
-          maxLength={6}
-          value={pin}
-          onChange={(e) => setPin(e.target.value.replace(/\D/g, ""))}
-          placeholder="1100XX"
-          className={`${inputClass} py-4 ${
-            isPinInvalid ? "border-red-500 focus:ring-red-500" : ""
-          }`}
+    <div className="flex justify-center items-center w-full px-0 lg:px-4">
+      <div className="w-full max-w-2xl space-y-6">
+        <Heading
+          title="Confirm your address"
+          description="Your address is only shared with guests after they've made a reservation."
         />
-        <p
-          className={`text-xs ${
-            isPinInvalid ? "text-red-500" : "text-muted-foreground"
-          }`}
-        >
-          {isPinInvalid
-            ? "Invalid Delhi PIN (must start with 110)"
-            : "Enter a valid Delhi PIN code"}
-        </p>
-      </div>
 
-      {/* Full Address */}
-      <div className="space-y-3">
-        <Label>Full Address</Label>
-        <textarea
-          rows={3}
-          value={fullAdd}
-          onChange={(e) => setFullAdd(e.target.value)}
-          placeholder="House no, street, landmark..."
-          className={`${inputClass} resize-none`}
-        />
-        <p className="text-xs text-muted-foreground">
-          Please include house number and nearby landmark
-        </p>
+        {/* 📍 Current Location Button */}
+        <button
+          type="button"
+          onClick={getCurrentLocation}
+          className="bg-blue-600 w-full text-white px-4 py-2 rounded-xl hover:bg-blue-700 transition"
+        >
+          {loading ? "Detecting location..." : "Use Current Location"}
+        </button>
+
+        <CountrySelect value={country} onChange={setCountry} />
+
+        <div className="rounded-2xl space-y-3">
+          <Input
+            value={flatNo}
+            onChange={(e) => setFlatNo(e.target.value)}
+            placeholder="Flat, house, etc. (if applicable)"
+            className="h-15 px-5 rounded-xl"
+          />
+
+          <Input
+            value={street}
+            onChange={(e) => setStreet(e.target.value)}
+            placeholder="Street address"
+            className="h-15 px-5 rounded-xl"
+          />
+
+          <Input
+            value={nearby}
+            onChange={(e) => setNearby(e.target.value)}
+            placeholder="Nearby landmark (if applicable)"
+            className="h-15 px-5 rounded-xl"
+          />
+
+          <Input
+            value={district}
+            onChange={(e) => setDistrict(e.target.value)}
+            placeholder="District/locality"
+            className="h-15 px-5 rounded-xl"
+          />
+
+          <Input
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+            placeholder="City/town"
+            className="h-15 px-5 rounded-xl"
+          />
+
+          <Input
+            value={state}
+            onChange={(e) => Sstate(e.target.value)}
+            placeholder="State/union territory"
+            className="h-15 px-5 rounded-xl"
+          />
+
+          <Input
+            value={pin}
+            onChange={(e) => setPin(e.target.value)}
+            placeholder="PIN code"
+            className="h-15 px-5 rounded-xl"
+          />
+        </div>
       </div>
     </div>
   );
