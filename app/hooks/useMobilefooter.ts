@@ -27,9 +27,9 @@ export const useMobile = () => {
 
       {
         label: "search",
-        href: "/dashboard/search",
+        href: "/dashboard/searchbar",
         icon: CiSearch,
-        active: pathName === "/dashboard/search",
+        active: pathName === "/dashboard/searchbar",
       },
       {
         label: "Add Store",

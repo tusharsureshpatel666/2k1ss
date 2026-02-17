@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { LoadScript } from "@react-google-maps/api";
 import { Search, MapPin } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -11,11 +11,29 @@ export default function SearchBox() {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<any[]>([]);
   const [open, setOpen] = useState(false);
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+
   const router = useRouter();
   const autocompleteService =
     useRef<google.maps.places.AutocompleteService | null>(null);
   const placesService = useRef<google.maps.places.PlacesService | null>(null);
   const boundsRef = useRef<google.maps.LatLngBounds | null>(null);
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        wrapperRef.current &&
+        !wrapperRef.current.contains(event.target as Node)
+      ) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   // ✅ Called only AFTER google script loads
   const handleLoad = () => {
@@ -52,6 +70,27 @@ export default function SearchBox() {
       },
     );
   };
+  const handleCurrentLocation = () => {
+    if (!navigator.geolocation) {
+      alert("Geolocation not supported");
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+
+        router.push(
+          `/dashboard/search?lat=${lat}&lng=${lng}&place=Current Location`,
+        );
+      },
+      (error) => {
+        alert("Location permission denied");
+        console.error(error);
+      },
+    );
+  };
 
   const handleSelect = (placeId: string, description: string) => {
     setQuery(description);
@@ -75,7 +114,7 @@ export default function SearchBox() {
       libraries={libraries}
       onLoad={handleLoad} // ✅ IMPORTANT
     >
-      <div className="relative  w-full max-w-6xl">
+      <div className="relative  w-full max-w-6xl" ref={wrapperRef}>
         {/* Search Bar */}
         <div className="flex items-center rounded-full border border-gray-300 bg-white dark:border-gray-600 dark:bg-black/50 shadow-lg">
           <div className="flex flex-1 items-center gap-3 px-6 py-5">
@@ -91,8 +130,23 @@ export default function SearchBox() {
         </div>
 
         {/* Custom Dropdown */}
-        {open && results.length > 0 && (
+        {open && (
           <div className="absolute z-50 mt-2 w-full rounded-xl border bg-white shadow-xl dark:border-gray-700 dark:bg-black">
+            {/* 🔥 Use Current Location */}
+            <button
+              onClick={handleCurrentLocation}
+              className="flex w-full cursor-pointer items-center gap-3 px-4 py-5 text-left text-sm font-medium text-blue-600 hover:bg-gray-100 dark:hover:bg-gray-800"
+            >
+              <MapPin className="h-4 w-4" />
+              Use Current Location
+            </button>
+
+            {/* Divider */}
+            {results.length > 0 && (
+              <div className="h-px bg-gray-200 dark:bg-gray-700" />
+            )}
+
+            {/* Google Predictions */}
             {results.map((item) => (
               <button
                 key={item.place_id}
