@@ -1,6 +1,7 @@
 "use client";
 
 import Heading from "@/app/dashboard/components/heading";
+import PricingInfo from "./priceInfo";
 
 interface PriceInputProps {
   price: string;
@@ -44,9 +45,7 @@ const PriceInput = ({ price, setPrice }: PriceInputProps) => {
         <p className="text-sm text-red-500">Please enter a valid price</p>
       )}
 
-      <div className="text-gray-600 text-sm underline cursor-pointer">
-        Learn more about pricing
-      </div>
+      <PricingInfo />
     </div>
   );
 };

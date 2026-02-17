@@ -53,6 +53,8 @@ export async function POST(req: Request) {
       country,
     });
 
+    const total = priceInr * 1.1;
+
     /* ----------------------------- */
     /* 3. Validation */
     /* ----------------------------- */
@@ -116,7 +118,7 @@ export async function POST(req: Request) {
         latitude: lat,
         longitude: lng,
 
-        priceInr,
+        priceInr: total,
         bannerImageUrl,
 
         shareMode: share.mode,

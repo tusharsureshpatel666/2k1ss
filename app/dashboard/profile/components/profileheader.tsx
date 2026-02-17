@@ -8,8 +8,8 @@ const ProfileHeader = () => {
 
   return (
     <div
-      className="w-full bg-white dark:bg-gray-900 
-                     dark:border-gray-700 
+      className="w-full
+                      
                     p-6 lg:p-8"
     >
       <div
