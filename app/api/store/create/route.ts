@@ -32,7 +32,7 @@ export async function POST(req: Request) {
       state,
       city,
       pin,
-      videoUrl,
+
       businessType,
       peopleDesc,
       storeSize,
@@ -86,12 +86,6 @@ export async function POST(req: Request) {
     if (!share || !share.mode) {
       return NextResponse.json(
         { error: "Share data missing" },
-        { status: 400 },
-      );
-    }
-    if (!videoUrl) {
-      return NextResponse.json(
-        { error: "Video Url Not Found" },
         { status: 400 },
       );
     }
