@@ -79,13 +79,13 @@ const LocationPicker = ({
 
       if (data && data.address) {
         const address = data.address;
+        console.log(address);
 
         setStreet(address.road || "");
         setDistrict(address.suburb || address.village || "");
         setCity(address.city || address.town || address.village || "");
         Sstate(address.state || "");
         setPin(address.postcode || "");
-        setCountry(address.country || "");
       }
     } catch (error) {
       console.error("Reverse geocoding failed:", error);
