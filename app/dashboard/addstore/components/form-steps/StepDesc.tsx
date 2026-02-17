@@ -1,12 +1,44 @@
+"use client";
+
 import Heading from "@/app/dashboard/components/heading";
-import React from "react";
+import React, { useState } from "react";
 
 interface StepDescProps {
   description: string;
+  bussinesstype: string;
   setDescription: (value: string) => void;
 }
 
-const StepDesc = ({ description, setDescription }: StepDescProps) => {
+const StepDesc = ({
+  bussinesstype,
+  description,
+  setDescription,
+}: StepDescProps) => {
+  const [loading, setLoading] = useState(false);
+
+  const generateDescription = async () => {
+    if (!bussinesstype) return;
+    setLoading(true);
+
+    try {
+      // Call your Gemini API route
+      const res = await fetch("/api/generate-description", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ bussinesstype }),
+      });
+
+      const data = await res.json();
+      if (data.description) {
+        setDescription(data.description);
+      }
+    } catch (err) {
+      console.error("Failed to generate description:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="w-full flex flex-col items-center space-y-8">
       <Heading
@@ -21,10 +53,9 @@ const StepDesc = ({ description, setDescription }: StepDescProps) => {
         placeholder="Tell people what makes your store special"
         rows={6}
         className="
-            w-full max-w-5xl
-          text-2xl font-medium 
+          w-full max-w-5xl
+          text-2xl font-medium
           bg-transparent
-          
           border py-8 px-7 rounded-2xl outline-none
           resize-none
           placeholder:text-gray-400
@@ -33,6 +64,16 @@ const StepDesc = ({ description, setDescription }: StepDescProps) => {
           focus:ring-0
         "
       />
+
+      {/* AI Generate Button */}
+      <button
+        type="button"
+        onClick={generateDescription}
+        disabled={loading || !bussinesstype}
+        className="px-6 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white rounded-xl font-semibold transition"
+      >
+        {loading ? "Generating..." : "Generate Description"}
+      </button>
 
       {/* Helper text */}
       <p className="text-sm text-gray-500 dark:text-gray-400 text-center max-w-md">

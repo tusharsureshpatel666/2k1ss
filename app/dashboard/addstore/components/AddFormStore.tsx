@@ -259,7 +259,13 @@ const AddFormStore = () => {
         </div>
       )}
 
-      {sStep == 9 && <StepDesc description={desc} setDescription={setDesc} />}
+      {sStep == 9 && (
+        <StepDesc
+          bussinesstype={bussinessType}
+          description={desc}
+          setDescription={setDesc}
+        />
+      )}
 
       {sStep == 10 && (
         <PeopleDesc
