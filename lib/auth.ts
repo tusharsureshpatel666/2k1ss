@@ -1,12 +1,11 @@
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 import Facebook from "next-auth/providers/facebook";
-import Discord from "next-auth/providers/discord";
-import Github from "next-auth/providers/github";
+import Twitter from "next-auth/providers/twitter";
 import prisma from "./prisma";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  providers: [Google, Facebook, Github],
+  providers: [Google, Facebook, Twitter],
 
   callbacks: {
     // 1️⃣ Sign in user + ensure user exists in DB
