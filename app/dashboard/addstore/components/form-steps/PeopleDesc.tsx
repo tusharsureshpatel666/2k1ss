@@ -1,15 +1,43 @@
 import Heading from "@/app/dashboard/components/heading";
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
 
 interface PeopleDescProps {
+  bussinesstype: string;
   partnerDescription: string;
   setPartnerDescription: (value: string) => void;
 }
 
 const PeopleDesc = ({
+  bussinesstype,
   partnerDescription,
   setPartnerDescription,
 }: PeopleDescProps) => {
+  const [loading, setLoading] = useState(false);
+
+  const generateDescription = async () => {
+    if (!bussinesstype) return;
+    setLoading(true);
+
+    try {
+      const res = await axios.post("/api/peopledesc", {
+        bussinesstype,
+      });
+
+      // Make sure we get a string from the API
+      const desc = res.data;
+
+      // Limit to 150 words
+      const trimmed = desc.split(" ").slice(0, 150).join(" ");
+      console.log(trimmed);
+
+      setPartnerDescription(trimmed);
+    } catch (err) {
+      console.error("Failed to generate description:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div className="w-full flex flex-col items-center space-y-8">
       <Heading
@@ -35,6 +63,15 @@ const PeopleDesc = ({
           focus:ring-0
         "
       />
+
+      <button
+        type="button"
+        onClick={generateDescription}
+        disabled={loading || !bussinesstype}
+        className="px-6 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white rounded-xl font-semibold transition"
+      >
+        {loading ? "Generating..." : "Generate Description"}
+      </button>
 
       {/* Helper examples */}
       <p className="text-sm text-gray-500 dark:text-gray-400 text-center max-w-md">

@@ -1,24 +1,30 @@
-import { NextRequest, NextResponse } from "next/server";
+import { GoogleGenAI } from "@google/genai";
+import { NextResponse } from "next/server";
 
-export async function POST(req: NextRequest) {
-  const { bussinesstype } = await req.json();
+// The client gets the API key from the environment variable `GEMINI_API_KEY`.
+const ai = new GoogleGenAI({
+  apiKey: process.env.GEMINI_API_KEY,
+});
 
-  // Call Gemini API here (pseudo-code)
-  const aiResponse = await fetch("https://api.gemini.com/v1/generate", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.GEMINI_API_KEY}`,
-    },
-    body: JSON.stringify({
-      prompt: `Write a creative, short, and catchy store description for a business type: ${bussinesstype}`,
-      max_tokens: 100,
-    }),
+export async function POST(req: Request) {
+  const bussinesstype = await req.json();
+  const prompt = `
+Write a **creative, short, and catchy store description** for a business. 
+Use the following details:
+
+- **Business Type:** ${bussinesstype}
+- **Tone:** Friendly, engaging, and professional
+- **Length:** Maximum 10 to 20 words
+- **Style:** Can be modern, fun, or bold depending on the type
+- **Goal:** Attract customers and clearly convey what the store offers
+
+Provide **one paragraph**, ready to display directly on a website or app. Avoid extra symbols, markdown, or brackets.
+`;
+
+  const response = await ai.models.generateContent({
+    model: "gemini-3-flash-preview",
+    contents: prompt,
   });
-
-  const data = await aiResponse.json();
-
-  return NextResponse.json({
-    description: data.text || "Your store is unique and special!",
-  });
+  console.log(response.text);
+  return NextResponse.json(response.text);
 }

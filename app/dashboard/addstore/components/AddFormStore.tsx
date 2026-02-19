@@ -269,6 +269,7 @@ const AddFormStore = () => {
 
       {sStep == 10 && (
         <PeopleDesc
+          bussinesstype={bussinessType}
           partnerDescription={peopleDesc}
           setPartnerDescription={setPeopleDesc}
         />

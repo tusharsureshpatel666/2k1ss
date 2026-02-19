@@ -26,14 +26,20 @@ const StepDesc = ({
         bussinesstype,
       });
 
+      console.log(res.data);
+
       // Make sure we get a string from the API
-      const desc = res.data;
+      const desc =
+        res.data && typeof res.data.description === "string"
+          ? res.data.description
+          : "";
 
       // Limit to 150 words
       const trimmed = desc.split(" ").slice(0, 150).join(" ");
       console.log(trimmed);
 
       setDescription(trimmed); // ✅ This will update the textarea
+      console.log(desc);
     } catch (err) {
       console.error("Failed to generate description:", err);
     } finally {
@@ -49,11 +55,10 @@ const StepDesc = ({
         className="items-center"
       />
 
-      <textarea
+      <input
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         placeholder="Tell people what makes your store special"
-        rows={6}
         className="
           w-full max-w-5xl
           text-2xl font-medium
